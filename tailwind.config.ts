@@ -19,9 +19,26 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Mithril Brand Colors
+        'qi-blue': {
+          DEFAULT: "hsl(var(--qi-blue))",
+          light: "hsl(var(--qi-blue-light))",
+          dark: "hsl(var(--qi-blue-dark))",
+        },
+        'gray': {
+          light: "hsl(var(--gray-light))",
+          medium: "hsl(var(--gray-medium))",
+          dark: "hsl(var(--gray-dark))",
+        },
+        'success-custom': "hsl(var(--success))",
+        'error-custom': "hsl(var(--error))",
+        'warning-custom': "hsl(var(--warning))",
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -62,6 +79,13 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+      },
+      scale: {
+        '98': '0.98',
       },
       keyframes: {
         "accordion-down": {

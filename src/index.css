@@ -1,96 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Mithril Financial App Design System - Mobile First */
 
 @layer base {
   :root {
+    /* Mithril Brand Colors */
+    --qi-blue: 217 100% 40%;           /* #0052CC - Primary brand color */
+    --qi-blue-light: 217 100% 85%;     /* Light blue for backgrounds */
+    --qi-blue-dark: 217 100% 25%;      /* Dark blue for emphasis */
+    
+    /* Neutral Grays */
+    --gray-light: 220 14% 96%;         /* #F4F5F7 - Light backgrounds */
+    --gray-medium: 220 12% 55%;        /* #7A869A - Secondary text */
+    --gray-dark: 220 59% 18%;          /* #172B4D - Primary text */
+    
+    /* Status Colors */
+    --success: 152 52% 46%;            /* #36B37E - Green for success */
+    --error: 14 100% 59%;              /* #FF5630 - Red for errors */
+    --warning: 38 100% 50%;            /* Orange for warnings */
+    
+    /* Semantic Design Tokens */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: var(--gray-dark);
+    
+    --primary: var(--qi-blue);
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: var(--qi-blue-dark);
+    
+    --secondary: var(--gray-light);
+    --secondary-foreground: var(--gray-dark);
+    
+    --success-color: var(--success);
+    --success-foreground: 0 0% 100%;
+    
+    --destructive: var(--error);
+    --destructive-foreground: 0 0% 100%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: var(--gray-dark);
+    
+    --border: var(--gray-light);
+    --input: var(--gray-light);
+    --ring: var(--qi-blue);
+    
+    --muted: var(--gray-light);
+    --muted-foreground: var(--gray-medium);
+    
+    --accent: var(--gray-light);
+    --accent-foreground: var(--gray-dark);
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --popover-foreground: var(--gray-dark);
+    
+    /* Border Radius */
+    --radius: 0.5rem;     /* 8px - consistent rounded corners */
+    --radius-lg: 0.75rem; /* 12px */
   }
 
+  /* Dark mode variables - Financial apps typically don't use dark mode for trust */
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: var(--gray-dark);
+    --foreground: 0 0% 100%;
+    --card: var(--gray-dark);
+    --card-foreground: 0 0% 100%;
+    --primary: var(--qi-blue-light);
+    --primary-foreground: var(--gray-dark);
+    --secondary: var(--gray-medium);
+    --secondary-foreground: 0 0% 100%;
+    --border: var(--gray-medium);
+    --input: var(--gray-medium);
   }
 }
 
@@ -101,5 +83,75 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mobile container */
+  .mobile-container {
+    @apply max-w-sm mx-auto min-h-screen bg-background relative;
+  }
+
+  /* Custom scrollbar for mobile */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Financial Card Component */
+  .financial-card {
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm;
+  }
+
+  /* Mobile-first button styles */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-medium shadow-sm transition-all duration-200 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply border border-primary text-primary bg-background hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  }
+
+  /* Status indicators */
+  .status-success {
+    @apply text-green-600 bg-green-50 border-green-200;
+  }
+
+  .status-error {
+    @apply text-red-600 bg-red-50 border-red-200;
+  }
+
+  /* Form inputs optimized for mobile */
+  .form-input {
+    @apply w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+  }
+
+  /* Progress bar for registration flow */
+  .progress-bar {
+    @apply w-full bg-muted rounded-full h-1 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-500 ease-out;
+  }
+
+  /* Financial amount display */
+  .amount-display {
+    @apply text-2xl font-semibold text-foreground;
+  }
+
+  .amount-currency {
+    @apply text-sm text-muted-foreground font-medium;
   }
 }

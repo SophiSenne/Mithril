@@ -240,37 +240,6 @@ export default function InvestorProfile({ onBack, onNavigate }: InvestorProfileP
           </div>
         </Card>
 
-        {/* Recent Investments */}
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-dark mb-4 flex items-center gap-2">
-            <CreditCard className="w-5 h-5" />
-            Investimentos Recentes
-          </h3>
-          <div className="space-y-3">
-            {investor.recentInvestments.map((investment, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div>
-                  <p className="font-medium text-gray-dark">{investment.borrower}</p>
-                  <p className="text-xs text-gray-medium">{formatDate(investment.date)}</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-gray-dark">{formatCurrency(investment.amount)}</p>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-qi-blue">{investment.rate}%</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      investment.status === 'active' 
-                        ? 'bg-success-custom/10 text-success-custom' 
-                        : 'bg-gray-100 text-gray-medium'
-                    }`}>
-                      {investment.status === 'active' ? 'Ativo' : 'Concluído'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
         {/* Reviews */}
         <Card className="p-6">
           <h3 className="text-lg font-semibold text-gray-dark mb-4 flex items-center gap-2">

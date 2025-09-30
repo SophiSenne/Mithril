@@ -1,0 +1,35 @@
+name: CI
+
+on:
+push:
+branches: [ "main" ]
+pull_request:
+branches: [ "main" ]
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: ubuntu-latest
+
+```
+steps:
+  - uses: actions/checkout@v4
+
+  - name: Setup Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: "20"
+
+  - name: Install dependencies
+    working-directory: ./docs
+    run: npm install
+
+  - name: Build Docusaurus
+    working-directory: ./docs
+    run: npm run build
+
+  # opcional: rodar o start (apenas para debug, não recomendado em CI porque fica travado)
+  # - name: Start Docusaurus
+  #   working-directory: ./docs
+  #   run: npm start
+```

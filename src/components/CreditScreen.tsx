@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface CreditScreenProps {
   onBack: () => void;
@@ -21,6 +22,7 @@ interface CreditScreenProps {
 
 export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(0);
+  const { toast } = useToast();
 
   const creditOpportunities = [
     {
@@ -97,6 +99,14 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
     const monthlyRate = rate / 100;
     const installment = amount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
     return installment;
+  };
+
+  const handleConfirmApplication = (opportunity: any) => {
+    toast({
+      title: "Solicitação Criada com Sucesso!",
+      description: `Sua solicitação de crédito de ${formatCurrency(opportunity.amount)} foi enviada para ${opportunity.investorName}. Você receberá uma resposta em até 24 horas.`,
+      duration: 5000,
+    });
   };
 
   return (
@@ -287,7 +297,10 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                      <AlertDialogAction className="bg-qi-blue hover:bg-qi-blue/90">
+                      <AlertDialogAction 
+                        className="bg-qi-blue hover:bg-qi-blue/90"
+                        onClick={() => handleConfirmApplication(opportunity)}
+                      >
                         Confirmar Solicitação
                       </AlertDialogAction>
                     </AlertDialogFooter>

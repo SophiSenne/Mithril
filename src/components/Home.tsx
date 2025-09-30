@@ -75,31 +75,31 @@ export default function Home({ onNavigate }: HomeProps) {
       <div className="px-6 -mt-4">
         <div className="grid grid-cols-2 gap-4">
           <Card 
-            className="p-6 hover:shadow-lg transition-all duration-200 cursor-pointer group"
+            className="p-4 hover:shadow-lg transition-all duration-200 cursor-pointer group"
             onClick={() => onNavigate('investments')}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col items-center gap-2 text-center">
               <div className="w-12 h-12 bg-success-custom/10 rounded-xl flex items-center justify-center group-hover:bg-success-custom/20 transition-colors">
                 <TrendingUp className="w-6 h-6 text-success-custom" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-dark">Investimentos</h3>
-                <p className="text-sm text-gray-medium">Ver portfólio</p>
+                <h3 className="font-semibold text-gray-dark text-sm">Investimentos</h3>
+                <p className="text-xs text-gray-medium">Ver portfólio</p>
               </div>
             </div>
           </Card>
 
           <Card 
-            className="p-6 hover:shadow-lg transition-all duration-200 cursor-pointer group"
+            className="p-4 hover:shadow-lg transition-all duration-200 cursor-pointer group"
             onClick={() => onNavigate('credit')}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col items-center gap-2 text-center">
               <div className="w-12 h-12 bg-qi-blue/10 rounded-xl flex items-center justify-center group-hover:bg-qi-blue/20 transition-colors">
                 <CreditCard className="w-6 h-6 text-qi-blue" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-dark">Crédito</h3>
-                <p className="text-sm text-gray-medium">Solicitar</p>
+                <h3 className="font-semibold text-gray-dark text-sm">Crédito</h3>
+                <p className="text-xs text-gray-medium">Solicitar</p>
               </div>
             </div>
           </Card>

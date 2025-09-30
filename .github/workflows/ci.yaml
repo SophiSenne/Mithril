@@ -32,4 +32,4 @@ jobs:
 
       - name: Run
         working-directory: ./docs
-        run: npm start
+        run: npm run

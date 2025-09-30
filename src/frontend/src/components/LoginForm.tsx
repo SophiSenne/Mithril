@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Fingerprint, Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import mithrilIcon from '@/assets/mithril-icon.png';
+import mithrilIcon from '@/assets/logo.jpeg';
 
 interface LoginFormProps {
   onLogin: () => void;

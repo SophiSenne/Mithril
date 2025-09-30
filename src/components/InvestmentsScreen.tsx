@@ -98,7 +98,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
       case 'Baixo':
         return 'text-success-custom bg-success-custom/10';
       case 'Médio':
-        return 'text-qi-blue bg-qi-blue/10';
+        return 'text-orange-600 bg-orange-100';
       case 'Alto':
         return 'text-error-custom bg-error-custom/10';
       default:
@@ -109,7 +109,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-qi-blue to-blue-600 px-6 pt-12 pb-6">
+      <div className="bg-gradient-to-r from-success-custom to-green-600 px-6 pt-12 pb-6">
         <div className="flex items-center justify-between mb-6">
           <button onClick={onBack} className="p-2 bg-white/10 backdrop-blur rounded-full">
             <ArrowLeft className="w-5 h-5 text-white" />
@@ -143,19 +143,19 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
             <Card 
               key={opportunity.id} 
               className={`p-6 hover:shadow-lg transition-all duration-200 ${
-                opportunity.featured ? 'border-qi-blue bg-qi-blue/5' : ''
+                opportunity.featured ? 'border-success-custom bg-success-custom/5' : ''
               }`}
             >
               {opportunity.featured && (
                 <div className="flex items-center gap-2 mb-4">
                   <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                  <span className="text-xs font-medium text-qi-blue">MELHOR TAXA</span>
+                  <span className="text-xs font-medium text-success-custom">MELHOR TAXA</span>
                 </div>
               )}
 
               <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 bg-qi-blue/10 rounded-full">
-                  <Icon className="w-6 h-6 text-qi-blue" />
+                <div className="p-3 bg-success-custom/10 rounded-full">
+                  <Icon className="w-6 h-6 text-success-custom" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-gray-dark mb-1">{opportunity.borrowerProfile}</h3>
@@ -209,14 +209,14 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
 
               <div className="flex gap-3">
                 <Button 
-                  className="flex-1 bg-qi-blue hover:bg-qi-blue/90 text-white"
+                  className="flex-1 bg-success-custom hover:bg-success-custom/90 text-white"
                   size="sm"
                 >
                   Emprestar Agora
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"
+                  className="border-success-custom text-success-custom hover:bg-success-custom/5"
                   size="sm"
                   onClick={() => onNavigate('borrower-profile')}
                 >
@@ -231,7 +231,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
           <p className="text-sm text-gray-medium mb-4">
             Dúvidas sobre empréstimos pessoa a pessoa?
           </p>
-          <Button variant="outline" className="border-qi-blue text-qi-blue">
+          <Button variant="outline" className="border-success-custom text-success-custom">
             Falar com o chatbot
           </Button>
         </div>

@@ -169,10 +169,6 @@ export default function BorrowerProfile({ onBack, onNavigate }: BorrowerProfileP
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-gray-medium">Razão Social:</span>
-              <span className="font-medium text-gray-dark">{borrower.businessInfo.name}</span>
-            </div>
-            <div className="flex justify-between">
               <span className="text-gray-medium">Segmento:</span>
               <span className="font-medium text-gray-dark">{borrower.businessInfo.segment}</span>
             </div>
@@ -207,46 +203,6 @@ export default function BorrowerProfile({ onBack, onNavigate }: BorrowerProfileP
           </div>
         </Card>
 
-        {/* Documents */}
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-dark mb-4 flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            Documentação
-          </h3>
-          <div className="space-y-2">
-            {borrower.documents.map((doc, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-dark">{doc.name}</span>
-                <div className="flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4 text-success-custom" />
-                  <span className="text-xs text-success-custom">Verificado</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Payment History */}
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-dark mb-4 flex items-center gap-2">
-            <CreditCard className="w-5 h-5" />
-            Histórico de Pagamentos
-          </h3>
-          <div className="space-y-3">
-            {borrower.paymentHistory.map((payment, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div>
-                  <p className="font-medium text-gray-dark">{formatCurrency(payment.amount)}</p>
-                  <p className="text-xs text-gray-medium">{payment.date}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-success-custom" />
-                  <span className="text-xs text-success-custom font-medium">Pago</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
 
         {/* Contact Information */}
         <Card className="p-6">

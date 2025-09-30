@@ -1,0 +1,476 @@
+/* ============================================
+   VARIÁVEIS DE COR - QI TECH BRAND
+   ============================================ */
+:root {
+  --qi-blue: #0052CC;
+  --qi-gray-light: #F4F5F7;
+  --qi-gray-medium: #7A869A;
+  --qi-gray-dark: #172B4D;
+  --qi-green: #36B37E;
+  --qi-red: #FF5630;
+  --qi-white: #FFFFFF;
+  --border-radius: 8px;
+  --box-shadow-light: 0 2px 8px rgba(23, 43, 77, 0.08);
+  --box-shadow-medium: 0 4px 12px rgba(23, 43, 77, 0.12);
+  --box-shadow-hover: 0 8px 16px rgba(23, 43, 77, 0.16);
+}
+
+/* ============================================
+   TIPOGRAFIA - INTER/OPEN SANS
+   ============================================ */
+body {
+  font-family: 'Inter', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================
+   HERO BANNER
+   ============================================ */
+.heroBanner {
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0052CC 0%, #003d99 100%);
+  color: var(--qi-white);
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--qi-white);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--qi-white);
+  opacity: 0.95;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Botões Primários */
+.buttonPrimary {
+  background-color: var(--qi-white);
+  color: var(--qi-blue);
+  padding: 0.875rem 2rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--box-shadow-medium);
+}
+
+.buttonPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-hover);
+  color: var(--qi-blue);
+}
+
+/* Botões Secundários */
+.buttonSecondary {
+  background-color: transparent;
+  color: var(--qi-white);
+  padding: 0.875rem 2rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid var(--qi-white);
+  transition: all 0.3s ease;
+}
+
+.buttonSecondary:hover {
+  background-color: var(--qi-white);
+  color: var(--qi-blue);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   SEÇÃO DE PROPOSTA DE VALOR
+   ============================================ */
+.valueSection {
+  padding: 5rem 2rem;
+  background-color: var(--qi-white);
+}
+
+.valueCard {
+  height: 100%;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--qi-blue);
+  margin-bottom: 2rem;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: var(--qi-gray-medium);
+  margin-bottom: 2.5rem;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefitsList li {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  background: var(--qi-gray-light);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--qi-blue);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.benefitsList li:hover {
+  transform: translateX(8px);
+  box-shadow: var(--box-shadow-light);
+}
+
+.benefitsList strong {
+  color: var(--qi-blue);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.benefitsList span {
+  color: var(--qi-gray-dark);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ============================================
+   SEÇÃO COMO FUNCIONA
+   ============================================ */
+.howItWorksSection {
+  padding: 5rem 2rem;
+  background-color: var(--qi-gray-light);
+}
+
+.stepCard {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--qi-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.stepNumber {
+  width: 64px;
+  height: 64px;
+  background: var(--qi-blue);
+  color: var(--qi-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 auto 1.5rem;
+}
+
+.stepCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--qi-gray-dark);
+  margin-bottom: 1rem;
+}
+
+.stepCard p {
+  color: var(--qi-gray-medium);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   SEÇÃO DIFERENCIAIS
+   ============================================ */
+.differentialsSection {
+  padding: 5rem 2rem;
+  background-color: var(--qi-white);
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.comparisonCard {
+  background: var(--qi-white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--qi-blue);
+}
+
+.comparisonCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.comparisonCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--qi-gray-dark);
+  margin-bottom: 1.5rem;
+}
+
+.comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.traditional,
+.ours {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.traditional {
+  background: rgba(255, 86, 48, 0.08);
+  border-left: 3px solid var(--qi-red);
+}
+
+.ours {
+  background: rgba(54, 179, 126, 0.08);
+  border-left: 3px solid var(--qi-green);
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.traditional .label {
+  color: var(--qi-red);
+}
+
+.ours .label {
+  color: var(--qi-green);
+}
+
+.comparison p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--qi-gray-dark);
+}
+
+/* ============================================
+   SEÇÃO TECNOLOGIA
+   ============================================ */
+.techSection {
+  padding: 5rem 2rem;
+  background-color: var(--qi-gray-light);
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.techCard {
+  background: var(--qi-white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+  text-align: center;
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--qi-blue);
+}
+
+.techCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.techIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.techCard h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--qi-gray-dark);
+  margin-bottom: 1rem;
+}
+
+.techCard p {
+  color: var(--qi-gray-medium);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   SEÇÃO CTA (CALL TO ACTION)
+   ============================================ */
+.ctaSection {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #0052CC 0%, #003d99 100%);
+  color: var(--qi-white);
+}
+
+.ctaTitle {
+  color: var(--qi-white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.ctaSubtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.buttonPrimaryCTA {
+  background-color: var(--qi-white);
+  color: var(--qi-blue);
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--box-shadow-medium);
+}
+
+.buttonPrimaryCTA:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow-hover);
+  color: var(--qi-blue);
+}
+
+.buttonSecondaryCTA {
+  background-color: transparent;
+  color: var(--qi-white);
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border: 2px solid var(--qi-white);
+  transition: all 0.3s ease;
+}
+
+.buttonSecondaryCTA:hover {
+  background-color: var(--qi-white);
+  color: var(--qi-blue);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+   RESPONSIVIDADE (MOBILE-FIRST)
+   ============================================ */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3rem 1rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.75rem;
+  }
+
+  .comparisonGrid,
+  .techGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons,
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary,
+  .buttonPrimaryCTA,
+  .buttonSecondaryCTA {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* ============================================
+   ACESSIBILIDADE
+   ============================================ */
+*:focus-visible {
+  outline: 2px solid var(--qi-blue);
+  outline-offset: 2px;
+}
+
+/* Alto contraste para leitura */
+.sectionTitle,
+.heroTitle,
+.ctaTitle {
+  font-weight: 700;
+}
+
+/* Espaçamento adequado para clareza */
+section {
+  margin-bottom: 0;
+}
+
+/* Minimalismo: foco no essencial */
+* {
+  box-sizing: border-box;
+}

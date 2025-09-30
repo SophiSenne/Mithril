@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-pre-entrega/arquitetura/arquitetura" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.1">
+<title data-rh="true">Diagrama de Arquitetura | Mithril</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://SophiSenne.github.io/Mithril/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://SophiSenne.github.io/Mithril/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://SophiSenne.github.io/Mithril/docs/pre-entrega/arquitetura/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Diagrama de Arquitetura | Mithril"><meta data-rh="true" name="description" content="Este documento descreve a arquitetura proposta para o sistema, que integra blockchain, open finance, machine learning e microsserviços. O objetivo é oferecer segurança, escalabilidade, transparência e suporte a funcionalidades de detecção de fraudes, recomendação de crédito e atendimento ao usuário."><meta data-rh="true" property="og:description" content="Este documento descreve a arquitetura proposta para o sistema, que integra blockchain, open finance, machine learning e microsserviços. O objetivo é oferecer segurança, escalabilidade, transparência e suporte a funcionalidades de detecção de fraudes, recomendação de crédito e atendimento ao usuário."><link data-rh="true" rel="icon" href="/Mithril/img/logo.jpeg"><link data-rh="true" rel="canonical" href="https://SophiSenne.github.io/Mithril/docs/pre-entrega/arquitetura/"><link data-rh="true" rel="alternate" href="https://SophiSenne.github.io/Mithril/docs/pre-entrega/arquitetura/" hreflang="en"><link data-rh="true" rel="alternate" href="https://SophiSenne.github.io/Mithril/docs/pre-entrega/arquitetura/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Pré Entrega","item":"https://SophiSenne.github.io/Mithril/docs/category/pré-entrega"},{"@type":"ListItem","position":2,"name":"Diagrama de Arquitetura","item":"https://SophiSenne.github.io/Mithril/docs/pre-entrega/arquitetura/"}]}</script><link rel="stylesheet" href="/Mithril/assets/css/styles.38f5c4e2.css">
+<script src="/Mithril/assets/js/runtime~main.aba905ad.js" defer="defer"></script>
+<script src="/Mithril/assets/js/main.40cf9f72.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/Mithril/img/logo.jpeg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Mithril/"><div class="navbar__logo"><img src="/Mithril/img/logo.jpeg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/Mithril/img/logo.jpeg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Mithril</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Mithril/docs/intro">Documentação</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/intro"><span title="Introdução" class="linkLabel_WmDU">Introdução</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/Mithril/docs/category/pré-entrega"><span title="Pré Entrega" class="categoryLinkLabel_W154">Pré Entrega</span></a><button aria-label="Collapse sidebar category &#x27;Pré Entrega&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/Mithril/docs/pre-entrega/arquitetura/"><span title="Diagrama de Arquitetura" class="linkLabel_WmDU">Diagrama de Arquitetura</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Mithril/docs/pre-entrega/persona/"><span title="Persona" class="linkLabel_WmDU">Persona</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Mithril/docs/pre-entrega/proposta-de-valor/"><span title="Proposta de Valor" class="linkLabel_WmDU">Proposta de Valor</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/Mithril/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/Mithril/docs/category/pré-entrega"><span>Pré Entrega</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Diagrama de Arquitetura</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Diagrama de Arquitetura</h1></header><p>Este documento descreve a arquitetura proposta para o sistema, que integra blockchain, open finance, machine learning e microsserviços. O objetivo é oferecer segurança, escalabilidade, transparência e suporte a funcionalidades de detecção de fraudes, recomendação de crédito e atendimento ao usuário.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-visão-geral">1. Visão Geral<a href="#1-visão-geral" class="hash-link" aria-label="Direct link to 1. Visão Geral" title="Direct link to 1. Visão Geral" translate="no">​</a></h2>
+<p>A arquitetura é composta por:</p>
+<ul>
+<li><strong>Camada de Cliente</strong> (aplicativo mobile);</li>
+<li><strong>API Gateway</strong> para autenticação e gerenciamento de requisições;</li>
+<li><strong>Microsserviços</strong> desenvolvidos em <strong>FastAPI</strong> e Rust;</li>
+<li><strong>Componentes de Machine Learning</strong> para detecção de fraudes e recomendações;</li>
+<li><strong>Armazenamento</strong> distribuído entre bancos relacionais, NoSQL e object storage;</li>
+<li><strong>Integrações externas</strong> (PIX, Serasa, Open Finance, Stellar Blockchain);</li>
+<li><strong>Recursos do Dispositivo</strong> (biometria e reconhecimento facial).</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-camada-de-cliente">2. Camada de Cliente<a href="#2-camada-de-cliente" class="hash-link" aria-label="Direct link to 2. Camada de Cliente" title="Direct link to 2. Camada de Cliente" translate="no">​</a></h2>
+<ul>
+<li><strong>React Native App (iOS &amp; Android)</strong>
+Aplicativo que oferece interface para usuários finais realizarem transferências, solicitarem crédito, receberem recomendações e interagirem com o chatbot.
+Conecta-se exclusivamente ao <strong>API Gateway</strong>.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-api-gateway">3. API Gateway<a href="#3-api-gateway" class="hash-link" aria-label="Direct link to 3. API Gateway" title="Direct link to 3. API Gateway" translate="no">​</a></h2>
+<ul>
+<li>
+<p><strong>API Gateway (JWT Authentication, Rate Limiting)</strong>
+Responsável por:</p>
+<ul>
+<li>Autenticação e autorização (JWT);</li>
+<li>Controle de tráfego e limitação de requisições;</li>
+<li>Encaminhamento de chamadas aos microsserviços.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4-microsserviços-fastapi--rust">4. Microsserviços (FastAPI + Rust)<a href="#4-microsserviços-fastapi--rust" class="hash-link" aria-label="Direct link to 4. Microsserviços (FastAPI + Rust)" title="Direct link to 4. Microsserviços (FastAPI + Rust)" translate="no">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="41-autenticação">4.1 Autenticação<a href="#41-autenticação" class="hash-link" aria-label="Direct link to 4.1 Autenticação" title="Direct link to 4.1 Autenticação" translate="no">​</a></h3>
+<ul>
+<li><strong>Autenticação (FastAPI + JWT)</strong>
+Fornece autenticação de usuários e gestão de sessões seguras.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="42-blockchain-e-contratos-inteligentes">4.2 Blockchain e Contratos Inteligentes<a href="#42-blockchain-e-contratos-inteligentes" class="hash-link" aria-label="Direct link to 4.2 Blockchain e Contratos Inteligentes" title="Direct link to 4.2 Blockchain e Contratos Inteligentes" translate="no">​</a></h3>
+<ul>
+<li><strong>API Smart Contracts (FastAPI + Rust)</strong>
+Interage com a <strong>Stellar Network</strong> para execução de contratos inteligentes e operações financeiras descentralizadas.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="43-cálculo-de-score">4.3 Cálculo de Score<a href="#43-cálculo-de-score" class="hash-link" aria-label="Direct link to 4.3 Cálculo de Score" title="Direct link to 4.3 Cálculo de Score" translate="no">​</a></h3>
+<ul>
+<li><strong>API Suitability (FastAPI)</strong>
+Responsável pelo cálculo de score de crédito, considerando dados do Serasa, Open Finance e modelos ML.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="44-gestão-de-dados-e-lgpd">4.4 Gestão de Dados e LGPD<a href="#44-gestão-de-dados-e-lgpd" class="hash-link" aria-label="Direct link to 4.4 Gestão de Dados e LGPD" title="Direct link to 4.4 Gestão de Dados e LGPD" translate="no">​</a></h3>
+<ul>
+<li><strong>API LGPD (FastAPI)</strong>
+Controla armazenamento e uso de dados pessoais, garantindo conformidade regulatória.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="45-logs-e-auditoria">4.5 Logs e Auditoria<a href="#45-logs-e-auditoria" class="hash-link" aria-label="Direct link to 4.5 Logs e Auditoria" title="Direct link to 4.5 Logs e Auditoria" translate="no">​</a></h3>
+<ul>
+<li><strong>API Logs &amp; Auditoria (FastAPI)</strong>
+Centraliza registros de operações e fornece trilhas de auditoria.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="46-chatbot-inteligente">4.6 Chatbot Inteligente<a href="#46-chatbot-inteligente" class="hash-link" aria-label="Direct link to 4.6 Chatbot Inteligente" title="Direct link to 4.6 Chatbot Inteligente" translate="no">​</a></h3>
+<ul>
+<li><strong>Chatbot Suporte (FastAPI + LLM)</strong>
+Oferece atendimento automatizado 24/7 com suporte baseado em linguagem natural.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="5-machine-learning">5. Machine Learning<a href="#5-machine-learning" class="hash-link" aria-label="Direct link to 5. Machine Learning" title="Direct link to 5. Machine Learning" translate="no">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="51-pipelines">5.1 Pipelines<a href="#51-pipelines" class="hash-link" aria-label="Direct link to 5.1 Pipelines" title="Direct link to 5.1 Pipelines" translate="no">​</a></h3>
+<ul>
+<li><strong>Pipeline ML Detecção de Fraudes (Python)</strong>
+Detecta padrões suspeitos de comportamento em tempo real.</li>
+<li><strong>Pipeline ML Recomendações (Python)</strong>
+Gera recomendações personalizadas de crédito e investimento.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="52-inferência">5.2 Inferência<a href="#52-inferência" class="hash-link" aria-label="Direct link to 5.2 Inferência" title="Direct link to 5.2 Inferência" translate="no">​</a></h3>
+<ul>
+<li>
+<p><strong>APIs de Inferência (FastAPI)</strong></p>
+<ul>
+<li>API Inferência Fraudes</li>
+<li>API Inferência Recomendações
+Disponibilizam previsões para os microsserviços.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="53-gerenciamento-de-modelos">5.3 Gerenciamento de Modelos<a href="#53-gerenciamento-de-modelos" class="hash-link" aria-label="Direct link to 5.3 Gerenciamento de Modelos" title="Direct link to 5.3 Gerenciamento de Modelos" translate="no">​</a></h3>
+<ul>
+<li><strong>MLflow</strong>
+Utilizado para versionamento, treinamento e deploy de modelos de machine learning.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="6-armazenamento">6. Armazenamento<a href="#6-armazenamento" class="hash-link" aria-label="Direct link to 6. Armazenamento" title="Direct link to 6. Armazenamento" translate="no">​</a></h2>
+<ul>
+<li><strong>PostgreSQL (Dados Relacionais)</strong>
+Dados de usuários, transações e cadastros.</li>
+<li><strong>MongoDB (Logs &amp; Auditoria)</strong>
+Armazenamento não-relacional de eventos e registros.</li>
+<li><strong>MinIO (Object Storage de Documentos)</strong>
+Armazena documentos digitalizados, contratos e comprovantes.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="7-recursos-do-dispositivo">7. Recursos do Dispositivo<a href="#7-recursos-do-dispositivo" class="hash-link" aria-label="Direct link to 7. Recursos do Dispositivo" title="Direct link to 7. Recursos do Dispositivo" translate="no">​</a></h2>
+<ul>
+<li><strong>Biometria &amp; Face ID</strong>
+Usados para autenticação forte, aumentando a segurança do login e autorizações sensíveis.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="8-integrações-externas">8. Integrações Externas<a href="#8-integrações-externas" class="hash-link" aria-label="Direct link to 8. Integrações Externas" title="Direct link to 8. Integrações Externas" translate="no">​</a></h2>
+<ul>
+<li><strong>Stellar Network (Blockchain)</strong>: operações financeiras e contratos inteligentes.</li>
+<li><strong>API PIX (Transferências)</strong>: integração com o sistema de pagamentos instantâneos.</li>
+<li><strong>API Serasa (Consulta Score)</strong>: obtenção de score de crédito oficial.</li>
+<li><strong>Open Finance (Histórico Bancário)</strong>: acesso a informações financeiras para melhor análise de crédito.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="9-fluxo-de-requisições">9. Fluxo de Requisições<a href="#9-fluxo-de-requisições" class="hash-link" aria-label="Direct link to 9. Fluxo de Requisições" title="Direct link to 9. Fluxo de Requisições" translate="no">​</a></h2>
+<ol>
+<li>
+<p>O usuário acessa o <strong>app mobile</strong>, que envia requisições ao <strong>API Gateway</strong>.</p>
+</li>
+<li>
+<p>O Gateway valida a autenticação via <strong>JWT</strong> e direciona a chamada ao microsserviço correto.</p>
+</li>
+<li>
+<p>Microsserviços podem consultar:</p>
+<ul>
+<li><strong>Modelos ML</strong> via APIs de inferência;</li>
+<li><strong>Banco relacional, NoSQL ou Object Storage</strong> para persistência;</li>
+<li><strong>Integrações externas</strong> para enriquecimento de dados.</li>
+</ul>
+</li>
+<li>
+<p>O resultado é retornado ao cliente via Gateway.</p>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="10-benefícios-da-arquitetura">10. Benefícios da Arquitetura<a href="#10-benefícios-da-arquitetura" class="hash-link" aria-label="Direct link to 10. Benefícios da Arquitetura" title="Direct link to 10. Benefícios da Arquitetura" translate="no">​</a></h2>
+<ul>
+<li><strong>Escalabilidade</strong>: Microsserviços independentes permitem crescimento modular.</li>
+<li><strong>Segurança</strong>: Uso de blockchain, autenticação biométrica e compliance com LGPD.</li>
+<li><strong>Resiliência</strong>: Logs, auditoria e armazenamento distribuído garantem confiabilidade.</li>
+<li><strong>Inteligência</strong>: Modelos de ML aprimoram recomendações e combatem fraudes em tempo real.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="11-tecnologias-principais">11. Tecnologias Principais<a href="#11-tecnologias-principais" class="hash-link" aria-label="Direct link to 11. Tecnologias Principais" title="Direct link to 11. Tecnologias Principais" translate="no">​</a></h2>
+<ul>
+<li><strong>Frontend</strong>: React Native</li>
+<li><strong>Backend/Microsserviços</strong>: FastAPI (Python) + Rust</li>
+<li><strong>Machine Learning</strong>: Python, MLflow, FastAPI para APIs de inferência</li>
+<li><strong>Banco de Dados</strong>: PostgreSQL, MongoDB, MinIO</li>
+<li><strong>Integrações</strong>: Stellar Blockchain, Open Finance, Serasa, PIX</li>
+<li><strong>Segurança</strong>: JWT, biometria, LGPD compliance</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="12-próximos-passos">12. Próximos Passos<a href="#12-próximos-passos" class="hash-link" aria-label="Direct link to 12. Próximos Passos" title="Direct link to 12. Próximos Passos" translate="no">​</a></h2>
+<ol>
+<li>Definição de SLAs para cada microsserviço.</li>
+<li>Implementação de CI/CD para deploy automatizado.</li>
+<li>Monitoramento e observabilidade (Prometheus, Grafana).</li>
+<li>Testes de segurança (Pentest, auditorias regulares).</li>
+</ol>
+<hr></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/pre-entrega/arquitetura/arquitetura.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/Mithril/docs/category/pré-entrega"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Pré Entrega</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Mithril/docs/pre-entrega/persona/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Persona</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-visão-geral" class="table-of-contents__link toc-highlight">1. Visão Geral</a></li><li><a href="#2-camada-de-cliente" class="table-of-contents__link toc-highlight">2. Camada de Cliente</a></li><li><a href="#3-api-gateway" class="table-of-contents__link toc-highlight">3. API Gateway</a></li><li><a href="#4-microsserviços-fastapi--rust" class="table-of-contents__link toc-highlight">4. Microsserviços (FastAPI + Rust)</a><ul><li><a href="#41-autenticação" class="table-of-contents__link toc-highlight">4.1 Autenticação</a></li><li><a href="#42-blockchain-e-contratos-inteligentes" class="table-of-contents__link toc-highlight">4.2 Blockchain e Contratos Inteligentes</a></li><li><a href="#43-cálculo-de-score" class="table-of-contents__link toc-highlight">4.3 Cálculo de Score</a></li><li><a href="#44-gestão-de-dados-e-lgpd" class="table-of-contents__link toc-highlight">4.4 Gestão de Dados e LGPD</a></li><li><a href="#45-logs-e-auditoria" class="table-of-contents__link toc-highlight">4.5 Logs e Auditoria</a></li><li><a href="#46-chatbot-inteligente" class="table-of-contents__link toc-highlight">4.6 Chatbot Inteligente</a></li></ul></li><li><a href="#5-machine-learning" class="table-of-contents__link toc-highlight">5. Machine Learning</a><ul><li><a href="#51-pipelines" class="table-of-contents__link toc-highlight">5.1 Pipelines</a></li><li><a href="#52-inferência" class="table-of-contents__link toc-highlight">5.2 Inferência</a></li><li><a href="#53-gerenciamento-de-modelos" class="table-of-contents__link toc-highlight">5.3 Gerenciamento de Modelos</a></li></ul></li><li><a href="#6-armazenamento" class="table-of-contents__link toc-highlight">6. Armazenamento</a></li><li><a href="#7-recursos-do-dispositivo" class="table-of-contents__link toc-highlight">7. Recursos do Dispositivo</a></li><li><a href="#8-integrações-externas" class="table-of-contents__link toc-highlight">8. Integrações Externas</a></li><li><a href="#9-fluxo-de-requisições" class="table-of-contents__link toc-highlight">9. Fluxo de Requisições</a></li><li><a href="#10-benefícios-da-arquitetura" class="table-of-contents__link toc-highlight">10. Benefícios da Arquitetura</a></li><li><a href="#11-tecnologias-principais" class="table-of-contents__link toc-highlight">11. Tecnologias Principais</a></li><li><a href="#12-próximos-passos" class="table-of-contents__link toc-highlight">12. Próximos Passos</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Mithril/docs/intro">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://x.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">X<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

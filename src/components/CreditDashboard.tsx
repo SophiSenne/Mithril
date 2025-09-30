@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, CreditCard, DollarSign, Calendar, Plus, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 interface CreditDashboardProps {
   onBack: () => void;
@@ -10,6 +11,15 @@ interface CreditDashboardProps {
 
 export default function CreditDashboard({ onBack, onNavigate }: CreditDashboardProps) {
   const [showValues, setShowValues] = useState(true);
+
+  const interestData = [
+    { month: 'Jan', juros: 180, principal: 276 },
+    { month: 'Fev', juros: 175, principal: 281 },
+    { month: 'Mar', juros: 170, principal: 286 },
+    { month: 'Abr', juros: 165, principal: 291 },
+    { month: 'Mai', juros: 160, principal: 296 },
+    { month: 'Jun', juros: 155, principal: 301 },
+  ];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -89,12 +99,26 @@ export default function CreditDashboard({ onBack, onNavigate }: CreditDashboardP
       <div className="px-6 -mt-4 mb-6">
         <Card className="p-6">
           <h3 className="text-lg font-semibold text-gray-dark mb-4">Evolução dos Juros</h3>
-          <div className="h-32 bg-gradient-to-r from-qi-blue/20 to-qi-blue/5 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <DollarSign className="w-8 h-8 text-qi-blue mx-auto mb-2" />
-              <p className="text-sm text-gray-medium">Gráfico de juros pagos</p>
-              <p className="text-xs text-qi-blue font-medium">Economia de 15% com pagamento antecipado</p>
-            </div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={interestData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis tickFormatter={(value) => `R$ ${value}`} />
+                <Bar 
+                  dataKey="juros" 
+                  fill="hsl(var(--qi-blue))" 
+                  name="Juros"
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar 
+                  dataKey="principal" 
+                  fill="hsl(var(--success-custom))" 
+                  name="Principal"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </Card>
       </div>

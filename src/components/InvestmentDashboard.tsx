@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, TrendingUp, TrendingDown, Plus, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 interface InvestmentDashboardProps {
   onBack: () => void;
@@ -10,6 +11,15 @@ interface InvestmentDashboardProps {
 
 export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDashboardProps) {
   const [showValues, setShowValues] = useState(true);
+
+  const performanceData = [
+    { month: 'Jan', rendimento: 1200, meta: 1000 },
+    { month: 'Fev', rendimento: 1450, meta: 1200 },
+    { month: 'Mar', rendimento: 1320, meta: 1400 },
+    { month: 'Abr', rendimento: 1680, meta: 1600 },
+    { month: 'Mai', rendimento: 1895, meta: 1800 },
+    { month: 'Jun', rendimento: 2100, meta: 2000 },
+  ];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -92,12 +102,27 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
       <div className="px-6 -mt-4 mb-6">
         <Card className="p-6">
           <h3 className="text-lg font-semibold text-gray-dark mb-4">Performance dos Empréstimos</h3>
-          <div className="h-32 bg-gradient-to-r from-success-custom/20 to-success-custom/5 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <TrendingUp className="w-8 h-8 text-success-custom mx-auto mb-2" />
-              <p className="text-sm text-gray-medium">Gráfico de rendimentos</p>
-              <p className="text-xs text-success-custom font-medium">Taxa média de 3.4% ao mês</p>
-            </div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={performanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis tickFormatter={(value) => `R$ ${(value / 1000).toFixed(1)}k`} />
+                <Area 
+                  type="monotone" 
+                  dataKey="rendimento" 
+                  stroke="hsl(var(--success-custom))" 
+                  fill="hsl(var(--success-custom))" 
+                  fillOpacity={0.3}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="meta" 
+                  stroke="hsl(var(--qi-blue))" 
+                  strokeDasharray="5 5"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </Card>
       </div>

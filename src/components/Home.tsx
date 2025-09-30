@@ -31,9 +31,12 @@ export default function Home({ onNavigate }: HomeProps) {
       <div className="bg-gradient-to-r from-qi-blue to-qi-blue-dark px-6 pt-12 pb-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+            <button 
+              onClick={() => onNavigate('profile')}
+              className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+            >
               <User className="w-6 h-6 text-white" />
-            </div>
+            </button>
             <div>
               <p className="text-white/80 text-sm">Olá,</p>
               <h2 className="text-white text-lg font-semibold">João Silva</h2>

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
 
 interface RegistrationStep1Props {
@@ -23,17 +24,28 @@ export default function RegistrationStep1({ onNext, onBack }: RegistrationStep1P
     confirmPassword: ''
   });
 
+  const [lgpdConsents, setLgpdConsents] = useState({
+    dataProcessing: false,
+    termsAndConditions: false,
+    dataSharing: false
+  });
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleNext = () => {
-    onNext(formData);
+    onNext({ ...formData, lgpdConsents });
+  };
+
+  const handleConsentChange = (consent: string, value: boolean) => {
+    setLgpdConsents(prev => ({ ...prev, [consent]: value }));
   };
 
   const isFormValid = formData.name && formData.email && formData.cpf && 
                      formData.phone && formData.address && formData.password && 
-                     formData.password === formData.confirmPassword;
+                     formData.password === formData.confirmPassword &&
+                     lgpdConsents.dataProcessing && lgpdConsents.termsAndConditions;
 
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
@@ -139,6 +151,67 @@ export default function RegistrationStep1({ onNext, onBack }: RegistrationStep1P
               onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
               placeholder="Digite a senha novamente"
             />
+          </div>
+        </Card>
+
+        {/* LGPD Consent */}
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold text-gray-dark mb-4">Autorização de Dados - LGPD</h3>
+          
+          <div className="space-y-4">
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="dataProcessing"
+                checked={lgpdConsents.dataProcessing}
+                onCheckedChange={(checked) => handleConsentChange('dataProcessing', checked as boolean)}
+              />
+              <div className="space-y-1">
+                <Label htmlFor="dataProcessing" className="text-sm font-medium">
+                  Processamento de Dados Pessoais *
+                </Label>
+                <p className="text-xs text-gray-medium">
+                  Autorizo o processamento dos meus dados pessoais para utilização da plataforma Mithril, incluindo dados de identificação, contato e financeiros, conforme descrito na Política de Privacidade.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="termsAndConditions"
+                checked={lgpdConsents.termsAndConditions}
+                onCheckedChange={(checked) => handleConsentChange('termsAndConditions', checked as boolean)}
+              />
+              <div className="space-y-1">
+                <Label htmlFor="termsAndConditions" className="text-sm font-medium">
+                  Termos de Uso e Política de Privacidade *
+                </Label>
+                <p className="text-xs text-gray-medium">
+                  Declaro que li e aceito os Termos de Uso e a Política de Privacidade da plataforma.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="dataSharing"
+                checked={lgpdConsents.dataSharing}
+                onCheckedChange={(checked) => handleConsentChange('dataSharing', checked as boolean)}
+              />
+              <div className="space-y-1">
+                <Label htmlFor="dataSharing" className="text-sm font-medium">
+                  Marketing e Ofertas (Opcional)
+                </Label>
+                <p className="text-xs text-gray-medium">
+                  Autorizo o envio de comunicações sobre produtos, serviços e ofertas por e-mail, SMS e outros meios.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+            <p className="text-xs text-blue-800">
+              <strong>Seus direitos:</strong> Você pode revogar estes consentimentos a qualquer momento através do seu perfil ou entrando em contato conosco.
+            </p>
           </div>
         </Card>
       </div>

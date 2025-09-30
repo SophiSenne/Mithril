@@ -3,14 +3,48 @@ import LoginForm from '@/components/LoginForm';
 import Home from '@/components/Home';
 import InvestmentDashboard from '@/components/InvestmentDashboard';
 import CreditDashboard from '@/components/CreditDashboard';
+import RegistrationStep1 from '@/components/RegistrationStep1';
+import RegistrationStep2 from '@/components/RegistrationStep2';
+import RegistrationStep3 from '@/components/RegistrationStep3';
+import ExtractScreen from '@/components/ExtractScreen';
+import InvestmentsScreen from '@/components/InvestmentsScreen';
+import CreditScreen from '@/components/CreditScreen';
 
-type Screen = 'login' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit';
+type Screen = 'login' | 'register-1' | 'register-2' | 'register-3' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit';
 
 export default function MithrilApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
+  const [registrationData, setRegistrationData] = useState<any>({});
 
   const handleLogin = () => {
     setCurrentScreen('home');
+  };
+
+  const handleRegister = () => {
+    setCurrentScreen('register-1');
+  };
+
+  const handleRegistrationNext = (step: number, data: any) => {
+    setRegistrationData(prev => ({ ...prev, ...data }));
+    
+    if (step === 1) {
+      setCurrentScreen('register-2');
+    } else if (step === 2) {
+      setCurrentScreen('register-3');
+    } else if (step === 3) {
+      // Complete registration
+      setCurrentScreen('home');
+    }
+  };
+
+  const handleRegistrationBack = (step: number) => {
+    if (step === 1) {
+      setCurrentScreen('login');
+    } else if (step === 2) {
+      setCurrentScreen('register-1');
+    } else if (step === 3) {
+      setCurrentScreen('register-2');
+    }
   };
 
   const handleNavigate = (screen: string) => {
@@ -24,7 +58,31 @@ export default function MithrilApp() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'login':
-        return <LoginForm onLogin={handleLogin} />;
+        return <LoginForm onLogin={handleLogin} onRegister={handleRegister} />;
+      
+      case 'register-1':
+        return (
+          <RegistrationStep1 
+            onNext={(data) => handleRegistrationNext(1, data)}
+            onBack={() => handleRegistrationBack(1)}
+          />
+        );
+      
+      case 'register-2':
+        return (
+          <RegistrationStep2 
+            onNext={(data) => handleRegistrationNext(2, data)}
+            onBack={() => handleRegistrationBack(2)}
+          />
+        );
+      
+      case 'register-3':
+        return (
+          <RegistrationStep3 
+            onComplete={(data) => handleRegistrationNext(3, data)}
+            onBack={() => handleRegistrationBack(3)}
+          />
+        );
       
       case 'home':
         return <Home onNavigate={handleNavigate} />;
@@ -36,55 +94,16 @@ export default function MithrilApp() {
         return <CreditDashboard onBack={handleBack} onNavigate={handleNavigate} />;
       
       case 'extract':
-        return (
-          <div className="mobile-container flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="text-center p-6">
-              <h2 className="text-xl font-bold text-gray-dark mb-2">Extrato</h2>
-              <p className="text-gray-medium mb-4">Funcionalidade em desenvolvimento</p>
-              <button 
-                onClick={handleBack}
-                className="text-qi-blue font-medium hover:underline"
-              >
-                Voltar ao início
-              </button>
-            </div>
-          </div>
-        );
+        return <ExtractScreen onBack={handleBack} />;
       
       case 'investments':
-        return (
-          <div className="mobile-container flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="text-center p-6">
-              <h2 className="text-xl font-bold text-gray-dark mb-2">Investimentos</h2>
-              <p className="text-gray-medium mb-4">Sugestões de investimento em desenvolvimento</p>
-              <button 
-                onClick={handleBack}
-                className="text-qi-blue font-medium hover:underline"
-              >
-                Voltar ao início
-              </button>
-            </div>
-          </div>
-        );
+        return <InvestmentsScreen onBack={handleBack} />;
       
       case 'credit':
-        return (
-          <div className="mobile-container flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="text-center p-6">
-              <h2 className="text-xl font-bold text-gray-dark mb-2">Solicitar Crédito</h2>
-              <p className="text-gray-medium mb-4">Simulação de crédito em desenvolvimento</p>
-              <button 
-                onClick={handleBack}
-                className="text-qi-blue font-medium hover:underline"
-              >
-                Voltar ao início
-              </button>
-            </div>
-          </div>
-        );
+        return <CreditScreen onBack={handleBack} />;
       
       default:
-        return <LoginForm onLogin={handleLogin} />;
+        return <LoginForm onLogin={handleLogin} onRegister={handleRegister} />;
     }
   };
 

@@ -7,9 +7,10 @@ import mithrilIcon from '@/assets/mithril-icon.png';
 
 interface LoginFormProps {
   onLogin: () => void;
+  onRegister: () => void;
 }
 
-export default function LoginForm({ onLogin }: LoginFormProps) {
+export default function LoginForm({ onLogin, onRegister }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({
     email: '',
@@ -117,7 +118,10 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
             <div className="text-center mt-8 pb-8">
               <p className="text-gray-medium text-sm">
                 Novo por aqui?{' '}
-                <button className="text-qi-blue font-semibold hover:underline">
+                <button 
+                  onClick={onRegister}
+                  className="text-qi-blue font-semibold hover:underline"
+                >
                   Criar conta
                 </button>
               </p>

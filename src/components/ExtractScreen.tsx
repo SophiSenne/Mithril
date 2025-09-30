@@ -15,7 +15,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 1,
       type: 'entrada',
-      title: 'Rendimento Empréstimo P2P',
+      title: 'Rendimento Empréstimo',
       description: 'E.*** E-commerce - Parcela 8/12',
       amount: 420.00,
       date: '2024-01-15',
@@ -24,7 +24,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 2,
       type: 'saida',
-      title: 'Novo Empréstimo P2P',
+      title: 'Novo Empréstimo',
       description: 'Para D.*** - Equipamentos',
       amount: -8500.00,
       date: '2024-01-14',
@@ -33,7 +33,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 3,
       type: 'entrada',
-      title: 'Rendimento Empréstimo P2P',
+      title: 'Rendimento Empréstimo',
       description: 'MEI*** Prestador - Parcela 3/18',
       amount: 203.00,
       date: '2024-01-14',
@@ -42,7 +42,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 4,
       type: 'saida',
-      title: 'Pagamento Crédito P2P',
+      title: 'Pagamento Crédito',
       description: 'Para C.S.*** - Parcela 4/12',
       amount: -456.78,
       date: '2024-01-13',
@@ -51,7 +51,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 5,
       type: 'entrada',
-      title: 'Rendimento Empréstimo P2P',
+      title: 'Rendimento Empréstimo',
       description: 'E.*** E-commerce - Juros mensais',
       amount: 272.00,
       date: '2024-01-12',
@@ -69,7 +69,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 7,
       type: 'entrada',
-      title: 'Quitação Antecipada P2P',
+      title: 'Quitação Antecipada',
       description: 'Eng.*** CLT - Desconto de juros',
       amount: 1850.00,
       date: '2024-01-10',
@@ -87,7 +87,7 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 9,
       type: 'entrada',
-      title: 'Rendimento Empréstimo P2P',
+      title: 'Rendimento Empréstimo',
       description: 'Com.*** Loja Física - Parcela 6/24',
       amount: 315.50,
       date: '2024-01-08',

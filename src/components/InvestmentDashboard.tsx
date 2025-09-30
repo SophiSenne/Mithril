@@ -72,7 +72,7 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
           <button onClick={onBack} className="p-2 bg-white/10 backdrop-blur rounded-full">
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
-          <h1 className="text-white text-lg font-semibold">Empréstimos P2P</h1>
+          <h1 className="text-white text-lg font-semibold">Investimentos</h1>
           <button
             onClick={() => setShowValues(!showValues)}
             className="p-2 bg-white/10 backdrop-blur rounded-full"

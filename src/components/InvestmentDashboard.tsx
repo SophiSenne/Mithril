@@ -96,18 +96,6 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
             </div>
           </div>
         </Card>
-        
-        {/* Nova Oportunidade Button */}
-        <div className="mt-4">
-          <Button 
-            onClick={() => onNavigate('investments')}
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30"
-            size="default"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Nova Oportunidade
-          </Button>
-        </div>
       </div>
 
       {/* Loans Performance Chart Placeholder */}
@@ -143,6 +131,14 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
       <div className="px-6 space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-dark">Meus Empréstimos</h3>
+          <Button 
+            onClick={() => onNavigate('investments')}
+            className="bg-success-custom hover:bg-success-custom/90 text-white"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-1" />
+            Nova Oportunidade
+          </Button>
         </div>
 
         {loans.map((loan, index) => (

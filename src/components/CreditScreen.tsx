@@ -10,58 +10,66 @@ interface CreditScreenProps {
 export default function CreditScreen({ onBack }: CreditScreenProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(0);
 
-  const creditOptions = [
+  const creditOpportunities = [
     {
       id: 1,
-      title: 'Crédito Pessoal QI Tech',
-      subtitle: 'Para realizar seus projetos',
-      minAmount: 1000,
-      maxAmount: 50000,
-      rate: 1.89,
-      period: '12 a 48 meses',
-      approval: '24h',
+      investorName: 'Carlos Silva',
+      investorScore: 850,
+      amount: 25000,
+      rate: 1.2,
+      period: 24,
+      purpose: 'Capital de giro',
+      riskProfile: 'Baixo',
+      approval: 'Aguardando análise',
       icon: DollarSign,
       featured: true,
-      benefits: ['Sem consulta ao SPC/Serasa', 'Aprovação rápida', 'Taxa competitiva']
+      requirements: ['Score mínimo 650', 'Comprovação de renda', 'Sem restrições'],
+      investorProfile: 'Investidor experiente há 5 anos'
     },
     {
       id: 2,
-      title: 'Cartão de Crédito',
-      subtitle: 'Limite pré-aprovado',
-      minAmount: 500,
-      maxAmount: 20000,
-      rate: 0.0,
-      period: 'Rotativo',
-      approval: 'Instantâneo',
-      icon: CreditCard,
+      investorName: 'Ana Santos',
+      investorScore: 780,
+      amount: 15000,
+      rate: 1.5,
+      period: 18,
+      purpose: 'Expansão de negócio',
+      riskProfile: 'Médio',
+      approval: 'Aprovação rápida',
+      icon: Calculator,
       featured: false,
-      benefits: ['Sem anuidade', 'Programa de pontos', 'Aceito mundialmente']
+      requirements: ['Score mínimo 600', 'Garantidor', 'Histórico comercial'],
+      investorProfile: 'Investidora focada em PMEs'
     },
     {
       id: 3,
-      title: 'Antecipação do 13º',
-      subtitle: 'Receba seu 13º salário antecipado',
-      minAmount: 500,
-      maxAmount: 10000,
-      rate: 1.25,
-      period: '3 a 11 meses',
-      approval: '2h',
+      investorName: 'João Oliveira',
+      investorScore: 720,
+      amount: 10000,
+      rate: 1.8,
+      period: 12,
+      purpose: 'Pagamento de fornecedores',
+      riskProfile: 'Médio',
+      approval: 'Análise em 24h',
       icon: Clock,
       featured: false,
-      benefits: ['Taxa reduzida', 'Desconto na folha', 'Processo simples']
+      requirements: ['Score mínimo 550', 'Nota fiscal', 'Faturamento comprovado'],
+      investorProfile: 'Investidor conservador'
     },
     {
       id: 4,
-      title: 'Crédito com Garantia',
-      subtitle: 'Melhores condições com garantia',
-      minAmount: 5000,
-      maxAmount: 200000,
-      rate: 0.99,
-      period: '12 a 120 meses',
-      approval: '48h',
-      icon: Calculator,
+      investorName: 'Maria Costa',
+      investorScore: 820,
+      amount: 50000,
+      rate: 0.9,
+      period: 36,
+      purpose: 'Investimento em equipamentos',
+      riskProfile: 'Baixo',
+      approval: 'Análise detalhada',
+      icon: CreditCard,
       featured: false,
-      benefits: ['Menor taxa de juros', 'Prazos maiores', 'Valores elevados']
+      requirements: ['Score mínimo 700', 'Garantia real', 'Plano de negócios'],
+      investorProfile: 'Grande investidora institucional'
     }
   ];
 
@@ -92,10 +100,10 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
         </div>
 
         <div className="text-center text-white">
-          <h2 className="text-2xl font-bold mb-2">Crédito Disponível</h2>
-          <p className="text-3xl font-bold mb-2">R$ 75.000</p>
+          <h2 className="text-2xl font-bold mb-2">Crédito de Investidores</h2>
+          <p className="text-3xl font-bold mb-2">R$ 100.000</p>
           <p className="text-white/80">
-            Baseado na análise do seu perfil
+            Disponível de investidores verificados
           </p>
         </div>
       </div>
@@ -142,21 +150,21 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
         </Card>
       </div>
 
-      {/* Credit Options */}
+      {/* Credit Opportunities */}
       <div className="px-6 space-y-4">
-        <h3 className="text-lg font-semibold text-gray-dark">Opções de Crédito</h3>
+        <h3 className="text-lg font-semibold text-gray-dark">Oportunidades de Crédito</h3>
         
-        {creditOptions.map((option) => {
-          const Icon = option.icon;
+        {creditOpportunities.map((opportunity) => {
+          const Icon = opportunity.icon;
           
           return (
             <Card 
-              key={option.id} 
+              key={opportunity.id} 
               className={`p-6 hover:shadow-lg transition-all duration-200 ${
-                option.featured ? 'border-success-custom bg-success-custom/5' : ''
+                opportunity.featured ? 'border-success-custom bg-success-custom/5' : ''
               }`}
             >
-              {option.featured && (
+              {opportunity.featured && (
                 <div className="bg-success-custom text-white text-xs font-medium px-3 py-1 rounded-full inline-block mb-4">
                   MELHOR OFERTA
                 </div>
@@ -167,45 +175,67 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
                   <Icon className="w-6 h-6 text-success-custom" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-gray-dark mb-1">{option.title}</h4>
-                  <p className="text-sm text-gray-medium mb-2">{option.subtitle}</p>
+                  <h4 className="font-bold text-gray-dark mb-1">{opportunity.investorName}</h4>
+                  <p className="text-sm text-gray-medium mb-2">{opportunity.investorProfile}</p>
                   
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-medium">Limite: </span>
-                      <span className="font-medium">
-                        {formatCurrency(option.minAmount)} - {formatCurrency(option.maxAmount)}
+                      <span className="text-gray-medium">Valor: </span>
+                      <span className="font-medium text-success-custom">
+                        {formatCurrency(opportunity.amount)}
                       </span>
                     </div>
                     <div>
                       <span className="text-gray-medium">Prazo: </span>
-                      <span className="font-medium">{option.period}</span>
+                      <span className="font-medium">{opportunity.period} meses</span>
                     </div>
                     <div>
                       <span className="text-gray-medium">Taxa: </span>
                       <span className="font-medium text-success-custom">
-                        {option.rate === 0 ? 'Sem juros' : `${option.rate}% a.m.`}
+                        {opportunity.rate}% a.m.
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-medium">Aprovação: </span>
-                      <span className="font-medium">{option.approval}</span>
+                      <span className="text-gray-medium">Score Investidor: </span>
+                      <span className="font-medium">{opportunity.investorScore}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-medium">Finalidade: </span>
+                      <span className="font-medium">{opportunity.purpose}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-medium">Risco: </span>
+                      <span className={`font-medium ${
+                        opportunity.riskProfile === 'Baixo' ? 'text-green-600' : 
+                        opportunity.riskProfile === 'Médio' ? 'text-yellow-600' : 'text-red-600'
+                      }`}>
+                        {opportunity.riskProfile}
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="mb-4">
-                <h5 className="text-sm font-semibold text-gray-dark mb-2">Benefícios:</h5>
+                <h5 className="text-sm font-semibold text-gray-dark mb-2">Requisitos:</h5>
                 <div className="flex flex-wrap gap-2">
-                  {option.benefits.map((benefit, index) => (
+                  {opportunity.requirements.map((requirement, index) => (
                     <span 
                       key={index}
                       className="px-3 py-1 bg-gray-100 text-gray-dark text-xs rounded-full"
                     >
-                      {benefit}
+                      {requirement}
                     </span>
                   ))}
+                </div>
+              </div>
+
+              <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-medium">Parcela estimada:</span>
+                  <span className="font-bold text-blue-600">
+                    {formatCurrency(calculateInstallment(opportunity.amount, opportunity.rate, opportunity.period))}
+                  </span>
                 </div>
               </div>
 
@@ -214,14 +244,14 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
                   className="flex-1 bg-success-custom hover:bg-success-custom/90 text-white"
                   size="sm"
                 >
-                  Solicitar Agora
+                  Solicitar Aprovação
                 </Button>
                 <Button 
                   variant="outline" 
                   className="border-success-custom text-success-custom hover:bg-success-custom/5"
                   size="sm"
                 >
-                  Simular
+                  Ver Perfil
                 </Button>
               </div>
             </Card>
@@ -230,10 +260,10 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
 
         <div className="text-center py-6">
           <p className="text-sm text-gray-medium mb-4">
-            Dúvidas sobre crédito?
+            Dúvidas sobre como funciona?
           </p>
           <Button variant="outline" className="border-success-custom text-success-custom">
-            Falar com Consultor
+            Como Funciona P2P
           </Button>
         </div>
 

@@ -91,7 +91,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-success-custom to-green-600 px-6 pt-12 pb-6">
+      <div className="bg-gradient-to-r from-qi-blue to-blue-600 px-6 pt-12 pb-6">
         <div className="flex items-center justify-between mb-6">
           <button onClick={onBack} className="p-2 bg-white/10 backdrop-blur rounded-full">
             <ArrowLeft className="w-5 h-5 text-white" />
@@ -133,7 +133,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
                     variant={selectedAmount === amount ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedAmount(amount)}
-                    className={selectedAmount === amount ? "bg-success-custom hover:bg-success-custom/90" : ""}
+                    className={selectedAmount === amount ? "bg-qi-blue hover:bg-qi-blue/90" : ""}
                   >
                     {formatCurrency(amount)}
                   </Button>
@@ -142,16 +142,16 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
             </div>
             
             {selectedAmount > 0 && (
-              <div className="bg-success-custom/10 border border-success-custom/20 rounded-lg p-4">
+              <div className="bg-qi-blue/10 border border-qi-blue/20 rounded-lg p-4">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-gray-medium">Parcela em 12x:</span>
-                  <span className="font-bold text-success-custom">
+                  <span className="font-bold text-qi-blue">
                     {formatCurrency(calculateInstallment(selectedAmount, 1.89, 12))}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-medium">Taxa mensal:</span>
-                  <span className="font-bold text-success-custom">1,89%</span>
+                  <span className="font-bold text-qi-blue">1,89%</span>
                 </div>
               </div>
             )}
@@ -170,18 +170,18 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
             <Card 
               key={opportunity.id} 
               className={`p-6 hover:shadow-lg transition-all duration-200 ${
-                opportunity.featured ? 'border-success-custom bg-success-custom/5' : ''
+                opportunity.featured ? 'border-qi-blue bg-qi-blue/5' : ''
               }`}
             >
               {opportunity.featured && (
-                <div className="bg-success-custom text-white text-xs font-medium px-3 py-1 rounded-full inline-block mb-4">
+                <div className="bg-qi-blue text-white text-xs font-medium px-3 py-1 rounded-full inline-block mb-4">
                   MELHOR OFERTA
                 </div>
               )}
 
               <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 bg-success-custom/10 rounded-full">
-                  <Icon className="w-6 h-6 text-success-custom" />
+                <div className="p-3 bg-qi-blue/10 rounded-full">
+                  <Icon className="w-6 h-6 text-qi-blue" />
                 </div>
                 <div className="flex-1">
                   <h4 className="font-bold text-gray-dark mb-1">{opportunity.investorName}</h4>
@@ -190,7 +190,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="text-gray-medium">Valor: </span>
-                      <span className="font-medium text-success-custom">
+                      <span className="font-medium text-qi-blue">
                         {formatCurrency(opportunity.amount)}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
                     </div>
                     <div>
                       <span className="text-gray-medium">Taxa: </span>
-                      <span className="font-medium text-success-custom">
+                      <span className="font-medium text-qi-blue">
                         {opportunity.rate}% a.m.
                       </span>
                     </div>
@@ -250,14 +250,14 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
 
               <div className="flex gap-3">
                 <Button 
-                  className="flex-1 bg-success-custom hover:bg-success-custom/90 text-white"
+                  className="flex-1 bg-qi-blue hover:bg-qi-blue/90 text-white"
                   size="sm"
                 >
                   Solicitar Aprovação
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-success-custom text-success-custom hover:bg-success-custom/5"
+                  className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"
                   size="sm"
                 >
                   Ver Perfil
@@ -271,7 +271,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
           <p className="text-sm text-gray-medium mb-4">
             Dúvidas sobre como funciona?
           </p>
-          <Button variant="outline" className="border-success-custom text-success-custom">
+          <Button variant="outline" className="border-qi-blue text-qi-blue">
             Falar com o chatbot
           </Button>
         </div>

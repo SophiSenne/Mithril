@@ -272,7 +272,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
             Dúvidas sobre como funciona?
           </p>
           <Button variant="outline" className="border-success-custom text-success-custom">
-            Como Funciona P2P
+            Falar com o chatbot
           </Button>
         </div>
 

@@ -231,7 +231,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
             Dúvidas sobre empréstimos pessoa a pessoa?
           </p>
           <Button variant="outline" className="border-qi-blue text-qi-blue">
-            Falar com Especialista
+            Falar com o chatbot
           </Button>
         </div>
 

@@ -14,8 +14,9 @@ import CreateInvestmentRequest from '@/components/CreateInvestmentRequest';
 import ProfileScreen from '@/components/ProfileScreen';
 import BorrowerProfile from '@/components/BorrowerProfile';
 import InvestorProfile from '@/components/InvestorProfile';
+import NotificationsScreen from '@/components/Notifications';
 
-type Screen = 'login' | 'register-1' | 'register-2' | 'register-3' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit' | 'create-credit-opportunity' | 'create-investment-request' | 'profile' | 'borrower-profile' | 'investor-profile';
+type Screen = 'login' | 'register-1' | 'register-2' | 'register-3' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit' | 'create-credit-opportunity' | 'create-investment-request' | 'profile' | 'borrower-profile' | 'investor-profile' | 'notifications';
 
 export default function MithrilApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
@@ -129,6 +130,9 @@ export default function MithrilApp() {
       
       case 'investor-profile':
         return <InvestorProfile onBack={handleBack} onNavigate={handleNavigate} />;
+      
+      case 'notifications':
+        return <NotificationsScreen onBack={handleBack} />;
       
       default:
         return <LoginForm onLogin={handleLogin} onRegister={handleRegister} />;

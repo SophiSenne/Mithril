@@ -42,7 +42,9 @@ export default function Home({ onNavigate }: HomeProps) {
               <h2 className="text-white text-lg font-semibold">João Silva</h2>
             </div>
           </div>
-          <button className="p-2 bg-white/10 backdrop-blur rounded-full">
+          <button 
+            onClick={() => onNavigate('notifications')}
+            className="p-2 bg-white/10 backdrop-blur rounded-full">
             <Bell className="w-5 h-5 text-white" />
           </button>
         </div>

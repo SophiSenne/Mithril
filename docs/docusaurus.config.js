@@ -19,7 +19,7 @@ const config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  organizationName: 'SophiSenne', 
+  organizationName: 'SophiSenne',
   projectName: 'Mithril',
   baseUrl: '/Mithril/',
   url: 'https://SophiSenne.github.io',

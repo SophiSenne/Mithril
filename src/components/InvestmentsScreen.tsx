@@ -11,7 +11,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
   const lendingOpportunities = [
     {
       id: 1,
-      borrowerProfile: 'Empresário - E-commerce',
+      borrowerProfile: 'E.*** - E-commerce', // Anonymized
       subtitle: 'Expansão de estoque para temporada',
       creditScore: 750,
       amount: 25000,
@@ -26,7 +26,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
     },
     {
       id: 2,
-      borrowerProfile: 'Profissional Liberal - Dentista',
+      borrowerProfile: 'P.L.*** - Dentista', // Anonymized
       subtitle: 'Aquisição de equipamentos odontológicos',
       creditScore: 680,
       amount: 50000,
@@ -41,7 +41,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
     },
     {
       id: 3,
-      borrowerProfile: 'MEI - Prestador de Serviços',
+      borrowerProfile: 'MEI*** - Prestador de Serviços', // Anonymized
       subtitle: 'Capital de giro para crescimento',
       creditScore: 620,
       amount: 15000,
@@ -56,7 +56,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
     },
     {
       id: 4,
-      borrowerProfile: 'Engenheiro - CLT Multinacional',
+      borrowerProfile: 'Eng.*** - CLT Multinacional', // Anonymized
       subtitle: 'Reforma residencial completa',
       creditScore: 590,
       amount: 30000,
@@ -71,7 +71,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
     },
     {
       id: 5,
-      borrowerProfile: 'Comerciante - Loja Física',
+      borrowerProfile: 'Com.*** - Loja Física', // Anonymized
       subtitle: 'Renovação completa do estoque',
       creditScore: 540,
       amount: 80000,

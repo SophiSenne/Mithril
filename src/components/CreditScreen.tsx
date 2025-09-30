@@ -14,7 +14,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
   const creditOpportunities = [
     {
       id: 1,
-      investorName: 'Carlos Silva',
+      investorName: 'C.S.***', // Anonymized initials
       investorScore: 850,
       amount: 25000,
       rate: 1.2,
@@ -29,7 +29,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
     },
     {
       id: 2,
-      investorName: 'Ana Santos',
+      investorName: 'A.S.***', // Anonymized initials
       investorScore: 780,
       amount: 15000,
       rate: 1.5,
@@ -44,7 +44,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
     },
     {
       id: 3,
-      investorName: 'João Oliveira',
+      investorName: 'J.O.***', // Anonymized initials
       investorScore: 720,
       amount: 10000,
       rate: 1.8,
@@ -59,7 +59,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
     },
     {
       id: 4,
-      investorName: 'Maria Costa',
+      investorName: 'M.C.***', // Anonymized initials
       investorScore: 820,
       amount: 50000,
       rate: 0.9,

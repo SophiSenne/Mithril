@@ -25,7 +25,7 @@ interface BorrowerProfileProps {
 export default function BorrowerProfile({ onBack, onNavigate }: BorrowerProfileProps) {
   const borrower = {
     id: 1,
-    name: 'Carlos Eduardo Silva',
+    name: 'C.E.S.', // Anonymized initials
     profession: 'Empresário - E-commerce',
     photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
     creditScore: 750,
@@ -56,7 +56,7 @@ export default function BorrowerProfile({ onBack, onNavigate }: BorrowerProfileP
       { date: '2024-08', amount: 2250, status: 'paid' }
     ],
     businessInfo: {
-      name: 'Silva E-commerce LTDA',
+      name: 'Silva E-commerce LTDA', // Only business name, not personal
       segment: 'Comércio Eletrônico',
       monthlyRevenue: 45000,
       employees: 8,

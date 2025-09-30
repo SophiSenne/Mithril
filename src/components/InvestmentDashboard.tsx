@@ -30,7 +30,7 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
 
   const loans = [
     {
-      name: 'Empresário E-commerce',
+      name: 'E.*** E-commerce', // Anonymized
       amount: 15000,
       return: 2.8,
       period: '8 meses restantes',
@@ -40,7 +40,7 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
       creditScore: 750
     },
     {
-      name: 'Dentista - Equipamentos',
+      name: 'D.*** - Equipamentos', // Anonymized
       amount: 8500,
       return: 3.2,
       period: '18 meses restantes',
@@ -50,7 +50,7 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
       creditScore: 680
     },
     {
-      name: 'MEI Prestador Serviços',
+      name: 'MEI*** Prestador Serviços', // Anonymized
       amount: 4950,
       return: 4.1,
       period: '12 meses restantes',

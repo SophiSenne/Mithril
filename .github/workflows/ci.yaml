@@ -1,4 +1,4 @@
-name: CI
+name: CI & Deploy Docusaurus
 
 on:
   push:
@@ -10,26 +10,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Pegar o código do repositório
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      # 3️⃣ Instalar dependências dentro de docs
       - name: Install dependencies
         working-directory: ./docs
         run: npm install
 
+      # 4️⃣ Build do Docusaurus
       - name: Build Docusaurus
         working-directory: ./docs
         run: npm run build
 
-      - name: Run
-        working-directory: ./docs
-        run: npm run
+      # 5️⃣ Deploy no GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build

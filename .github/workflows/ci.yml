@@ -10,8 +10,6 @@ workflow_dispatch:
 jobs:
 build:
 runs-on: ubuntu-latest
-
-```
 steps:
   - uses: actions/checkout@v4
 
@@ -32,4 +30,3 @@ steps:
   # - name: Start Docusaurus
   #   working-directory: ./docs
   #   run: npm start
-```

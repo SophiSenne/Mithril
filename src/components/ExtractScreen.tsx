@@ -15,65 +15,92 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
     {
       id: 1,
       type: 'entrada',
-      title: 'Rendimento CDB',
-      description: 'Banco QI Tech',
-      amount: 125.50,
+      title: 'Rendimento Empréstimo P2P',
+      description: 'E.*** E-commerce - Parcela 8/12',
+      amount: 420.00,
       date: '2024-01-15',
       time: '14:30'
     },
     {
       id: 2,
       type: 'saida',
-      title: 'Investimento Tesouro Direto',
-      description: 'IPCA+ 2029',
-      amount: -2000.00,
+      title: 'Novo Empréstimo P2P',
+      description: 'Para D.*** - Equipamentos',
+      amount: -8500.00,
       date: '2024-01-14',
       time: '09:15'
     },
     {
       id: 3,
       type: 'entrada',
-      title: 'Depósito',
-      description: 'Transferência PIX',
-      amount: 5000.00,
+      title: 'Rendimento Empréstimo P2P',
+      description: 'MEI*** Prestador - Parcela 3/18',
+      amount: 203.00,
       date: '2024-01-14',
       time: '08:45'
     },
     {
       id: 4,
       type: 'saida',
-      title: 'Taxa de Administração',
-      description: 'Fundo Multimercado',
-      amount: -15.00,
+      title: 'Pagamento Crédito P2P',
+      description: 'Para C.S.*** - Parcela 4/12',
+      amount: -456.78,
       date: '2024-01-13',
       time: '16:00'
     },
     {
       id: 5,
       type: 'entrada',
-      title: 'Dividendos',
-      description: 'Ações Petrobras',
-      amount: 85.30,
+      title: 'Rendimento Empréstimo P2P',
+      description: 'E.*** E-commerce - Juros mensais',
+      amount: 272.00,
       date: '2024-01-12',
       time: '12:00'
     },
     {
       id: 6,
       type: 'saida',
-      title: 'Saque Emergencial',
-      description: 'Para conta corrente',
-      amount: -500.00,
+      title: 'Depósito PIX',
+      description: 'Recarga de conta',
+      amount: -1000.00,
       date: '2024-01-11',
       time: '10:30'
     },
     {
       id: 7,
       type: 'entrada',
-      title: 'Rendimento Poupança',
-      description: 'Banco QI Tech',
-      amount: 42.15,
+      title: 'Quitação Antecipada P2P',
+      description: 'Eng.*** CLT - Desconto de juros',
+      amount: 1850.00,
       date: '2024-01-10',
       time: '00:01'
+    },
+    {
+      id: 8,
+      type: 'saida',
+      title: 'Taxa de Administração',
+      description: 'Manutenção da plataforma',
+      amount: -15.00,
+      date: '2024-01-09',
+      time: '18:00'
+    },
+    {
+      id: 9,
+      type: 'entrada',
+      title: 'Rendimento Empréstimo P2P',
+      description: 'Com.*** Loja Física - Parcela 6/24',
+      amount: 315.50,
+      date: '2024-01-08',
+      time: '11:20'
+    },
+    {
+      id: 10,
+      type: 'saida',
+      title: 'Solicitação de Crédito',
+      description: 'Aprovada por A.S.*** - 18 parcelas',
+      amount: -15000.00,
+      date: '2024-01-07',
+      time: '14:45'
     }
   ];
 
@@ -129,12 +156,12 @@ export default function ExtractScreen({ onBack }: ExtractScreenProps) {
           <Card className="p-4 text-center">
             <ArrowUpRight className="w-5 h-5 text-success-custom mx-auto mb-2" />
             <p className="text-xs text-gray-medium mb-1">Entradas</p>
-            <p className="text-sm font-bold text-success-custom">R$ 5.252,95</p>
+            <p className="text-sm font-bold text-success-custom">R$ 3.560,50</p>
           </Card>
           <Card className="p-4 text-center">
             <ArrowDownLeft className="w-5 h-5 text-error-custom mx-auto mb-2" />
             <p className="text-xs text-gray-medium mb-1">Saídas</p>
-            <p className="text-sm font-bold text-error-custom">R$ 2.515,00</p>
+            <p className="text-sm font-bold text-error-custom">R$ 25.971,78</p>
           </Card>
         </div>
       </div>

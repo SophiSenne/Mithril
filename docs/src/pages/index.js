@@ -21,7 +21,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className={clsx('button', styles.buttonPrimary)}
-            to="https://seu-app-deploy.vercel.app">
+            to="https://mithril-fawn.vercel.app/">
             Acessar Plataforma
           </Link>
           <Link

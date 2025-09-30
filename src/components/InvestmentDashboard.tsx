@@ -18,34 +18,41 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
     }).format(amount);
   };
 
-  const investments = [
+  const loans = [
     {
-      name: 'CDB Banco QI Tech',
+      name: 'Empresário E-commerce',
       amount: 15000,
-      return: 5.2,
-      period: '12 meses',
+      return: 2.8,
+      period: '8 meses restantes',
       risk: 'Baixo',
-      color: 'text-success-custom'
+      color: 'text-success-custom',
+      monthlyIncome: 420,
+      creditScore: 750
     },
     {
-      name: 'Tesouro Direto IPCA+',
+      name: 'Dentista - Equipamentos',
       amount: 8500,
-      return: 4.8,
-      period: '5 anos',
+      return: 3.2,
+      period: '18 meses restantes',
       risk: 'Baixo',
-      color: 'text-success-custom'
+      color: 'text-success-custom',
+      monthlyIncome: 272,
+      creditScore: 680
     },
     {
-      name: 'Fundo Multimercado',
+      name: 'MEI Prestador Serviços',
       amount: 4950,
-      return: -1.2,
-      period: '3 meses',
-      risk: 'Alto',
-      color: 'text-error-custom'
+      return: 4.1,
+      period: '12 meses restantes',
+      risk: 'Médio',
+      color: 'text-success-custom',
+      monthlyIncome: 203,
+      creditScore: 620
     }
   ];
 
-  const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
+  const totalLoaned = loans.reduce((sum, loan) => sum + loan.amount, 0);
+  const monthlyIncome = loans.reduce((sum, loan) => sum + loan.monthlyIncome, 0);
 
   return (
     <div className="mobile-container bg-gray-50 min-h-screen">
@@ -55,7 +62,7 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
           <button onClick={onBack} className="p-2 bg-white/10 backdrop-blur rounded-full">
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
-          <h1 className="text-white text-lg font-semibold">Investimentos</h1>
+          <h1 className="text-white text-lg font-semibold">Empréstimos P2P</h1>
           <button
             onClick={() => setShowValues(!showValues)}
             className="p-2 bg-white/10 backdrop-blur rounded-full"
@@ -64,85 +71,98 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
           </button>
         </div>
 
-        {/* Total Invested Card */}
+        {/* Total Loaned Card */}
         <Card className="bg-white/10 backdrop-blur border-white/20 p-6">
           <div className="text-center">
-            <p className="text-white/80 text-sm font-medium mb-2">Total Investido</p>
+            <p className="text-white/80 text-sm font-medium mb-2">Total Emprestado</p>
             <p className="text-white text-3xl font-bold mb-1">
-              {showValues ? formatCurrency(totalInvested) : '••••••'}
+              {showValues ? formatCurrency(totalLoaned) : '••••••'}
             </p>
             <div className="flex items-center justify-center gap-2 text-white/90">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm font-medium">+5.2% este mês</span>
+              <span className="text-sm font-medium">
+                {showValues ? `+${formatCurrency(monthlyIncome)}/mês` : '••••••/mês'}
+              </span>
             </div>
           </div>
         </Card>
       </div>
 
-      {/* Portfolio Evolution Chart Placeholder */}
+      {/* Loans Performance Chart Placeholder */}
       <div className="px-6 -mt-4 mb-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-dark mb-4">Evolução do Portfólio</h3>
+          <h3 className="text-lg font-semibold text-gray-dark mb-4">Performance dos Empréstimos</h3>
           <div className="h-32 bg-gradient-to-r from-success-custom/20 to-success-custom/5 rounded-lg flex items-center justify-center">
             <div className="text-center">
               <TrendingUp className="w-8 h-8 text-success-custom mx-auto mb-2" />
-              <p className="text-sm text-gray-medium">Gráfico de evolução</p>
-              <p className="text-xs text-success-custom font-medium">Crescimento de 12.5% em 6 meses</p>
+              <p className="text-sm text-gray-medium">Gráfico de rendimentos</p>
+              <p className="text-xs text-success-custom font-medium">Taxa média de 3.4% ao mês</p>
             </div>
           </div>
         </Card>
       </div>
 
-      {/* Investments List */}
+      {/* Loans List */}
       <div className="px-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-dark">Meus Investimentos</h3>
+          <h3 className="text-lg font-semibold text-gray-dark">Meus Empréstimos</h3>
           <Button 
             onClick={() => onNavigate('investments')}
             className="bg-success-custom hover:bg-success-custom/90 text-white"
             size="sm"
           >
             <Plus className="w-4 h-4 mr-1" />
-            Investir
+            Emprestar
           </Button>
         </div>
 
-        {investments.map((investment, index) => (
+        {loans.map((loan, index) => (
           <Card key={index} className="p-6 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold text-gray-dark">{investment.name}</h4>
-              <div className={`flex items-center gap-1 ${investment.color}`}>
-                {investment.return > 0 ? (
-                  <TrendingUp className="w-4 h-4" />
-                ) : (
-                  <TrendingDown className="w-4 h-4" />
-                )}
+              <h4 className="font-semibold text-gray-dark">{loan.name}</h4>
+              <div className={`flex items-center gap-1 ${loan.color}`}>
+                <TrendingUp className="w-4 h-4" />
                 <span className="font-medium text-sm">
-                  {investment.return > 0 ? '+' : ''}{investment.return}%
+                  {loan.return}% a.m.
                 </span>
               </div>
             </div>
             
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-sm text-gray-medium">Valor Aplicado</p>
+                <p className="text-sm text-gray-medium">Valor Emprestado</p>
                 <p className="font-bold text-gray-dark">
-                  {showValues ? formatCurrency(investment.amount) : '••••••'}
+                  {showValues ? formatCurrency(loan.amount) : '••••••'}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-medium">Período</p>
-                <p className="font-medium text-gray-dark">{investment.period}</p>
+                <p className="text-sm text-gray-medium">Rendimento Mensal</p>
+                <p className="font-medium text-success-custom">
+                  {showValues ? formatCurrency(loan.monthlyIncome) : '••••••'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm text-gray-medium">Score do Devedor</p>
+                <p className="font-medium text-gray-dark">{loan.creditScore}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-medium">Status</p>
+                <p className="font-medium text-gray-dark">{loan.period}</p>
               </div>
             </div>
 
             <div className="flex items-center justify-between">
               <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                investment.risk === 'Baixo' 
+                loan.risk === 'Baixo' 
                   ? 'bg-success-custom/10 text-success-custom' 
+                  : loan.risk === 'Médio'
+                  ? 'bg-qi-blue/10 text-qi-blue'
                   : 'bg-error-custom/10 text-error-custom'
               }`}>
-                Risco {investment.risk}
+                Risco {loan.risk}
               </span>
               <button className="text-qi-blue text-sm font-medium hover:underline">
                 Ver detalhes

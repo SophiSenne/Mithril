@@ -7,76 +7,81 @@ interface InvestmentsScreenProps {
 }
 
 export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
-  const investmentSuggestions = [
+  const lendingOpportunities = [
     {
       id: 1,
-      title: 'CDB Banco QI Tech',
-      subtitle: 'Certificado de Depósito Bancário',
-      return: '105% CDI',
-      returnPercentage: 11.2,
-      minAmount: 1000,
+      borrowerProfile: 'Empresário - E-commerce',
+      subtitle: 'Expansão de estoque para temporada',
+      creditScore: 750,
+      amount: 25000,
+      interestRate: 2.8,
       period: '12 meses',
       risk: 'Baixo',
-      liquidity: 'No vencimento',
+      monthlyPayment: 2250,
       icon: Shield,
       featured: true,
-      description: 'Investimento seguro com rentabilidade garantida'
+      description: 'Histórico excelente de pagamentos, garantias sólidas',
+      guarantees: ['Nota fiscal', 'Histórico bancário', 'Faturamento comprovado']
     },
     {
       id: 2,
-      title: 'Tesouro Direto IPCA+',
-      subtitle: 'Título público indexado à inflação',
-      return: 'IPCA + 5,8%',
-      returnPercentage: 10.5,
-      minAmount: 30,
-      period: '5 anos',
+      borrowerProfile: 'Profissional Liberal - Dentista',
+      subtitle: 'Aquisição de equipamentos odontológicos',
+      creditScore: 680,
+      amount: 50000,
+      interestRate: 3.2,
+      period: '24 meses',
       risk: 'Baixo',
-      liquidity: 'Diária',
+      monthlyPayment: 2350,
       icon: Shield,
       featured: false,
-      description: 'Protegido contra a inflação'
+      description: 'CRO ativo, consultório estabelecido há 8 anos',
+      guarantees: ['CRO ativo', 'Comprovante de renda', 'Imóvel próprio']
     },
     {
       id: 3,
-      title: 'LCI Banco QI Tech',
-      subtitle: 'Letra de Crédito Imobiliário',
-      return: '98% CDI',
-      returnPercentage: 10.1,
-      minAmount: 5000,
+      borrowerProfile: 'MEI - Prestador de Serviços',
+      subtitle: 'Capital de giro para crescimento',
+      creditScore: 620,
+      amount: 15000,
+      interestRate: 4.1,
       period: '18 meses',
-      risk: 'Baixo',
-      liquidity: 'No vencimento',
-      icon: Shield,
+      risk: 'Médio',
+      monthlyPayment: 950,
+      icon: TrendingUp,
       featured: false,
-      description: 'Isento de Imposto de Renda'
+      description: 'CNPJ ativo há 3 anos, faturamento crescente',
+      guarantees: ['CNPJ ativo', 'Faturamento comprovado', 'Conta bancária']
     },
     {
       id: 4,
-      title: 'Fundo Multimercado',
-      subtitle: 'Gestão ativa diversificada',
-      return: '15,5% a.a.',
-      returnPercentage: 15.5,
-      minAmount: 100,
-      period: 'Sem prazo',
+      borrowerProfile: 'Engenheiro - CLT Multinacional',
+      subtitle: 'Reforma residencial completa',
+      creditScore: 590,
+      amount: 30000,
+      interestRate: 4.8,
+      period: '36 meses',
       risk: 'Médio',
-      liquidity: 'D+1',
+      monthlyPayment: 1050,
       icon: TrendingUp,
       featured: false,
-      description: 'Estratégia dinâmica de investimentos'
+      description: 'Funcionário há 5 anos, salário estável',
+      guarantees: ['Carteira assinada', 'Comprovante residência', 'Holerite']
     },
     {
       id: 5,
-      title: 'Fundo de Ações',
-      subtitle: 'Investimento em bolsa de valores',
-      return: '18,2% a.a.',
-      returnPercentage: 18.2,
-      minAmount: 100,
-      period: 'Sem prazo',
+      borrowerProfile: 'Comerciante - Loja Física',
+      subtitle: 'Renovação completa do estoque',
+      creditScore: 540,
+      amount: 80000,
+      interestRate: 5.5,
+      period: '48 meses',
       risk: 'Alto',
-      liquidity: 'D+0',
+      monthlyPayment: 2100,
       icon: Zap,
       featured: false,
-      description: 'Alto potencial de retorno'
+      description: 'Loja estabelecida, necessita capital para expansão',
+      guarantees: ['Alvará comercial', 'Fiador avalista', 'Patrimônio']
     }
   ];
 
@@ -113,29 +118,29 @@ export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
         </div>
 
         <div className="text-center text-white">
-          <h2 className="text-2xl font-bold mb-2">Sugestões para Você</h2>
+          <h2 className="text-2xl font-bold mb-2">Oportunidades de Empréstimo</h2>
           <p className="text-white/80">
-            Investimentos personalizados baseados no seu perfil
+            Emprestando seu dinheiro diretamente para quem precisa
           </p>
         </div>
       </div>
 
       {/* Content */}
       <div className="px-6 -mt-4 space-y-4">
-        {investmentSuggestions.map((investment) => {
-          const Icon = investment.icon;
+        {lendingOpportunities.map((opportunity) => {
+          const Icon = opportunity.icon;
           
           return (
             <Card 
-              key={investment.id} 
+              key={opportunity.id} 
               className={`p-6 hover:shadow-lg transition-all duration-200 ${
-                investment.featured ? 'border-qi-blue bg-qi-blue/5' : ''
+                opportunity.featured ? 'border-qi-blue bg-qi-blue/5' : ''
               }`}
             >
-              {investment.featured && (
+              {opportunity.featured && (
                 <div className="flex items-center gap-2 mb-4">
                   <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                  <span className="text-xs font-medium text-qi-blue">RECOMENDADO</span>
+                  <span className="text-xs font-medium text-qi-blue">MELHOR TAXA</span>
                 </div>
               )}
 
@@ -144,38 +149,52 @@ export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
                   <Icon className="w-6 h-6 text-qi-blue" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-gray-dark mb-1">{investment.title}</h3>
-                  <p className="text-sm text-gray-medium mb-2">{investment.subtitle}</p>
-                  <p className="text-xs text-gray-medium">{investment.description}</p>
+                  <h3 className="font-bold text-gray-dark mb-1">{opportunity.borrowerProfile}</h3>
+                  <p className="text-sm text-gray-medium mb-2">{opportunity.subtitle}</p>
+                  <p className="text-xs text-gray-medium">{opportunity.description}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-lg font-bold text-success-custom">
-                    {investment.return}
+                    {opportunity.interestRate}%
                   </p>
-                  <p className="text-xs text-gray-medium">ao ano</p>
+                  <p className="text-xs text-gray-medium">ao mês</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <p className="text-xs text-gray-medium mb-1">Valor Mínimo</p>
+                  <p className="text-xs text-gray-medium mb-1">Valor Solicitado</p>
                   <p className="font-semibold text-gray-dark">
-                    {formatCurrency(investment.minAmount)}
+                    {formatCurrency(opportunity.amount)}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-medium mb-1">Prazo</p>
-                  <p className="font-semibold text-gray-dark">{investment.period}</p>
+                  <p className="font-semibold text-gray-dark">{opportunity.period}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-medium mb-1">Liquidez</p>
-                  <p className="font-semibold text-gray-dark">{investment.liquidity}</p>
+                  <p className="text-xs text-gray-medium mb-1">Score de Crédito</p>
+                  <p className="font-semibold text-gray-dark">{opportunity.creditScore}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-medium mb-1">Risco</p>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(investment.risk)}`}>
-                    {investment.risk}
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(opportunity.risk)}`}>
+                    {opportunity.risk}
                   </span>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <p className="text-xs text-gray-medium mb-2">Garantias oferecidas:</p>
+                <div className="flex flex-wrap gap-2">
+                  {opportunity.guarantees.map((guarantee, index) => (
+                    <span 
+                      key={index}
+                      className="px-2 py-1 bg-gray-100 text-gray-dark text-xs rounded-full"
+                    >
+                      {guarantee}
+                    </span>
+                  ))}
                 </div>
               </div>
 
@@ -184,14 +203,14 @@ export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
                   className="flex-1 bg-qi-blue hover:bg-qi-blue/90 text-white"
                   size="sm"
                 >
-                  Investir Agora
+                  Emprestar Agora
                 </Button>
                 <Button 
                   variant="outline" 
                   className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"
                   size="sm"
                 >
-                  Saiba Mais
+                  Ver Perfil
                 </Button>
               </div>
             </Card>
@@ -200,7 +219,7 @@ export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
 
         <div className="text-center py-6">
           <p className="text-sm text-gray-medium mb-4">
-            Não encontrou o investimento ideal?
+            Dúvidas sobre empréstimos pessoa a pessoa?
           </p>
           <Button variant="outline" className="border-qi-blue text-qi-blue">
             Falar com Especialista

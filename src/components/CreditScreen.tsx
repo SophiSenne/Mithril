@@ -310,6 +310,7 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
                   variant="outline" 
                   className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"
                   size="sm"
+                  onClick={() => onNavigate('investor-profile')}
                 >
                   Ver Perfil
                 </Button>

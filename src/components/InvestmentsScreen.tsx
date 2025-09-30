@@ -135,7 +135,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
       </div>
 
       {/* Content */}
-      <div className="px-6 -mt-4 space-y-4">
+      <div className="px-6 pt-6 space-y-4">
         {lendingOpportunities.map((opportunity) => {
           const Icon = opportunity.icon;
           

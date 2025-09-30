@@ -71,7 +71,7 @@ const config = {
         title: 'Mithril',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.jpeg',
         },
         items: [
           {
@@ -88,7 +88,7 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
+        style: 'light',
         links: [
           {
             title: 'Docs',

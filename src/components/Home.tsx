@@ -39,7 +39,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </button>
             <div>
               <p className="text-white/80 text-sm">Olá,</p>
-              <h2 className="text-white text-lg font-semibold">J.S.***</h2> {/* Anonymized current user */}
+              <h2 className="text-white text-lg font-semibold">João Silva</h2>
             </div>
           </div>
           <button className="p-2 bg-white/10 backdrop-blur rounded-full">

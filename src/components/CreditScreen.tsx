@@ -2,6 +2,17 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calculator, CreditCard, DollarSign, Clock, Plus } from 'lucide-react';
 import { useState } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface CreditScreenProps {
   onBack: () => void;
@@ -249,12 +260,39 @@ export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) 
               </div>
 
               <div className="flex gap-3">
-                <Button 
-                  className="flex-1 bg-qi-blue hover:bg-qi-blue/90 text-white"
-                  size="sm"
-                >
-                  Solicitar Aprovação
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button 
+                      className="flex-1 bg-qi-blue hover:bg-qi-blue/90 text-white"
+                      size="sm"
+                    >
+                      Solicitar Aprovação
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Confirmar Solicitação de Crédito</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Você está prestes a solicitar aprovação para um empréstimo de{' '}
+                        <strong>{formatCurrency(opportunity.amount)}</strong> com{' '}
+                        <strong>{opportunity.investorName}</strong>.
+                        <br /><br />
+                        <strong>Detalhes:</strong>
+                        <br />• Taxa: {opportunity.rate}% ao mês
+                        <br />• Prazo: {opportunity.period} meses  
+                        <br />• Parcela estimada: {formatCurrency(calculateInstallment(opportunity.amount, opportunity.rate, opportunity.period))}
+                        <br /><br />
+                        Deseja continuar com a solicitação?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction className="bg-qi-blue hover:bg-qi-blue/90">
+                        Confirmar Solicitação
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
                 <Button 
                   variant="outline" 
                   className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"

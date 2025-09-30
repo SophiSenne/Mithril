@@ -9,8 +9,10 @@ import RegistrationStep3 from '@/components/RegistrationStep3';
 import ExtractScreen from '@/components/ExtractScreen';
 import InvestmentsScreen from '@/components/InvestmentsScreen';
 import CreditScreen from '@/components/CreditScreen';
+import CreateCreditOpportunity from '@/components/CreateCreditOpportunity';
+import CreateInvestmentRequest from '@/components/CreateInvestmentRequest';
 
-type Screen = 'login' | 'register-1' | 'register-2' | 'register-3' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit';
+type Screen = 'login' | 'register-1' | 'register-2' | 'register-3' | 'home' | 'investment-dashboard' | 'credit-dashboard' | 'extract' | 'investments' | 'credit' | 'create-credit-opportunity' | 'create-investment-request';
 
 export default function MithrilApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
@@ -55,6 +57,14 @@ export default function MithrilApp() {
     setCurrentScreen('home');
   };
 
+  const handleBackToInvestments = () => {
+    setCurrentScreen('investments');
+  };
+
+  const handleBackToCredit = () => {
+    setCurrentScreen('credit');
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'login':
@@ -97,10 +107,16 @@ export default function MithrilApp() {
         return <ExtractScreen onBack={handleBack} />;
       
       case 'investments':
-        return <InvestmentsScreen onBack={handleBack} />;
+        return <InvestmentsScreen onBack={handleBack} onNavigate={handleNavigate} />;
       
       case 'credit':
-        return <CreditScreen onBack={handleBack} />;
+        return <CreditScreen onBack={handleBack} onNavigate={handleNavigate} />;
+      
+      case 'create-credit-opportunity':
+        return <CreateCreditOpportunity onBack={handleBackToInvestments} />;
+      
+      case 'create-investment-request':
+        return <CreateInvestmentRequest onBack={handleBackToCredit} />;
       
       default:
         return <LoginForm onLogin={handleLogin} onRegister={handleRegister} />;

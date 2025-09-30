@@ -1,12 +1,13 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, TrendingUp, Star, Shield, Zap } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Star, Shield, Zap, Plus } from 'lucide-react';
 
 interface InvestmentsScreenProps {
   onBack: () => void;
+  onNavigate: (screen: string) => void;
 }
 
-export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
+export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScreenProps) {
   const lendingOpportunities = [
     {
       id: 1,
@@ -119,9 +120,17 @@ export default function InvestmentsScreen({ onBack }: InvestmentsScreenProps) {
 
         <div className="text-center text-white">
           <h2 className="text-2xl font-bold mb-2">Oportunidades de Empréstimo</h2>
-          <p className="text-white/80">
+          <p className="text-white/80 mb-4">
             Emprestando seu dinheiro diretamente para quem precisa
           </p>
+          <Button 
+            onClick={() => onNavigate('create-credit-opportunity')}
+            className="bg-white/20 hover:bg-white/30 text-white border border-white/30"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Criar Nova Oportunidade
+          </Button>
         </div>
       </div>
 

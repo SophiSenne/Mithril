@@ -106,14 +106,25 @@ export default function InvestmentDashboard({ onBack, onNavigate }: InvestmentDa
       <div className="px-6 space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-dark">Meus Empréstimos</h3>
-          <Button 
-            onClick={() => onNavigate('investments')}
-            className="bg-success-custom hover:bg-success-custom/90 text-white"
-            size="sm"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            Emprestar
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => onNavigate('create-credit-opportunity')}
+              variant="outline"
+              className="border-success-custom text-success-custom hover:bg-success-custom/5"
+              size="sm"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Nova Oportunidade
+            </Button>
+            <Button 
+              onClick={() => onNavigate('investments')}
+              className="bg-success-custom hover:bg-success-custom/90 text-white"
+              size="sm"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Emprestar
+            </Button>
+          </div>
         </div>
 
         {loans.map((loan, index) => (

@@ -1,13 +1,14 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calculator, CreditCard, DollarSign, Clock } from 'lucide-react';
+import { ArrowLeft, Calculator, CreditCard, DollarSign, Clock, Plus } from 'lucide-react';
 import { useState } from 'react';
 
 interface CreditScreenProps {
   onBack: () => void;
+  onNavigate: (screen: string) => void;
 }
 
-export default function CreditScreen({ onBack }: CreditScreenProps) {
+export default function CreditScreen({ onBack, onNavigate }: CreditScreenProps) {
   const [selectedAmount, setSelectedAmount] = useState<number>(0);
 
   const creditOpportunities = [
@@ -102,9 +103,17 @@ export default function CreditScreen({ onBack }: CreditScreenProps) {
         <div className="text-center text-white">
           <h2 className="text-2xl font-bold mb-2">Crédito de Investidores</h2>
           <p className="text-3xl font-bold mb-2">R$ 100.000</p>
-          <p className="text-white/80">
+          <p className="text-white/80 mb-4">
             Disponível de investidores verificados
           </p>
+          <Button 
+            onClick={() => onNavigate('create-investment-request')}
+            className="bg-white/20 hover:bg-white/30 text-white border border-white/30"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Solicitar Investimento
+          </Button>
         </div>
       </div>
 

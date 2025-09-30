@@ -218,6 +218,7 @@ export default function InvestmentsScreen({ onBack, onNavigate }: InvestmentsScr
                   variant="outline" 
                   className="border-qi-blue text-qi-blue hover:bg-qi-blue/5"
                   size="sm"
+                  onClick={() => onNavigate('borrower-profile')}
                 >
                   Ver Perfil
                 </Button>

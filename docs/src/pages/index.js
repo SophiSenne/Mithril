@@ -15,8 +15,7 @@ function HomepageHeader() {
           Mithril
         </Heading>
         <p className={styles.heroSubtitle}>
-          Conectamos investidores e tomadores de crédito através de blockchain e IA. 
-          Juros até 70% menores que bancos. Rentabilidade superior ao CDI. Transparência total.
+          Conectamos investidores e tomadores de crédito através de blockchain e IA.
         </p>
         <div className={styles.buttons}>
           <Link

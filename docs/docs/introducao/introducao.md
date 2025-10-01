@@ -1,9 +1,9 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 title: Visão Geral do Projeto
 ---
 
-# Visão Geral do Projeto: Sistema de Carteira Digital P2P
+# Visão Geral do Projeto
 
 ## Introdução Geral
 

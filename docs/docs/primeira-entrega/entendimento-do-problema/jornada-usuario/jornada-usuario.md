@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 title: Jornada do Usuário
 ---
 
@@ -19,7 +19,7 @@ title: Jornada do Usuário
 
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/Jornada.png").default} style={{width: 800}} />
+        <img src={require("/img/Jornada.png").default} style={{width: 800}} />
         <br />
     </div>
 </div>

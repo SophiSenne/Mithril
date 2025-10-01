@@ -12,7 +12,7 @@ title: Persona
 
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/JulianaAmorim.png").default} style={{width: 800}} />
+        <img src={require("/img/JulianaAmorim.png").default} style={{width: 800}} />
         <br />
     </div>
 </div>

@@ -25,7 +25,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className={clsx('button', styles.buttonSecondary)}
-            to="/docs/introducao/introducao.md">
+            to="/docs/introducao">
             Ver Documentação
           </Link>
         </div>
@@ -301,7 +301,7 @@ function CTASection() {
             </Link>
             <Link
               className={clsx('button', styles.buttonSecondaryCTA)}
-              to="/docs/introducao/introducao.md">
+              to="/docs/introducao">
               Conhecer Mais
             </Link>
           </div>

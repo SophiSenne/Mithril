@@ -90,7 +90,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/introducao/introducao.md',
+                to: '/docs/introducao',
               },
             ],
           },

@@ -110,6 +110,29 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 * **Alívio:** blockchain garante prova pública de todas as operações.
 * **Ganho:** impacto social visível para investidores.
 
+## Como a Arquitetura Atende ao Desafio
+
+1. **Sistema de Carteira**
+   * O **Stellar Wallet Client-Side** permite que cada usuário gerencie suas chaves privadas localmente, garantindo soberania sobre seus ativos sem depender do backend.  
+   * As operações financeiras são assinadas e transmitidas diretamente para a Stellar Blockchain, assegurando transparência e auditabilidade pública.  
+   * Além disso, a integração com PIX e Open Finance amplia a usabilidade, permitindo movimentação fluida entre cripto e sistema financeiro tradicional.
+
+2. **Infraestrutura Peer-to-Peer (P2P)**
+   * A utilização da Stellar Blockchain proporciona liquidação descentralizada das transações, dispensando intermediários.  
+   * A lógica de pagamentos condicionais e trustlines garante trocas diretas e seguras entre investidores e tomadores, de forma verdadeiramente P2P.  
+   * O monitoramento em tempo real via Horizon API assegura visibilidade e notificações das operações sem dependência de instituições centrais.
+
+3. **Garantia de Requisitos de Segurança (Antifraude)**
+   * O Motor Antifraude, baseado em modelos de Machine Learning, avalia transações em tempo real, identificando padrões suspeitos de fraude.  
+   * O uso de biometria, autenticação forte (JWT, rate limiting) e armazenamento seguro (Keychain/Keystore) reforça a proteção do usuário.  
+   * A arquitetura de microsserviços com logs e auditoria imutáveis em MongoDB e trilhas completas de conformidade (LGPD) assegura rastreabilidade e governança.
+
+4. **Sistema de Score de Crédito**
+   * O microsserviço de Suitability & Score integra dados internos (histórico de uso da plataforma) e externos (Serasa, Open Finance) para calcular o risco do usuário.  
+   * Esse score é progressivo e adaptativo, sendo atualizado com base em comportamento financeiro e transacional.  
+   * O modelo de recomendação, integrado ao score, permite oferecer crédito mais justo e condizente com o perfil de cada tomador, reduzindo juros abusivos.
+
+
 ## Conclusão
 
 &emsp; À vista do apresentado, a arquitetura consolida os pilares de inovação, segurança e transparência. Embora durante o hackathon seja implementada uma versão reduzida, o desenho completo demonstra a visão de longo prazo: uma plataforma escalável e confiável, que integra blockchain, open finance, microsserviços e machine learning para oferecer soluções de crédito mais justas, prevenção de fraudes em tempo real e suporte inteligente ao usuário. Dessa forma, a proposta não apenas responde às dores do mercado — como burocracia, insegurança e desconfiança —, mas também cria valor ao proporcionar uma experiência simples, rápida e confiável, com potencial de impacto social positivo.

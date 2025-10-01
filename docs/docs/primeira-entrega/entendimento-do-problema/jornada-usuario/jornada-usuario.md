@@ -9,11 +9,11 @@ title: Jornada do Usuário
 
 &emsp; A Jornada do Usuário é uma representação visual do caminho que um usuário percorre ao interagir com um produto, serviço ou sistema. Nesse sentido, ela descreve as etapas, as emoções, as ações e os pontos de contato que o usuário experimenta ao longo de sua interação. Dessa maneira, a jornada do usuário é uma ferramenta valiosa para identificar oportunidades de melhoria, pontos de atrito e necessidades não atendidas, permitindo que a equipe de design e desenvolvimento crie soluções mais eficazes e centradas no usuário (Kalbach, 2016).
 
-&emsp; Além disso, é importante destacar que as ações descritas na jornada do usuário realizam uma relação direta com os [requisitos funcionais (RFs)](../requisitos-funcionais/requisitos-funcionais.md) estabelecidos, reforçando sua ligação intrínseca com as necessidades e dores levantadas pela persona [Juliana Amorim](../persona/persona.md). Dessa maneira, cada ação mapeada na jornada funciona como uma validação das funcionalidades, garantindo que a solução seja não apenas funcional, mas também significativa para o usuário final."
+&emsp; Além disso, é importante destacar que as ações descritas na jornada do usuário realizam uma relação direta com os requisitos funcionais (RFs) estabelecidos, reforçando sua ligação intrínseca com as necessidades e dores levantadas pela persona Juliana Amorim. Dessa maneira, cada ação mapeada na jornada funciona como uma validação das funcionalidades, garantindo que a solução seja não apenas funcional, mas também significativa para o usuário final."
 
 ## Desenvolvimento da Jornada do Usuário
 
-&emsp; A jornada da [Juliana Amorim](../persona/persona.md), a designer freelancer, através do Mithril é dividida em cinco fases principais, refletindo suas necessidades, dores e a interação com as funcionalidades da solução.
+&emsp; A jornada da Juliana Amorim, a designer freelancer, através do Mithril é dividida em cinco fases principais, refletindo suas necessidades, dores e a interação com as funcionalidades da solução.
 
 <p style={{textAlign: 'center'}}>Figura 1: Jornada do Usuário</p>
 
@@ -39,11 +39,11 @@ title: Jornada do Usuário
 
 - **Ações:**
 
-1. Inicia o processo de cadastro, preenchendo suas informações. ([RF01](../requisitos-funcionais/requisitos-funcionais.md#rf01))
+1. Inicia o processo de cadastro, preenchendo suas informações. (RF01)
 
-2. Passa pelo Forms Suitability para definir seu perfil inicial. ([RF01](../requisitos-funcionais/requisitos-funcionais.md#rf01))
+2. Passa pelo Forms Suitability para definir seu perfil inicial. (RF01)
 
-3. Configura a autenticação multifator (MFA) para maior segurança. ([RF02](../requisitos-funcionais/requisitos-funcionais.md#rf02))
+3. Configura a autenticação multifator (MFA) para maior segurança. (RF02)
 
 - **Pontos de Contato com a Solução:** Formulário de cadastro, tela de configuração de segurança (MFA).
 
@@ -57,11 +57,11 @@ title: Jornada do Usuário
     
 - **Ações:**
 
-1. Realiza o primeiro login, utilizando o teclado dinâmico para a senha e o MFA, sentindo-se mais segura. ([RF02](../requisitos-funcionais/requisitos-funcionais.md#rf02), [RF15](../requisitos-funcionais/requisitos-funcionais.md#rf15))
+1. Realiza o primeiro login, utilizando o teclado dinâmico para a senha e o MFA, sentindo-se mais segura. (RF02, RF15)
 
-2. Acessa a seção de perfil para confirmar que pode atuar como investidora e tomadora, valorizando a flexibilidade. ([RF03](../requisitos-funcionais/requisitos-funcionais.md#rf03))
+2. Acessa a seção de perfil para confirmar que pode atuar como investidora e tomadora, valorizando a flexibilidade. (RF03)
 
-3. Opta por importar seu histórico financeiro via Open Banking para enriquecer seu Score Dinâmico, esperando que isso melhore suas condições de crédito. ([RF08]((../requisitos-funcionais/requisitos-funcionais.md#rf08)))
+3. Opta por importar seu histórico financeiro via Open Banking para enriquecer seu Score Dinâmico, esperando que isso melhore suas condições de crédito. (RF08)
 
 - **Pontos de Contato com a Solução:** Tela de login, dashboard principal, seção de perfil, funcionalidade de Open Banking.
 
@@ -75,15 +75,15 @@ title: Jornada do Usuário
 
 - **Ações:**
 
-1. Inicia uma solicitação de empréstimo, especificando o valor e o prazo desejados para o software. ([RF06](../requisitos-funcionais/requisitos-funcionais.md#rf06))
+1. Inicia uma solicitação de empréstimo, especificando o valor e o prazo desejados para o software. (RF06)
 
-2. Acompanha o Leilão Reverso para ver as ofertas de juros dos credores, buscando a melhor taxa. ([RF06](../requisitos-funcionais/requisitos-funcionais.md#rf06))
+2. Acompanha o Leilão Reverso para ver as ofertas de juros dos credores, buscando a melhor taxa. (RF06)
 
-3. Aceita a melhor oferta de empréstimo, sentindo-se no controle da negociação. ([RF11](../requisitos-funcionais/requisitos-funcionais.md#rf11))
+3. Aceita a melhor oferta de empréstimo, sentindo-se no controle da negociação. (RF11)
 
-4. Realiza um depósito de fundos via Pix para iniciar um investimento, valorizando a agilidade. ([RF04](../requisitos-funcionais/requisitos-funcionais.md#rf04))
+4. Realiza um depósito de fundos via Pix para iniciar um investimento, valorizando a agilidade. (RF04)
 
-5. Visualiza as oportunidades de investimento e o nível de risco associado, sentindo-se informada e segura. ([RF09](../requisitos-funcionais/requisitos-funcionais.md#rf09))
+5. Visualiza as oportunidades de investimento e o nível de risco associado, sentindo-se informada e segura. (RF09)
 
 - **Pontos de Contato com a Solução:** Seção de empréstimos, tela de solicitação de empréstimo, painel de  leilão reverso, seção de investimentos, tela de depósito via Pix.
 
@@ -97,13 +97,13 @@ title: Jornada do Usuário
 
 - **Ações:**
 
-1. Acompanha em tempo real o status de seus investimentos e a alocação de seu dinheiro, sentindo-se no controle. ([RF10](../requisitos-funcionais/requisitos-funcionais.md#rf10))
+1. Acompanha em tempo real o status de seus investimentos e a alocação de seu dinheiro, sentindo-se no controle. (RF10)
 
-2. Verifica a previsão de fluxo de caixa para seus recebimentos de investimento e pagamentos de empréstimo, auxiliando no planejamento financeiro. ([RF12](../requisitos-funcionais/requisitos-funcionais.md#rf12))
+2. Verifica a previsão de fluxo de caixa para seus recebimentos de investimento e pagamentos de empréstimo, auxiliando no planejamento financeiro. (RF12)
 
-3. Realiza pagamentos do empréstimo e observa a atualização progressiva de seu Score Dinâmico, sentindo-se recompensada por sua responsabilidade. ([RF08](../requisitos-funcionais/requisitos-funcionais.md#rf08))
+3. Realiza pagamentos do empréstimo e observa a atualização progressiva de seu Score Dinâmico, sentindo-se recompensada por sua responsabilidade. (RF08)
 
-4. Recebe notificações sobre atividades suspeitas, caso ocorram, e o sistema bloqueia temporariamente ações, reforçando sua sensação de segurança. ([RF14](../requisitos-funcionais/requisitos-funcionais.md#rf14))
+4. Recebe notificações sobre atividades suspeitas, caso ocorram, e o sistema bloqueia temporariamente ações, reforçando sua sensação de segurança. (RF14)
 
 - **Pontos de Contato com a Solução:** Dashboard financeiro, painel de investimentos, painel de empréstimos
 
@@ -117,16 +117,16 @@ title: Jornada do Usuário
 
 - **Ações:**
 
-1. Solicita o resgate de parte de seus fundos investidos, percebendo a agilidade do processo. ([RF05](../requisitos-funcionais/requisitos-funcionais.md#rf05))
+1. Solicita o resgate de parte de seus fundos investidos, percebendo a agilidade do processo. (RF05)
 
-2. Recebe os fundos em sua conta bancária via Pix, confirmando a eficiência do sistema. ([RF05](../requisitos-funcionais/requisitos-funcionais.md#rf05))
+2. Recebe os fundos em sua conta bancária via Pix, confirmando a eficiência do sistema. (RF05)
 
-3. Considera uma nova solicitação de empréstimo, aproveitando seu Score Dinâmico melhorado e as condições favoráveis. ([RF06](../requisitos-funcionais/requisitos-funcionais.md#rf06), [RF08](../requisitos-funcionais/requisitos-funcionais.md#rf08))
+3. Considera uma nova solicitação de empréstimo, aproveitando seu Score Dinâmico melhorado e as condições favoráveis. (RF06, RF08)
 
-4. Explora novas oportunidades de investimento ou utiliza a funcionalidade de transferências P2P para enviar fundos a um colega, valorizando a versatilidade da plataforma. ([RF07](../requisitos-funcionais/requisitos-funcionais.md#rf07))
+4. Explora novas oportunidades de investimento ou utiliza a funcionalidade de transferências P2P para enviar fundos a um colega, valorizando a versatilidade da plataforma. (RF07)
 
 - **Pontos de Contato com a Solução:** Seção de empréstimos, seção de investimentos
 
 ## Conclusão
 
-&emsp; Por fim, esta jornada garante que as decisões de design e funcionalidades estejam alinhadas com a persona, pois cada etapa foi pensada a partir de suas necessidades, sentimentos e pensamentos. Ao visualizar o caminho da [Juliana Amorim](../persona/persona.md), a equipe pode priorizar o desenvolvimento de recursos que gerem confiança, como o teclado dinâmico ([RF15](../requisitos-funcionais/requisitos-funcionais.md#rf15)) e o bloqueio de ações suspeitas ([RF14](../requisitos-funcionais/requisitos-funcionais.md#rf14)), e que ofereçam autonomia, como o Score Dinâmico ([RF08](../requisitos-funcionais/requisitos-funcionais.md#rf08)) e a flexibilidade de negociação ([RF11](../requisitos-funcionais/requisitos-funcionais.md#rf11)).
+&emsp; Por fim, esta jornada garante que as decisões de design e funcionalidades estejam alinhadas com a persona, pois cada etapa foi pensada a partir de suas necessidades, sentimentos e pensamentos. Ao visualizar o caminho da Juliana Amorim, a equipe pode priorizar o desenvolvimento de recursos que gerem confiança, como o teclado dinâmico (RF15) e o bloqueio de ações suspeitas (RF14), e que ofereçam autonomia, como o Score Dinâmico (RF08) e a flexibilidade de negociação (RF11).

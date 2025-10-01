@@ -5,11 +5,11 @@ title: Proposta de Valor
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <div style={{ textAlign: 'center' }}>
-  <p><strong>Figura 1 - Modelo do Banco de Dados</strong></p>
+  <p><strong>Figura 1 - Canvas da Proposta de Valor</strong></p>
   <img 
     src={useBaseUrl('/img/CPV.png')} 
-    alt="Modelo do Banco de Dados" 
-    title="Modelo do Banco de Dados" 
+    alt="Canvas da Proposta de Valor" 
+    title="Canvas da Proposta de Valor" 
     style={{ maxWidth: '100%', height: 'auto' }}
   />
   <p>Fonte: Elaborado pelos autores (2025)</p>

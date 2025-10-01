@@ -45,3 +45,24 @@ Acesse a documentação completa do projeto:
 └── readme.md   # Este arquivo
 ```
 
+## Integrantes da equipe
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://www.linkedin.com/in/iisabelledantas/">
+          <img src="./static/img/Isabelle.png" style="border-radius: 10%; width: 150px;" alt="Isabelle Dantas"/><br>
+          <sub><b>Isabelle Dantas</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://www.linkedin.com/in/larissa-martins-304644245/">
+          <img src="./static/img/larissa.png" style="border-radius: 10%; width: 150px;" alt="Larissa Martins"/><br>
+          <sub><b>Larissa Martins</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+

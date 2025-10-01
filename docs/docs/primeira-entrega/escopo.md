@@ -3,7 +3,7 @@ sidebar_position: 3
 title: Escopo
 ---
 
-&emsp; Embora a arquitetura completa do sistema represente uma visão de longo prazo, durante o hackathon será desenvolvida **uma versão reduzida**, com foco em validar os principais fluxos críticos e comprovar a viabilidade técnica da proposta. O objetivo é entregar um protótipo funcional que demonstre o valor da solução, ainda que com escopo limitado em relação às funcionalidades finais previstas.  
+&emsp; Embora a arquitetura completa do sistema represente uma visão de longo prazo, durante o hackathon será desenvolvida uma versão reduzida, com foco em validar os principais fluxos críticos e comprovar a viabilidade técnica da proposta. O objetivo é entregar um protótipo funcional que demonstre o valor da solução, ainda que com escopo limitado em relação às funcionalidades finais previstas.  
 
 ## Funcionalidades
 
@@ -34,4 +34,4 @@ title: Escopo
 
 ## Justificativa
 
-&emsp; O escopo reduzido foi definido considerando as restrições de tempo e recursos do hackathon. As funcionalidades selecionadas priorizam a validação da proposta de valor, garantindo a entrega de um **MVP funcional** que demonstra a viabilidade técnica da solução, mesmo que limitado em relação à visão final do produto.
+&emsp; O escopo reduzido foi definido considerando as restrições de tempo e recursos do hackathon. As funcionalidades selecionadas priorizam a validação da proposta de valor, garantindo a entrega de um MVP funcional que demonstra a viabilidade técnica da solução, mesmo que limitado em relação à visão final do produto.

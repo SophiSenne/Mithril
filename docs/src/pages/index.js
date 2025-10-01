@@ -35,6 +35,25 @@ function HomepageHeader() {
   );
 }
 
+function MithrilNameSection() {
+  return (
+    <section className={styles.mithrilSection}>
+      <div className="container">
+        <Heading as="h2" className={clsx(styles.sectionTitle, 'text--center')} style={{ marginTop: '60px' }} >
+          Por que Mithril?
+        </Heading>
+        <p className={clsx(styles.sectionSubtitle, 'text--center')}>
+          O nome <strong>Mithril</strong> foi escolhido em referência ao universo da Terra-média, de <em>O Senhor dos Anéis</em>. 
+          No contexto literário, o mithril é um metal raríssimo, extremamente leve, resistente e de grande valor, capaz de oferecer 
+          proteção sem comprometer a mobilidade. Essa simbologia conecta-se diretamente à proposta do sistema: oferecer uma 
+          infraestrutura segura, transparente e robusta, mas ao mesmo tempo ágil, acessível e eficiente, unindo força e leveza em 
+          um ecossistema financeiro de próxima geração.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function ValueProposition() {
   return (
     <section className={styles.valueSection}>
@@ -301,11 +320,11 @@ export default function Home() {
       description="Conectamos investidores e tomadores através de blockchain e IA. Crédito rápido, seguro e sem complicações.">
       <HomepageHeader />
       <main>
+        <MithrilNameSection />
         <ValueProposition />
         <HowItWorks />
         <DifferentialsSection />
         <TechStack />
-        <HomepageFeatures />
         <CTASection />
       </main>
     </Layout>

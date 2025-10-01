@@ -301,7 +301,7 @@ function CTASection() {
             </Link>
             <Link
               className={clsx('button', styles.buttonSecondaryCTA)}
-              to="/docs/intro">
+              to="/docs/introducao/introducao">
               Conhecer Mais
             </Link>
           </div>

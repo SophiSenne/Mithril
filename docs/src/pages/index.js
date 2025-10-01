@@ -325,7 +325,6 @@ export default function Home() {
         <HowItWorks />
         <DifferentialsSection />
         <TechStack />
-        <CTASection />
       </main>
     </Layout>
   );

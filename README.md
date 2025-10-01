@@ -52,14 +52,14 @@ Acesse a documentação completa do projeto:
     <tr>
       <td align="center">
         <a href="https://www.linkedin.com/in/iisabelledantas/">
-          <img src="./static/img/Isabelle.png" style="border-radius: 10%; width: 150px;" alt="Isabelle Dantas"/><br>
+          <img src="./docs/static/img/Isabelle.png" style="border-radius: 10%; width: 150px;" alt="Isabelle Dantas"/><br>
           <sub><b>Isabelle Dantas</b></sub>
         </a>
       </td>
       <td align="center">
-        <a href="https://www.linkedin.com/in/larissa-martins-304644245/">
-          <img src="./static/img/larissa.png" style="border-radius: 10%; width: 150px;" alt="Larissa Martins"/><br>
-          <sub><b>Larissa Martins</b></sub>
+        <a href="https://www.linkedin.com/in/sophia-emanuele-de-senne-silva/">
+          <img src="./docs/static/img/sophia.png" style="border-radius: 10%; width: 150px;" alt="Sophia Emanuele"/><br>
+          <sub><b>Sophia Emanuele</b></sub>
         </a>
       </td>
     </tr>

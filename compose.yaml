@@ -1,0 +1,23 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+
+  stellar-auth:
+    build: ./src/backend/api-autenticacao
+    container_name: stellar-auth
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+    depends_on:
+      - redis
+    ports:
+      - "8000:8000"
+
+volumes:
+  redis-data:

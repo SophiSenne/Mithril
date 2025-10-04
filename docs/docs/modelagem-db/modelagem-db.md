@@ -3,6 +3,8 @@ sidebar_position: 8
 title: Modelagem do Banco de Dados
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 &emsp; Este documento descreve a modelagem do banco de dados do sistema, que integra funcionalidades de carteira digital, infraestrutura P2P, avaliação de crédito, investimentos, transações via Stellar Blockchain, detecção de fraude, LGPD e chat de suporte. Ademais, a modelagem foi desenvolvida para garantir escalabilidade, integridade referencial, segurança de dados e suporte a análises avançadas via Machine Learning, mantendo aderência a normas regulatórias (LGPD, Banco Central e Open Finance).
 
 ## Objetivos
@@ -20,6 +22,17 @@ title: Modelagem do Banco de Dados
 &emsp; A modelagem foi estruturada em um banco de dados relacional (PostgreSQL), utilizando UUIDs como identificadores primários para todas as entidades, além de recursos como JSONB para flexibilidade de dados, enums para padronização de classificações e tabelas de histórico para rastreabilidade.
 
 &emsp; O código abaixo representa um diagrama com a organização das entidades e seus relacionamentos principais. A visualização do diagrama está disponível [aqui](https://www.mermaidchart.com/d/790a16d5-b2ad-446a-ab7e-109478876d87).
+
+<div style={{ textAlign: 'center' }}>
+  <p><strong>Figura 1 - Modelagem do Banco de Dados</strong></p>
+  <img 
+    src={useBaseUrl('/img/db.svg')} 
+    alt="Modelagem do Banco de Dados" 
+    title="Modelagem do Banco de Dados" 
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+  <p>Fonte: Elaborado pelos autores (2025)</p>
+</div>
 
 ```mermaid
 erDiagram
@@ -93,6 +106,15 @@ erDiagram
         jsonb detalhamento
         timestamp calculado_em
         timestamp valido_ate
+    }
+
+    SCORE_INVESTIDOR {
+        uuid id PK
+        uuid usuario_id FK
+        int score_investidor "0-1000"
+        enum classificacao "EXCELENTE, BOM, REGULAR, RUIM"
+        jsonb fatores
+        timestamp calculado_em
     }
 
     HISTORICO_SCORE {
@@ -182,6 +204,55 @@ erDiagram
         timestamp submetido_em
         timestamp confirmado_em
         int ledger_sequence
+    }
+
+    FEE_CONFIG {
+        uuid id PK
+        string tipo "MITHRIL, FUNDO_INADIMPLENCIA, PIX, CAMBIAL"
+        decimal percentual
+        decimal valor_fixo
+        timestamp atualizado_em
+    }
+    
+    FUNDO_INADIMPLENCIA {
+        uuid id PK
+        decimal saldo_atual
+        decimal total_reservado
+        decimal total_utilizado
+        timestamp atualizado_em
+    }
+
+    MOVIMENTACAO_FINANCEIRA {
+        uuid id PK
+        uuid usuario_id FK
+        uuid origem_id
+        uuid destino_id
+        enum tipo "DEPOSITO, SAQUE, INVESTIMENTO, PAGAMENTO, TAXA, RENDIMENTO"
+        decimal valor
+        string descricao
+        timestamp criado_em
+    }
+
+    SMART_CONTRACT {
+        uuid id PK
+        string contract_id UK
+        string nome
+        string descricao
+        string rede "TESTNET, MAINNET"
+        string endereco_deploy
+        string wasm_hash
+        timestamp criado_em
+    }
+
+    CONVERSAO_CAMBIAL {
+        uuid id PK
+        uuid usuario_id FK
+        string par_moeda "BRL/USDC"
+        decimal taxa_conversao
+        decimal valor_origem
+        decimal valor_destino
+        string stellar_tx_id
+        timestamp executado_em
     }
 
     AUDITORIA_BLOCKCHAIN {
@@ -302,39 +373,109 @@ erDiagram
         timestamp enviado_em
     }
 
-    %% Relacionamentos
-    USUARIO ||--o{ AUTENTICACAO : "tem"
-    USUARIO ||--o{ STELLAR_WALLET : "possui"
-    USUARIO ||--o| PERFIL_INVESTIDOR : "tem"
-    USUARIO ||--o| PERFIL_TOMADOR : "tem"
-    USUARIO ||--o{ SCORE_CREDITO : "possui"
-    USUARIO ||--o{ SOLICITACAO_CREDITO : "solicita"
-    USUARIO ||--o{ OFERTA_INVESTIMENTO : "oferece"
-    USUARIO ||--o{ TRANSACAO_STELLAR : "realiza origem"
-    USUARIO ||--o{ TRANSACAO_STELLAR : "recebe destino"
-    USUARIO ||--o{ ANALISE_FRAUDE : "analisado"
-    USUARIO ||--o{ RECOMENDACAO : "recebe"
-    USUARIO ||--o{ CONSENTIMENTO_LGPD : "consente"
-    USUARIO ||--o{ CONSULTA_SERASA : "consultado"
-    USUARIO ||--o{ DADOS_OPEN_FINANCE : "sincroniza"
-    USUARIO ||--o{ TRANSACAO_PIX : "realiza"
-    USUARIO ||--o{ CONVERSA_CHAT : "inicia"
+    %% ========================================
+    %% RELACIONAMENTOS COMPLETOS
+    %% ========================================
     
-    SCORE_CREDITO ||--o{ HISTORICO_SCORE : "possui"
+    %% USUARIO - Autenticação e Carteiras
+    USUARIO ||--o{ AUTENTICACAO : "possui histórico"
+    USUARIO ||--o{ STELLAR_WALLET : "possui carteiras"
     
-    SOLICITACAO_CREDITO ||--o{ OFERTA_INVESTIMENTO : "recebe"
-    SOLICITACAO_CREDITO ||--o| CONTRATO : "gera"
-    SOLICITACAO_CREDITO ||--o{ RECOMENDACAO : "recomendado"
+    %% USUARIO - Perfis (1:1 opcional)
+    USUARIO ||--o| PERFIL_INVESTIDOR : "tem perfil"
+    USUARIO ||--o| PERFIL_TOMADOR : "tem perfil"
     
-    OFERTA_INVESTIMENTO ||--o| CONTRATO : "origina"
+    %% USUARIO - Scores
+    USUARIO ||--o{ SCORE_CREDITO : "tem histórico score"
+    USUARIO ||--o{ SCORE_INVESTIDOR : "tem avaliação"
     
-    CONTRATO ||--o{ PARCELA : "possui"
+    %% USUARIO - Movimentações Financeiras
+    USUARIO ||--o{ MOVIMENTACAO_FINANCEIRA : "realiza movimentação"
+    USUARIO ||--o{ CONVERSAO_CAMBIAL : "executa conversão"
     
-    TRANSACAO_STELLAR ||--o| AUDITORIA_BLOCKCHAIN : "auditada"
-    TRANSACAO_STELLAR ||--o| ANALISE_FRAUDE : "analisada"
-    TRANSACAO_STELLAR ||--o| TRANSACAO_PIX : "relacionada"
+    %% USUARIO - Como Tomador
+    USUARIO ||--o{ SOLICITACAO_CREDITO : "solicita crédito"
+    USUARIO ||--o{ CONTRATO : "é tomador em"
     
-    ANALISE_FRAUDE ||--o{ ALERTA_FRAUDE : "gera"
+    %% USUARIO - Como Investidor
+    USUARIO ||--o{ OFERTA_INVESTIMENTO : "oferece investimento"
+    USUARIO ||--o{ CONTRATO : "é investidor em"
     
-    CONVERSA_CHAT ||--o{ MENSAGEM_CHAT : "contém"
+    %% USUARIO - Transações (origem e destino)
+    USUARIO ||--o{ TRANSACAO_STELLAR : "origina transação"
+    USUARIO ||--o{ TRANSACAO_STELLAR : "recebe transação"
+    
+    %% USUARIO - Análises e Segurança
+    USUARIO ||--o{ ANALISE_FRAUDE : "é analisado"
+    USUARIO ||--o{ RECOMENDACAO : "recebe recomendação"
+    
+    %% USUARIO - LGPD e Compliance
+    USUARIO ||--o{ CONSENTIMENTO_LGPD : "fornece consentimento"
+    
+    %% USUARIO - Integrações Externas
+    USUARIO ||--o{ CONSULTA_SERASA : "tem consulta"
+    USUARIO ||--o{ DADOS_OPEN_FINANCE : "sincroniza dados"
+    USUARIO ||--o{ TRANSACAO_PIX : "realiza PIX"
+    
+    %% USUARIO - Chat
+    USUARIO ||--o{ CONVERSA_CHAT : "participa de"
+    
+    %% SCORE - Histórico
+    SCORE_CREDITO ||--o{ HISTORICO_SCORE : "gera histórico"
+    
+    %% CONSULTA_SERASA - Atualiza SCORE_CREDITO
+    CONSULTA_SERASA }o--|| SCORE_CREDITO : "atualiza"
+    
+    %% DADOS_OPEN_FINANCE - Influencia SCORE_CREDITO
+    DADOS_OPEN_FINANCE }o--|| SCORE_CREDITO : "influencia"
+    
+    %% Fluxo de Crédito P2P
+    SOLICITACAO_CREDITO ||--o{ OFERTA_INVESTIMENTO : "recebe ofertas"
+    SOLICITACAO_CREDITO ||--o| CONTRATO : "origina contrato"
+    OFERTA_INVESTIMENTO ||--o| CONTRATO : "concretiza em"
+    
+    %% SOLICITACAO_CREDITO - Recomendações
+    SOLICITACAO_CREDITO ||--o{ RECOMENDACAO : "gera recomendação"
+    
+    %% Contratos e Parcelas
+    CONTRATO ||--|{ PARCELA : "divide em"
+    
+    %% CONTRATO - Vincula Smart Contract
+    CONTRATO }o--o| SMART_CONTRACT : "executado por"
+    
+    %% PARCELA - Transações
+    PARCELA }o--o| TRANSACAO_STELLAR : "paga via"
+    
+    %% TRANSACAO_STELLAR - Auditoria e Análises
+    TRANSACAO_STELLAR ||--o| AUDITORIA_BLOCKCHAIN : "auditada em"
+    TRANSACAO_STELLAR ||--o{ ANALISE_FRAUDE : "analisada em"
+    TRANSACAO_STELLAR ||--o| TRANSACAO_PIX : "vincula PIX"
+    
+    %% TRANSACAO_STELLAR - Smart Contract
+    TRANSACAO_STELLAR }o--o| SMART_CONTRACT : "executada por"
+    
+    %% TRANSACAO_STELLAR - Movimentação Financeira
+    TRANSACAO_STELLAR ||--o| MOVIMENTACAO_FINANCEIRA : "registra em"
+    
+    %% CONVERSAO_CAMBIAL - Transação Stellar
+    CONVERSAO_CAMBIAL }o--|| TRANSACAO_STELLAR : "realizada via"
+    
+    %% Detecção de Fraude
+    ANALISE_FRAUDE ||--o{ ALERTA_FRAUDE : "gera alertas"
+    
+    %% FEE_CONFIG - Aplicada em Transações
+    FEE_CONFIG }o--o{ TRANSACAO_STELLAR : "taxa aplicada em"
+    FEE_CONFIG }o--o{ TRANSACAO_PIX : "taxa aplicada em"
+    FEE_CONFIG }o--o{ CONVERSAO_CAMBIAL : "taxa aplicada em"
+    
+    %% FUNDO_INADIMPLENCIA - Parcelas Inadimplentes
+    FUNDO_INADIMPLENCIA }o--o{ PARCELA : "cobre inadimplência"
+    FUNDO_INADIMPLENCIA }o--o{ CONTRATO : "protege contrato"
+    
+    %% Chat
+    CONVERSA_CHAT ||--|{ MENSAGEM_CHAT : "contém mensagens"
+    
+    %% MOVIMENTACAO_FINANCEIRA - Origem/Destino podem ser várias entidades
+    CONTRATO }o--o{ MOVIMENTACAO_FINANCEIRA : "origina movimento"
+    PARCELA }o--o{ MOVIMENTACAO_FINANCEIRA : "registra pagamento"
 ```

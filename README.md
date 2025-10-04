@@ -1,41 +1,54 @@
 # Mithril
 
-Projeto desenvolvido durante o **Hackathon QI Tech**.
+💳 **Plataforma de crédito e investimento para freelancers e autônomos**
+🔒 Transparente | ⚡ Rápida | 🌍 Justa
 
-## Desafio
+O Mithril é uma plataforma de crédito e investimento que visa empoderar freelancers e profissionais autônomos, reconhecendo as dificuldades que esses profissionais enfrentam para acessar crédito devido à renda variável e à falta de histórico formal, o Mithril oferece uma solução transparente, segura e eficiente.
 
-Construir um **produto coeso** que contemplasse:
+Construído sobre a blockchain Stellar, o Mithril conecta investidores a tomadores de crédito de forma direta, eliminando intermediários e reduzindo a burocracia. Todas as transações são registradas em contratos inteligentes, garantindo total transparência e imutabilidade. Investidores podem escolher onde alocar seus fundos, enquanto tomadores de crédito podem solicitar empréstimos com juros padronizados e significativamente mais baixos do que os praticados pelos bancos tradicionais.
 
-* Sistema de carteira digital.
-* Infraestrutura **P2P** para transações.
-* Garantia de requisitos de **segurança (antifraude)**.
-* Sistema de **score de crédito** inovador.
-
-## Descrição
-
-O **Mithril** é uma plataforma de **fintech descentralizada** que oferece:
-
-* **Crédito justo** para tomadores.
-* **Investimentos transparentes** para investidores.
-
-A solução busca atacar dores importantes de cada público:
-
-* **Investidores**
-
-  * Falta de transparência sobre onde o dinheiro é aplicado.
-  * Risco de fraude e calotes sem proteção.
-  * Burocracia excessiva em bancos tradicionais.
-
-* **Tomadores de crédito**
-
-  * Juros abusivos.
-  * Score limitado.
-  * Demora no processo de aprovação.
+Com o Mithril, freelancers e autônomos ganham acesso a um ecossistema financeiro justo e adaptado às suas realidades, impulsionando seu crescimento e estabilidade financeira.
 
 ## Documentação
 
 Acesse a documentação completa do projeto:
 👉 [Mithril Docs](https://sophisenne.github.io/Mithril/)
+
+## 🚀 Tecnologias
+
+- **Frontend:** React, Tailwind, Vite
+- **Documentação:** Docusaurus
+- **Blockchain:** Stellar
+- **Backend & APIs:** 
+- **Deploy:** Vercel
+
+## ⚙️ Como executar
+
+Clone o repositório:
+```bash
+git clone https://github.com/seuuser/Mithril.git
+cd Mithril
+```
+
+### Rodar a documentação
+
+```bash
+cd docs
+npm install
+npm start
+```
+
+### Rodar o sistema
+
+As instruções detalhadas para rodar o sistema podem ser encontradas em `src/readme.md`.
+
+## 📸 Demonstração
+
+![Tela principal do Mithril](./docs/static/img/demo.png)
+
+## 🛠️ Funcionalidades
+
+- [x] ....
 
 ## 📂 Estrutura de Pastas
 
@@ -45,24 +58,12 @@ Acesse a documentação completa do projeto:
 └── readme.md   # Este arquivo
 ```
 
-## Integrantes da equipe
+## 👩‍💻 Equipe
 
 <div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <a href="https://www.linkedin.com/in/iisabelledantas/">
-          <img src="./docs/static/img/Isabelle.png" style="border-radius: 10%; width: 150px;" alt="Isabelle Dantas"/><br>
-          <sub><b>Isabelle Dantas</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://www.linkedin.com/in/sophia-emanuele-de-senne-silva/">
-          <img src="./docs/static/img/sophia.png" style="border-radius: 10%; width: 150px;" alt="Sophia Emanuele"/><br>
-          <sub><b>Sophia Emanuele</b></sub>
-        </a>
-      </td>
-    </tr>
-  </table>
+
+| [<img src="./docs/static/img/Isabelle.png" width=150><br><sub><b>Isabelle Dantas</b></sub>](https://www.linkedin.com/in/iisabelledantas/) | [<img src="./docs/static/img/sophia.png" width=150><br><sub><b>Sophia Emanuele</b></sub>](https://www.linkedin.com/in/sophia-emanuele-de-senne-silva/) |
+|---|---|
+
 </div>
 

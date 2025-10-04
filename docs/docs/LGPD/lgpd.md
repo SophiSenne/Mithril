@@ -1,6 +1,6 @@
 ---
-sidebar_position: 6
-title: Política de Privacidade do Sistema de Carteira Digital P2P
+sidebar_position: 8
+title: Política de Privacidade
 ---
 
 # Política de Privacidade

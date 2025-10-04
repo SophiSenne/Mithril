@@ -15,7 +15,7 @@ function HomepageHeader() {
           Mithril
         </Heading>
         <p className={styles.heroSubtitle}>
-          Conectamos investidores e tomadores de crédito através de blockchain e IA.
+          Conectamos investidores e tomadores de crédito por meio de blockchain.
         </p>
         <div className={styles.buttons}>
           <Link

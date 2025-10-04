@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 6
 title: Diagrama de Arquitetura
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';

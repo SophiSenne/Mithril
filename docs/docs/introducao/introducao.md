@@ -62,7 +62,7 @@ O Mithril gerará receita através da cobrança de uma **taxa percentual mínima
 
 ### Proteção aos Investidores
 
-Para mitigar o risco de inadimplência e proteger os investidores, o Mithril implementará um mecanismo de segurança inovador. A cada transação, uma pequena **taxa de gás (gas fee)** será coletada. Essa taxa será direcionada para um fundo de reserva que poderá ser utilizado para ressarcir investidores em caso de não pagamento por parte do tomador de crédito. Este mecanismo, combinado com a transparência do blockchain, visa construir um ambiente de confiança e segurança para o capital investido.
+Para mitigar o risco de inadimplência e proteger os investidores, o Mithril implementará um mecanismo de segurança inovador. A cada transação, uma pequena taxa será coletada, a qual será direcionada para um fundo de reserva que poderá ser utilizado para ressarcir investidores em caso de não pagamento por parte do tomador de crédito. Este mecanismo, combinado com a transparência do blockchain, visa construir um ambiente de confiança e segurança para o capital investido.
 
 ## Escolha da Blockchain Stellar
 

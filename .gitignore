@@ -1,1 +1,11 @@
+# Wallets
+*.json
+*_wallet.json
+testnet_*.json
+mainnet_*.json
+src/stellar/wallets/target/
+
+# Chaves
+*.key
+*.pem
 .env

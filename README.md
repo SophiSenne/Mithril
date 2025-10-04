@@ -1,6 +1,7 @@
 # Mithril
 
 💳 **Plataforma de crédito e investimento para freelancers e autônomos**
+
 🔒 Transparente | ⚡ Rápida | 🌍 Justa
 
 O Mithril é uma plataforma de crédito e investimento que visa empoderar freelancers e profissionais autônomos, reconhecendo as dificuldades que esses profissionais enfrentam para acessar crédito devido à renda variável e à falta de histórico formal, o Mithril oferece uma solução transparente, segura e eficiente.

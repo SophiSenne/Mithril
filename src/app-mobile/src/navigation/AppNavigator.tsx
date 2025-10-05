@@ -155,21 +155,6 @@ const AppNavigator = () => {
         component={LoanOpportunitiesScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen 
-        name="BorrowerProfile" 
-        component={BorrowerProfileScreen}
-        options={{ title: 'Perfil do Tomador' }}
-      />
-      <Stack.Screen 
-        name="InvestorProfile" 
-        component={InvestorProfileScreen}
-        options={{ title: 'Perfil do Investidor' }}
-      />
-      <Stack.Screen 
-        name="Notifications" 
-        component={NotificationsScreen}
-        options={{ title: 'Notificações' }}
-      />
     </Stack.Navigator>
   );
 };

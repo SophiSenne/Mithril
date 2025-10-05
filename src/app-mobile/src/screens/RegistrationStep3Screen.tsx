@@ -84,7 +84,7 @@ const RegistrationStep3Screen: React.FC = () => {
     }
     
     // Complete registration and navigate to main app
-    navigation.navigate('MainTabs' as never);
+    navigation.navigate('Login' as never);
   };
 
   const handleBack = () => {

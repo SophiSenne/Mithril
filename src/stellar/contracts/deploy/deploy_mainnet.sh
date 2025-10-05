@@ -55,6 +55,9 @@ if [ "$CONFIRM_ACCOUNT" != "yes" ]; then
     exit 0
 fi
 
+# Navegar para o diretório raiz dos contratos
+cd "$(dirname "$0")/.."
+
 # Build dos contratos com otimizações máximas
 echo -e "${YELLOW}[1/4] Building contracts (release mode)...${NC}"
 stellar contract build --release
@@ -135,7 +138,7 @@ echo ""
 
 # Salvar IDs dos contratos
 echo -e "${YELLOW}Saving contract IDs...${NC}"
-cat > deployed_contracts_mainnet.txt <<EOF
+cat > deploy/deployed_contracts_mainnet.txt <<EOF
 # Mithril Contracts - MAINNET
 # Deployed at: $(date)
 
@@ -147,7 +150,7 @@ LOAN_CONTRACT=$LOAN_ID
 # Source Account: $SOURCE_ACCOUNT
 EOF
 
-echo -e "${GREEN}✓ Contract IDs saved to deployed_contracts_mainnet.txt${NC}"
+echo -e "${GREEN}✓ Contract IDs saved to deploy/deployed_contracts_mainnet.txt${NC}"
 echo ""
 
 # Resumo
@@ -162,7 +165,7 @@ echo "  Loan:         $LOAN_ID"
 echo ""
 echo -e "${RED}IMPORTANTE:${NC}"
 echo "1. Guarde os IDs dos contratos em local seguro"
-echo "2. Faça backup do arquivo deployed_contracts_mainnet.txt"
+echo "2. Faça backup do arquivo deploy/deployed_contracts_mainnet.txt"
 echo "3. Inicialize os contratos antes de usar"
 echo "4. Configure as integrações entre contratos"
 echo ""

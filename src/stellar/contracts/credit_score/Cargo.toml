@@ -1,13 +1,16 @@
-[workspace]
-members = [
-    "credit_score",
-    "governance",
-    "loan",
-]
-resolver = "2"
+[package]
+name = "credit_score"
+version = "0.1.0"
+edition = "2021"
 
-[workspace.dependencies]
-soroban-sdk = "21.0.0"
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+soroban-sdk = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
 
 [profile.release]
 opt-level = "z"

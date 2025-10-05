@@ -32,6 +32,9 @@ echo "Network: $NETWORK"
 echo "Source Account: $SOURCE_ACCOUNT"
 echo ""
 
+# Navegar para o diretório raiz dos contratos
+cd "$(dirname "$0")/.."
+
 # Build dos contratos
 echo -e "${YELLOW}[1/4] Building contracts...${NC}"
 stellar contract build
@@ -47,7 +50,7 @@ echo ""
 # Deploy Credit Score Contract
 echo -e "${YELLOW}[2/4] Deploying Credit Score Contract...${NC}"
 CREDIT_SCORE_ID=$(stellar contract deploy \
-    --wasm target/wasm32-unknown-unknown/release/credit_score.wasm \
+    --wasm target/wasm32v1-none/release/credit_score.wasm \
     --source $SOURCE_ACCOUNT \
     --network $NETWORK)
 
@@ -63,7 +66,7 @@ echo ""
 # Deploy Governance Contract
 echo -e "${YELLOW}[3/4] Deploying Governance Contract...${NC}"
 GOVERNANCE_ID=$(stellar contract deploy \
-    --wasm target/wasm32-unknown-unknown/release/governance.wasm \
+    --wasm target/wasm32v1-none/release/governance.wasm \
     --source $SOURCE_ACCOUNT \
     --network $NETWORK)
 
@@ -79,7 +82,7 @@ echo ""
 # Deploy Loan Contract
 echo -e "${YELLOW}[4/4] Deploying Loan Contract...${NC}"
 LOAN_ID=$(stellar contract deploy \
-    --wasm target/wasm32-unknown-unknown/release/loan.wasm \
+    --wasm target/wasm32v1-none/release/loan.wasm \
     --source $SOURCE_ACCOUNT \
     --network $NETWORK)
 
@@ -94,7 +97,7 @@ echo ""
 
 # Salvar IDs dos contratos
 echo -e "${YELLOW}Saving contract IDs...${NC}"
-cat > deployed_contracts_testnet.txt <<EOF
+cat > deploy/deployed_contracts_testnet.txt <<EOF
 # Mithril Contracts - Testnet
 # Deployed at: $(date)
 
@@ -106,7 +109,7 @@ LOAN_CONTRACT=$LOAN_ID
 # Source Account: $SOURCE_ACCOUNT
 EOF
 
-echo -e "${GREEN}✓ Contract IDs saved to deployed_contracts_testnet.txt${NC}"
+echo -e "${GREEN}✓ Contract IDs saved to deploy/deployed_contracts_testnet.txt${NC}"
 echo ""
 
 # Resumo
@@ -124,4 +127,4 @@ echo "1. Inicializar os contratos"
 echo "2. Configurar as integrações entre contratos"
 echo "3. Testar as funcionalidades"
 echo ""
-echo "Use o arquivo deployed_contracts_testnet.txt para referência"
+echo "Use o arquivo deploy/deployed_contracts_testnet.txt para referência"

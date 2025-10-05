@@ -4,6 +4,7 @@
 testnet_*.json
 mainnet_*.json
 src/stellar/wallets/target/
+src/stellar/contracts/target/
 
 # Chaves
 *.key

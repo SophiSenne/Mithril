@@ -32,6 +32,10 @@ source $CONFIG_FILE
 echo -e "${YELLOW}Configurações carregadas${NC}"
 echo ""
 
+# Constantes de tempo
+DAY_IN_SECONDS=86400
+CURRENT_TIME=$(date +%s)
+
 # Criar contas de teste
 echo -e "${CYAN}Criando contas de teste...${NC}"
 
@@ -110,15 +114,18 @@ echo "  - Valor solicitado: 5.000 (em stroops: 50000000000)"
 echo "  - Parcelas desejadas: 6"
 echo "  - Descrição: Expansão de negócio freelancer"
 
-# Calcular datas de pagamento (próximos 6 meses, dia 10)
-CURRENT_TIME=$(date +%s)
-PAYMENT_DATES=""
-for i in {1..6}; do
-    PAYMENT_DATE=$((CURRENT_TIME + (i * 30 * 86400)))
-    PAYMENT_DATES="$PAYMENT_DATES --preferred_payment_dates $PAYMENT_DATE"
-done
+# Calcular datas de pagamento (próximos 6 meses)
+PAYMENT_DATE_1=$((CURRENT_TIME + 30*DAY_IN_SECONDS))
+PAYMENT_DATE_2=$((CURRENT_TIME + 60*DAY_IN_SECONDS))
+PAYMENT_DATE_3=$((CURRENT_TIME + 90*DAY_IN_SECONDS))
+PAYMENT_DATE_4=$((CURRENT_TIME + 120*DAY_IN_SECONDS))
+PAYMENT_DATE_5=$((CURRENT_TIME + 150*DAY_IN_SECONDS))
+PAYMENT_DATE_6=$((CURRENT_TIME + 180*DAY_IN_SECONDS))
 
-REQUEST_RESULT=$(stellar contract invoke \
+# Criar array JSON de datas
+PAYMENT_DATES="[$PAYMENT_DATE_1,$PAYMENT_DATE_2,$PAYMENT_DATE_3,$PAYMENT_DATE_4,$PAYMENT_DATE_5,$PAYMENT_DATE_6]"
+
+CARD_RESULT=$(stellar contract invoke \
     --id $LOAN_CONTRACT \
     --source test-borrower \
     --network $NETWORK \
@@ -127,10 +134,10 @@ REQUEST_RESULT=$(stellar contract invoke \
     --borrower $BORROWER_ADDRESS \
     --requested_amount 50000000000 \
     --desired_installments 6 \
-    $PAYMENT_DATES \
-    --description "Expansao de negocio freelancer")
+    --preferred_payment_dates "$PAYMENT_DATES" \
+    --description "Expansão de negócio freelancer")
 
-REQUEST_CARD_ID=$(echo $REQUEST_RESULT | grep -oP '\d+' || echo "1")
+REQUEST_CARD_ID=$(echo $CARD_RESULT | grep -oP '\d+' || echo "1")
 echo -e "${GREEN}✓ Card de solicitação criado: ID $REQUEST_CARD_ID${NC}"
 echo ""
 

@@ -1,73 +1,193 @@
-# Welcome to your Lovable project
+# Mithril Mobile App
 
-## Project info
+Este é o aplicativo mobile do Mithril, convertido de React (Vite) com Tailwind CSS para React Native com Expo.
 
-**URL**: https://lovable.dev/projects/7a65e8ff-ebf3-411e-9134-9362b713b85d
+## 🚀 Funcionalidades
 
-## How can I edit this code?
+- **Autenticação**: Login e registro com múltiplas etapas
+- **Dashboard**: Visão geral de investimentos e crédito
+- **Investimentos**: Gestão de portfólio de investimentos
+- **Crédito**: Solicitação e gestão de empréstimos
+- **Perfil**: Configurações e dados do usuário
+- **Navegação**: Sistema de navegação por abas e stack
 
-There are several ways of editing your application.
+## 📱 Tecnologias Utilizadas
 
-**Use Lovable**
+- **React Native** com **Expo**
+- **TypeScript** para tipagem
+- **React Navigation** para navegação
+- **Expo Vector Icons** para ícones
+- **React Native Paper** para componentes UI
+- **React Hook Form** para formulários
+- **Zod** para validação
+- **React Query** para gerenciamento de estado
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7a65e8ff-ebf3-411e-9134-9362b713b85d) and start prompting.
+## 🛠️ Instalação
 
-Changes made via Lovable will be committed automatically to this repo.
+### Pré-requisitos
 
-**Use your preferred IDE**
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+- Expo CLI (`npm install -g @expo/cli`)
+- Expo Go app no seu dispositivo móvel
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Passos para instalação
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Clone o repositório e navegue para a pasta do mobile:**
+   ```bash
+   cd src/frontend-mobile
+   ```
 
-Follow these steps:
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm start
+   # ou
+   yarn start
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Execute no dispositivo:**
+   - Instale o app **Expo Go** no seu smartphone
+   - Escaneie o QR code que aparece no terminal
+   - O app será carregado no seu dispositivo
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📁 Estrutura do Projeto
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/frontend-mobile/
+├── App.tsx                          # Componente principal
+├── app.json                         # Configuração do Expo
+├── package.json                     # Dependências do projeto
+├── tsconfig.json                    # Configuração do TypeScript
+├── babel.config.js                  # Configuração do Babel
+├── metro.config.js                  # Configuração do Metro
+├── assets/                          # Imagens e recursos
+│   └── logo.jpeg
+└── src/
+    ├── context/
+    │   └── ThemeContext.tsx         # Contexto de tema
+    ├── navigation/
+    │   └── AppNavigator.tsx         # Configuração de navegação
+    ├── components/
+    │   └── ui/                      # Componentes UI reutilizáveis
+    │       ├── Button.tsx
+    │       ├── Input.tsx
+    │       ├── Card.tsx
+    │       ├── Checkbox.tsx
+    │       └── Progress.tsx
+    └── screens/                     # Telas do aplicativo
+        ├── LoginScreen.tsx
+        ├── HomeScreen.tsx
+        ├── RegistrationStep1Screen.tsx
+        ├── RegistrationStep2Screen.tsx
+        ├── RegistrationStep3Screen.tsx
+        ├── InvestmentsScreen.tsx
+        ├── CreditScreen.tsx
+        ├── ProfileScreen.tsx
+        └── ...
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 Sistema de Design
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O app utiliza um sistema de design consistente baseado no tema original:
 
-**Use GitHub Codespaces**
+### Cores
+- **Primary**: #1e40af (azul principal)
+- **Success**: #10b981 (verde para sucessos)
+- **Error**: #ef4444 (vermelho para erros)
+- **Warning**: #f59e0b (amarelo para avisos)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Componentes UI
+- **Button**: Botões com diferentes variantes (primary, secondary, outline, ghost)
+- **Input**: Campos de entrada com suporte a ícones e validação
+- **Card**: Containers para agrupar conteúdo
+- **Checkbox**: Caixas de seleção para formulários
+- **Progress**: Barras de progresso
 
-## What technologies are used for this project?
+## 🔄 Conversões Realizadas
 
-This project is built with:
+### HTML → React Native
+- `div` → `View`
+- `span`, `p`, `h1-h6` → `Text`
+- `img` → `Image`
+- `button` → `TouchableOpacity` ou `Pressable`
+- `input` → `TextInput`
+- `form` → `View` com `TextInput` components
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### CSS → StyleSheet
+- Classes Tailwind CSS foram convertidas para `StyleSheet.create()`
+- Flexbox mantido com propriedades React Native
+- Cores e espaçamentos adaptados para o sistema de tema
 
-## How can I deploy this project?
+### Navegação
+- `react-router-dom` → `@react-navigation/native`
+- Rotas convertidas para Stack Navigator e Tab Navigator
+- Navegação programática adaptada para React Navigation
 
-Simply open [Lovable](https://lovable.dev/projects/7a65e8ff-ebf3-411e-9134-9362b713b85d) and click on Share -> Publish.
+## 📱 Funcionalidades Implementadas
 
-## Can I connect a custom domain to my Lovable project?
+### ✅ Completas
+- Sistema de login e registro
+- Navegação por abas e stack
+- Dashboard principal
+- Telas de investimentos e crédito
+- Perfil do usuário
+- Componentes UI reutilizáveis
+- Sistema de tema consistente
 
-Yes, you can!
+### 🚧 Em Desenvolvimento
+- Integração com APIs reais
+- Funcionalidades de biometria
+- Notificações push
+- Gráficos e visualizações avançadas
+- Formulários complexos de investimento/crédito
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🚀 Scripts Disponíveis
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```bash
+# Iniciar o servidor de desenvolvimento
+npm start
+
+# Executar no Android
+npm run android
+
+# Executar no iOS
+npm run ios
+
+# Executar no web
+npm run web
+
+# Build para produção (Android)
+npm run build:android
+
+# Build para produção (iOS)
+npm run build:ios
+```
+
+## 📝 Notas Importantes
+
+1. **Assets**: Substitua o arquivo `assets/logo.jpeg` pelo logo real do projeto
+2. **APIs**: Configure as URLs das APIs reais no contexto de autenticação
+3. **Biometria**: Implemente a funcionalidade de biometria usando `react-native-biometrics`
+4. **Notificações**: Configure as notificações push usando Expo Notifications
+5. **Validação**: Complete a validação de formulários com Zod
+
+## 🤝 Contribuição
+
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.

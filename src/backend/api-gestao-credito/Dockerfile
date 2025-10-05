@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 
 # Expor porta padrão do Uvicorn
-EXPOSE 8001
+EXPOSE 8002
 
 # Comando padrão
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8002"]

@@ -1,15 +1,15 @@
 from fastapi import FastAPI, Depends, HTTPException, status
-from sqlalchemy import create_engine, Column, String, Integer, DateTime, Text, ForeignKey, CheckConstraint
+from sqlalchemy import create_engine, Column, String, Text, DateTime, Date, Numeric, Integer, Enum, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
-from sqlalchemy.dialects.postgresql import UUID, JSONB, ENUM
+from sqlalchemy.dialects.postgresql import UUID
+from pydantic import BaseModel, Field, validator
+from typing import Optional, List
+from datetime import datetime, date
+from enum import Enum as PyEnum
+import uuid
 import os
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
-from datetime import datetime, timedelta
-import uuid
-from enum import Enum as PyEnum
 
 # Carrega variáveis do arquivo .env
 load_dotenv()
@@ -31,372 +31,456 @@ def get_db():
         db.close()
 
 # Enums
-class ClassificacaoScoreEnum(str, PyEnum):
-    EXCELENTE = "EXCELENTE"
-    BOM = "BOM"
-    REGULAR = "REGULAR"
-    RUIM = "RUIM"
+class RedeBlockchainEnum(str, PyEnum):
+    TESTNET = "TESTNET"
+    MAINNET = "MAINNET"
 
-classificacao_score_enum = ENUM('EXCELENTE', 'BOM', 'REGULAR', 'RUIM', name='classificacao_score_enum')
+class StatusContratoEnum(str, PyEnum):
+    ATIVO = "ATIVO"
+    QUITADO = "QUITADO"
+    INADIMPLENTE = "INADIMPLENTE"
+    CANCELADO = "CANCELADO"
 
-# Modelos SQLAlchemy
-class Usuario(Base):
-    __tablename__ = "usuario"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+class StatusParcelaEnum(str, PyEnum):
+    PENDENTE = "PENDENTE"
+    PAGO = "PAGO"
+    ATRASADO = "ATRASADO"
+    CANCELADO = "CANCELADO"
 
-class ScoreCredito(Base):
-    __tablename__ = "score_credito"
-    
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    usuario_id = Column(UUID(as_uuid=True), ForeignKey('usuario.id', ondelete='CASCADE'), nullable=False)
-    score_interno = Column(Integer, CheckConstraint('score_interno BETWEEN 0 AND 1000'))
-    score_serasa = Column(Integer)
-    score_open_finance = Column(Integer)
-    score_consolidado = Column(Integer, CheckConstraint('score_consolidado BETWEEN 0 AND 1000'))
-    classificacao = Column(classificacao_score_enum)
-    detalhamento = Column(JSONB)
-    calculado_em = Column(DateTime, default=datetime.utcnow)
-    valido_ate = Column(DateTime)
-    
-    usuario = relationship("Usuario")
-    historicos = relationship("HistoricoScore", back_populates="score_credito")
-
-class ScoreInvestidor(Base):
-    __tablename__ = "score_investidor"
+# Models SQLAlchemy
+class SmartContract(Base):
+    __tablename__ = "smart_contract"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    usuario_id = Column(UUID(as_uuid=True), ForeignKey('usuario.id', ondelete='CASCADE'), nullable=False)
-    score_investidor = Column(Integer, CheckConstraint('score_investidor BETWEEN 0 AND 1000'))
-    classificacao = Column(classificacao_score_enum)
-    fatores = Column(JSONB)
-    calculado_em = Column(DateTime, default=datetime.utcnow)
+    contract_id = Column(String(255), unique=True, nullable=False)
+    nome = Column(String(255), nullable=False)
+    descricao = Column(Text)
+    rede = Column(Enum(RedeBlockchainEnum), nullable=False)
+    endereco_deploy = Column(String(255))
+    wasm_hash = Column(String(255))
+    criado_em = Column(DateTime, default=datetime.utcnow)
     
-    usuario = relationship("Usuario")
+    contratos = relationship("Contrato", back_populates="smart_contract")
 
-class HistoricoScore(Base):
-    __tablename__ = "historico_score"
+class Contrato(Base):
+    __tablename__ = "contrato"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    score_credito_id = Column(UUID(as_uuid=True), ForeignKey('score_credito.id', ondelete='CASCADE'), nullable=False)
-    score_anterior = Column(Integer)
-    score_novo = Column(Integer)
-    motivo_alteracao = Column(Text)
-    dados_calculo = Column(JSONB)
-    registrado_em = Column(DateTime, default=datetime.utcnow)
+    solicitacao_credito_id = Column(UUID(as_uuid=True), nullable=False)
+    oferta_investimento_id = Column(UUID(as_uuid=True), nullable=False)
+    tomador_id = Column(UUID(as_uuid=True), nullable=False)
+    investidor_id = Column(UUID(as_uuid=True), nullable=False)
+    valor_total = Column(Numeric(15, 2), nullable=False)
+    taxa_juros = Column(Numeric(5, 2), nullable=False)
+    prazo_meses = Column(Integer, nullable=False)
+    valor_parcela = Column(Numeric(15, 2), nullable=False)
+    data_primeiro_vencimento = Column(Date, nullable=False)
+    status = Column(Enum(StatusContratoEnum), default=StatusContratoEnum.ATIVO)
+    documento_hash = Column(String(255))
+    stellar_tx_id = Column(String(255))
+    smart_contract_id = Column(UUID(as_uuid=True), ForeignKey('smart_contract.id'))
+    assinado_em = Column(DateTime)
+    criado_em = Column(DateTime, default=datetime.utcnow)
     
-    score_credito = relationship("ScoreCredito", back_populates="historicos")
+    smart_contract = relationship("SmartContract", back_populates="contratos")
+    parcelas = relationship("Parcela", back_populates="contrato", cascade="all, delete-orphan")
 
-class ConsultaSerasa(Base):
-    __tablename__ = "consulta_serasa"
+class Parcela(Base):
+    __tablename__ = "parcela"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    usuario_id = Column(UUID(as_uuid=True), ForeignKey('usuario.id', ondelete='CASCADE'), nullable=False)
-    score_retornado = Column(Integer)
-    dados_completos = Column(JSONB)
-    consultado_em = Column(DateTime, default=datetime.utcnow)
-    protocolo_serasa = Column(String(255))
+    contrato_id = Column(UUID(as_uuid=True), ForeignKey('contrato.id', ondelete='CASCADE'), nullable=False)
+    numero_parcela = Column(Integer, nullable=False)
+    valor_principal = Column(Numeric(15, 2), nullable=False)
+    valor_juros = Column(Numeric(15, 2), nullable=False)
+    valor_total = Column(Numeric(15, 2), nullable=False)
+    data_vencimento = Column(Date, nullable=False)
+    data_pagamento = Column(Date)
+    status = Column(Enum(StatusParcelaEnum), default=StatusParcelaEnum.PENDENTE)
+    multa = Column(Numeric(15, 2), default=0.00)
+    juros_atraso = Column(Numeric(15, 2), default=0.00)
+    stellar_tx_id = Column(String(255))
+    criado_em = Column(DateTime, default=datetime.utcnow)
     
-    usuario = relationship("Usuario")
-
-class DadosOpenFinance(Base):
-    __tablename__ = "dados_open_finance"
-    
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    usuario_id = Column(UUID(as_uuid=True), ForeignKey('usuario.id', ondelete='CASCADE'), nullable=False)
-    instituicao = Column(String(255), nullable=False)
-    contas = Column(JSONB)
-    transacoes = Column(JSONB)
-    investimentos = Column(JSONB)
-    sincronizado_em = Column(DateTime, default=datetime.utcnow)
-    expira_em = Column(DateTime)
-    
-    usuario = relationship("Usuario")
+    contrato = relationship("Contrato", back_populates="parcelas")
 
 # Pydantic Models
-class ScoreCreditoBase(BaseModel):
-    usuario_id: uuid.UUID
-    score_interno: Optional[int] = Field(None, ge=0, le=1000)
-    score_serasa: Optional[int] = None
-    score_open_finance: Optional[int] = None
-    score_consolidado: Optional[int] = Field(None, ge=0, le=1000)
-    classificacao: Optional[ClassificacaoScoreEnum] = None
-    detalhamento: Optional[Dict[str, Any]] = None
-    valido_ate: Optional[datetime] = None
+class SmartContractBase(BaseModel):
+    contract_id: str
+    nome: str
+    descricao: Optional[str] = None
+    rede: RedeBlockchainEnum
+    endereco_deploy: Optional[str] = None
+    wasm_hash: Optional[str] = None
 
-class ScoreCreditoCreate(ScoreCreditoBase):
+class SmartContractCreate(SmartContractBase):
     pass
 
-class ScoreCreditoUpdate(BaseModel):
-    score_interno: Optional[int] = Field(None, ge=0, le=1000)
-    score_serasa: Optional[int] = None
-    score_open_finance: Optional[int] = None
-    score_consolidado: Optional[int] = Field(None, ge=0, le=1000)
-    classificacao: Optional[ClassificacaoScoreEnum] = None
-    detalhamento: Optional[Dict[str, Any]] = None
-    valido_ate: Optional[datetime] = None
-
-class ScoreCreditoResponse(ScoreCreditoBase):
-    id: uuid.UUID
-    calculado_em: datetime
+class SmartContractResponse(SmartContractBase):
+    id: str
+    criado_em: datetime
     
     class Config:
         from_attributes = True
+    
+    @validator('id', pre=True)
+    def convert_uuid_to_str(cls, value):
+        if isinstance(value, uuid.UUID):
+            return str(value)
+        return value
 
-class ScoreInvestidorBase(BaseModel):
-    usuario_id: uuid.UUID
-    score_investidor: Optional[int] = Field(None, ge=0, le=1000)
-    classificacao: Optional[ClassificacaoScoreEnum] = None
-    fatores: Optional[Dict[str, Any]] = None
+class ContratoBase(BaseModel):
+    solicitacao_credito_id: str
+    oferta_investimento_id: str
+    tomador_id: str
+    investidor_id: str
+    valor_total: float = Field(gt=0)
+    taxa_juros: float = Field(ge=0)
+    prazo_meses: int = Field(gt=0)
+    valor_parcela: float = Field(gt=0)
+    data_primeiro_vencimento: date
+    documento_hash: Optional[str] = None
+    stellar_tx_id: Optional[str] = None
+    smart_contract_id: Optional[str] = None
 
-class ScoreInvestidorCreate(ScoreInvestidorBase):
+class ContratoCreate(ContratoBase):
     pass
 
-class ScoreInvestidorUpdate(BaseModel):
-    score_investidor: Optional[int] = Field(None, ge=0, le=1000)
-    classificacao: Optional[ClassificacaoScoreEnum] = None
-    fatores: Optional[Dict[str, Any]] = None
-
-class ScoreInvestidorResponse(ScoreInvestidorBase):
-    id: uuid.UUID
-    calculado_em: datetime
+class ContratoResponse(ContratoBase):
+    id: str
+    status: StatusContratoEnum
+    assinado_em: Optional[datetime] = None
+    criado_em: datetime
     
     class Config:
         from_attributes = True
+    
+    @validator('id', 'solicitacao_credito_id', 'oferta_investimento_id', 'tomador_id', 'investidor_id', 'smart_contract_id', pre=True)
+    def convert_uuid_to_str(cls, value):
+        if isinstance(value, uuid.UUID):
+            return str(value)
+        return value
 
-class HistoricoScoreBase(BaseModel):
-    score_credito_id: uuid.UUID
-    score_anterior: Optional[int] = None
-    score_novo: Optional[int] = None
-    motivo_alteracao: Optional[str] = None
-    dados_calculo: Optional[Dict[str, Any]] = None
+class ParcelaBase(BaseModel):
+    contrato_id: str
+    numero_parcela: int = Field(gt=0)
+    valor_principal: float = Field(gt=0)
+    valor_juros: float = Field(ge=0)
+    valor_total: float = Field(gt=0)
+    data_vencimento: date
+    data_pagamento: Optional[date] = None
+    multa: float = Field(ge=0, default=0.00)
+    juros_atraso: float = Field(ge=0, default=0.00)
+    stellar_tx_id: Optional[str] = None
 
-class HistoricoScoreCreate(HistoricoScoreBase):
+class ParcelaCreate(ParcelaBase):
     pass
 
-class HistoricoScoreResponse(HistoricoScoreBase):
-    id: uuid.UUID
-    registrado_em: datetime
+class ParcelaResponse(ParcelaBase):
+    id: str
+    status: StatusParcelaEnum
+    criado_em: datetime
     
     class Config:
         from_attributes = True
-
-class ConsultaSerasaBase(BaseModel):
-    usuario_id: uuid.UUID
-    score_retornado: Optional[int] = None
-    dados_completos: Optional[Dict[str, Any]] = None
-    protocolo_serasa: Optional[str] = None
-
-class ConsultaSerasaCreate(ConsultaSerasaBase):
-    pass
-
-class ConsultaSerasaResponse(ConsultaSerasaBase):
-    id: uuid.UUID
-    consultado_em: datetime
     
-    class Config:
-        from_attributes = True
+    @validator('id', 'contrato_id', pre=True)
+    def convert_uuid_to_str(cls, value):
+        if isinstance(value, uuid.UUID):
+            return str(value)
+        return value
 
-class DadosOpenFinanceBase(BaseModel):
-    usuario_id: uuid.UUID
-    instituicao: str
-    contas: Optional[Dict[str, Any]] = None
-    transacoes: Optional[Dict[str, Any]] = None
-    investimentos: Optional[Dict[str, Any]] = None
-    expira_em: Optional[datetime] = None
+# Models com relacionamentos
+class ContratoWithRelations(ContratoResponse):
+    smart_contract: Optional[SmartContractResponse] = None
+    parcelas: List[ParcelaResponse] = []
 
-class DadosOpenFinanceCreate(DadosOpenFinanceBase):
-    pass
+class ParcelaWithRelations(ParcelaResponse):
+    contrato: ContratoResponse
 
-class DadosOpenFinanceUpdate(BaseModel):
-    instituicao: Optional[str] = None
-    contas: Optional[Dict[str, Any]] = None
-    transacoes: Optional[Dict[str, Any]] = None
-    investimentos: Optional[Dict[str, Any]] = None
-    expira_em: Optional[datetime] = None
+# FastAPI App
+app = FastAPI(title="API de Contratos Inteligentes", version="1.0.0")
 
-class DadosOpenFinanceResponse(DadosOpenFinanceBase):
-    id: uuid.UUID
-    sincronizado_em: datetime
-    
-    class Config:
-        from_attributes = True
-
-# Função auxiliar
-def calcular_classificacao(score: int) -> ClassificacaoScoreEnum:
-    if score >= 800:
-        return ClassificacaoScoreEnum.EXCELENTE
-    elif score >= 600:
-        return ClassificacaoScoreEnum.BOM
-    elif score >= 400:
-        return ClassificacaoScoreEnum.REGULAR
-    else:
-        return ClassificacaoScoreEnum.RUIM
-
-# Inicialização do FastAPI
-app = FastAPI(title="Sistema de Scores Financeiros", version="1.0.0")
-
-# Rotas para ScoreCredito
-@app.post("/scores-credito/", response_model=ScoreCreditoResponse, status_code=status.HTTP_201_CREATED)
-def criar_score_credito(score: ScoreCreditoCreate, db: Session = Depends(get_db)):
-    # Calcular classificação automaticamente se não for fornecida
-    score_data = score.dict()
-    
-    # Se score_consolidado foi fornecido e classificacao não foi, calcular automaticamente
-    if score_data.get('score_consolidado') is not None and score_data.get('classificacao') is None:
-        score_data['classificacao'] = calcular_classificacao(score_data['score_consolidado'])
-    
-    # Se nenhum score foi fornecido, definir valores padrão
-    if score_data.get('score_consolidado') is None:
-        score_data['score_consolidado'] = 0
-        score_data['classificacao'] = ClassificacaoScoreEnum.RUIM
-    
-    db_score = ScoreCredito(**score_data)
-    db.add(db_score)
+# CRUD para SmartContract
+@app.post("/smart-contracts/", response_model=SmartContractResponse, status_code=status.HTTP_201_CREATED)
+def create_smart_contract(contract: SmartContractCreate, db: Session = Depends(get_db)):
+    db_contract = SmartContract(**contract.dict())
+    db.add(db_contract)
     db.commit()
-    db.refresh(db_score)
-    return db_score
+    db.refresh(db_contract)
+    return db_contract
 
-@app.get("/scores-credito/", response_model=List[ScoreCreditoResponse])
-def listar_scores_credito(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    scores = db.query(ScoreCredito).offset(skip).limit(limit).all()
-    return scores
+@app.get("/smart-contracts/", response_model=List[SmartContractResponse])
+def read_smart_contracts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    contracts = db.query(SmartContract).offset(skip).limit(limit).all()
+    return contracts
 
-@app.get("/scores-credito/{score_id}", response_model=ScoreCreditoResponse)
-def obter_score_credito(score_id: uuid.UUID, db: Session = Depends(get_db)):
-    score = db.query(ScoreCredito).filter(ScoreCredito.id == score_id).first()
-    if not score:
-        raise HTTPException(status_code=404, detail="Score de crédito não encontrado")
-    return score
+@app.get("/smart-contracts/{contract_id}", response_model=SmartContractResponse)
+def read_smart_contract(contract_id: str, db: Session = Depends(get_db)):
+    try:
+        contract_uuid = uuid.UUID(contract_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    contract = db.query(SmartContract).filter(SmartContract.id == contract_uuid).first()
+    if contract is None:
+        raise HTTPException(status_code=404, detail="Smart contract não encontrado")
+    return contract
 
-@app.get("/usuarios/{usuario_id}/scores-credito/", response_model=List[ScoreCreditoResponse])
-def obter_scores_credito_por_usuario(usuario_id: uuid.UUID, db: Session = Depends(get_db)):
-    scores = db.query(ScoreCredito).filter(ScoreCredito.usuario_id == usuario_id).all()
-    return scores
-
-@app.put("/scores-credito/{score_id}", response_model=ScoreCreditoResponse)
-def atualizar_score_credito(score_id: uuid.UUID, score_update: ScoreCreditoUpdate, db: Session = Depends(get_db)):
-    db_score = db.query(ScoreCredito).filter(ScoreCredito.id == score_id).first()
-    if not db_score:
-        raise HTTPException(status_code=404, detail="Score de crédito não encontrado")
+@app.put("/smart-contracts/{contract_id}", response_model=SmartContractResponse)
+def update_smart_contract(contract_id: str, contract: SmartContractCreate, db: Session = Depends(get_db)):
+    try:
+        contract_uuid = uuid.UUID(contract_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
     
-    # Registrar histórico antes da atualização
-    historico = HistoricoScore(
-        score_credito_id=score_id,
-        score_anterior=db_score.score_consolidado,
-        score_novo=score_update.score_consolidado,
-        motivo_alteracao="Atualização manual",
-        dados_calculo={"tipo": "atualizacao_manual"}
-    )
-    db.add(historico)
+    db_contract = db.query(SmartContract).filter(SmartContract.id == contract_uuid).first()
+    if db_contract is None:
+        raise HTTPException(status_code=404, detail="Smart contract não encontrado")
     
-    # Atualizar score
-    update_data = score_update.dict(exclude_unset=True)
-    
-    # Se score_consolidado foi atualizado e classificacao não foi, calcular automaticamente
-    if update_data.get('score_consolidado') is not None and update_data.get('classificacao') is None:
-        update_data['classificacao'] = calcular_classificacao(update_data['score_consolidado'])
-    
-    for field, value in update_data.items():
-        setattr(db_score, field, value)
+    for key, value in contract.dict().items():
+        setattr(db_contract, key, value)
     
     db.commit()
-    db.refresh(db_score)
-    return db_score
+    db.refresh(db_contract)
+    return db_contract
 
-@app.delete("/scores-credito/{score_id}")
-def deletar_score_credito(score_id: uuid.UUID, db: Session = Depends(get_db)):
-    db_score = db.query(ScoreCredito).filter(ScoreCredito.id == score_id).first()
-    if not db_score:
-        raise HTTPException(status_code=404, detail="Score de crédito não encontrado")
+@app.delete("/smart-contracts/{contract_id}")
+def delete_smart_contract(contract_id: str, db: Session = Depends(get_db)):
+    try:
+        contract_uuid = uuid.UUID(contract_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
     
-    db.delete(db_score)
-    db.commit()
-    return {"message": "Score de crédito deletado com sucesso"}
-
-# Rotas para ScoreInvestidor
-@app.post("/scores-investidor/", response_model=ScoreInvestidorResponse, status_code=status.HTTP_201_CREATED)
-def criar_score_investidor(score: ScoreInvestidorCreate, db: Session = Depends(get_db)):
-    score_data = score.dict()
+    contract = db.query(SmartContract).filter(SmartContract.id == contract_uuid).first()
+    if contract is None:
+        raise HTTPException(status_code=404, detail="Smart contract não encontrado")
     
-    # Calcular classificação automaticamente se não for fornecida
-    if score_data.get('score_investidor') is not None and score_data.get('classificacao') is None:
-        score_data['classificacao'] = calcular_classificacao(score_data['score_investidor'])
+    db.delete(contract)
+    db.commit()
+    return {"message": "Smart contract deletado com sucesso"}
+
+# CRUD para Contrato
+@app.post("/contratos/", response_model=ContratoResponse, status_code=status.HTTP_201_CREATED)
+def create_contrato(contrato: ContratoCreate, db: Session = Depends(get_db)):
+    # Converter strings para UUID
+    contrato_data = contrato.dict()
+    contrato_data['solicitacao_credito_id'] = uuid.UUID(contrato_data['solicitacao_credito_id'])
+    contrato_data['oferta_investimento_id'] = uuid.UUID(contrato_data['oferta_investimento_id'])
+    contrato_data['tomador_id'] = uuid.UUID(contrato_data['tomador_id'])
+    contrato_data['investidor_id'] = uuid.UUID(contrato_data['investidor_id'])
     
-    # Se nenhum score foi fornecido, definir valores padrão
-    if score_data.get('score_investidor') is None:
-        score_data['score_investidor'] = 0
-        score_data['classificacao'] = ClassificacaoScoreEnum.RUIM
+    if contrato_data.get('smart_contract_id'):
+        contrato_data['smart_contract_id'] = uuid.UUID(contrato_data['smart_contract_id'])
     
-    db_score = ScoreInvestidor(**score_data)
-    db.add(db_score)
+    db_contrato = Contrato(**contrato_data)
+    db.add(db_contrato)
     db.commit()
-    db.refresh(db_score)
-    return db_score
+    db.refresh(db_contrato)
+    return db_contrato
 
-@app.get("/scores-investidor/", response_model=List[ScoreInvestidorResponse])
-def listar_scores_investidor(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    scores = db.query(ScoreInvestidor).offset(skip).limit(limit).all()
-    return scores
+@app.get("/contratos/", response_model=List[ContratoResponse])
+def read_contratos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    contratos = db.query(Contrato).offset(skip).limit(limit).all()
+    return contratos
 
-@app.get("/usuarios/{usuario_id}/scores-investidor/", response_model=List[ScoreInvestidorResponse])
-def obter_scores_investidor_por_usuario(usuario_id: uuid.UUID, db: Session = Depends(get_db)):
-    scores = db.query(ScoreInvestidor).filter(ScoreInvestidor.usuario_id == usuario_id).all()
-    return scores
-
-# Rotas para Histórico de Scores
-@app.post("/historico-scores/", response_model=HistoricoScoreResponse, status_code=status.HTTP_201_CREATED)
-def criar_historico_score(historico: HistoricoScoreCreate, db: Session = Depends(get_db)):
-    db_historico = HistoricoScore(**historico.dict())
-    db.add(db_historico)
-    db.commit()
-    db.refresh(db_historico)
-    return db_historico
-
-@app.get("/scores-credito/{score_id}/historico/", response_model=List[HistoricoScoreResponse])
-def obter_historico_score(score_id: uuid.UUID, db: Session = Depends(get_db)):
-    historico = db.query(HistoricoScore).filter(HistoricoScore.score_credito_id == score_id).all()
-    return historico
-
-# Rotas para Consulta Serasa
-@app.post("/consultas-serasa/", response_model=ConsultaSerasaResponse, status_code=status.HTTP_201_CREATED)
-def criar_consulta_serasa(consulta: ConsultaSerasaCreate, db: Session = Depends(get_db)):
-    db_consulta = ConsultaSerasa(**consulta.dict())
-    db.add(db_consulta)
-    db.commit()
-    db.refresh(db_consulta)
-    return db_consulta
-
-@app.get("/usuarios/{usuario_id}/consultas-serasa/", response_model=List[ConsultaSerasaResponse])
-def obter_consultas_serasa_por_usuario(usuario_id: uuid.UUID, db: Session = Depends(get_db)):
-    consultas = db.query(ConsultaSerasa).filter(ConsultaSerasa.usuario_id == usuario_id).all()
-    return consultas
-
-# Rotas para Dados Open Finance
-@app.post("/dados-open-finance/", response_model=DadosOpenFinanceResponse, status_code=status.HTTP_201_CREATED)
-def criar_dados_open_finance(dados: DadosOpenFinanceCreate, db: Session = Depends(get_db)):
-    db_dados = DadosOpenFinance(**dados.dict())
-    db.add(db_dados)
-    db.commit()
-    db.refresh(db_dados)
-    return db_dados
-
-@app.get("/usuarios/{usuario_id}/dados-open-finance/", response_model=List[DadosOpenFinanceResponse])
-def obter_dados_open_finance_por_usuario(usuario_id: uuid.UUID, db: Session = Depends(get_db)):
-    dados = db.query(DadosOpenFinance).filter(DadosOpenFinance.usuario_id == usuario_id).all()
-    return dados
-
-@app.put("/dados-open-finance/{dados_id}", response_model=DadosOpenFinanceResponse)
-def atualizar_dados_open_finance(dados_id: uuid.UUID, dados_update: DadosOpenFinanceUpdate, db: Session = Depends(get_db)):
-    db_dados = db.query(DadosOpenFinance).filter(DadosOpenFinance.id == dados_id).first()
-    if not db_dados:
-        raise HTTPException(status_code=404, detail="Dados Open Finance não encontrados")
+@app.get("/contratos/{contrato_id}", response_model=ContratoWithRelations)
+def read_contrato(contrato_id: str, db: Session = Depends(get_db)):
+    try:
+        contrato_uuid = uuid.UUID(contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
     
-    for field, value in dados_update.dict(exclude_unset=True).items():
-        setattr(db_dados, field, value)
+    contrato = db.query(Contrato).filter(Contrato.id == contrato_uuid).first()
+    if contrato is None:
+        raise HTTPException(status_code=404, detail="Contrato não encontrado")
+    return contrato
+
+@app.put("/contratos/{contrato_id}", response_model=ContratoResponse)
+def update_contrato(contrato_id: str, contrato: ContratoCreate, db: Session = Depends(get_db)):
+    try:
+        contrato_uuid = uuid.UUID(contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    db_contrato = db.query(Contrato).filter(Contrato.id == contrato_uuid).first()
+    if db_contrato is None:
+        raise HTTPException(status_code=404, detail="Contrato não encontrado")
+    
+    # Converter strings para UUID
+    contrato_data = contrato.dict()
+    contrato_data['solicitacao_credito_id'] = uuid.UUID(contrato_data['solicitacao_credito_id'])
+    contrato_data['oferta_investimento_id'] = uuid.UUID(contrato_data['oferta_investimento_id'])
+    contrato_data['tomador_id'] = uuid.UUID(contrato_data['tomador_id'])
+    contrato_data['investidor_id'] = uuid.UUID(contrato_data['investidor_id'])
+    
+    if contrato_data.get('smart_contract_id'):
+        contrato_data['smart_contract_id'] = uuid.UUID(contrato_data['smart_contract_id'])
+    
+    for key, value in contrato_data.items():
+        setattr(db_contrato, key, value)
     
     db.commit()
-    db.refresh(db_dados)
-    return db_dados
+    db.refresh(db_contrato)
+    return db_contrato
+
+@app.patch("/contratos/{contrato_id}/status")
+def update_contrato_status(contrato_id: str, status: StatusContratoEnum, db: Session = Depends(get_db)):
+    try:
+        contrato_uuid = uuid.UUID(contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    db_contrato = db.query(Contrato).filter(Contrato.id == contrato_uuid).first()
+    if db_contrato is None:
+        raise HTTPException(status_code=404, detail="Contrato não encontrado")
+    
+    db_contrato.status = status
+    db.commit()
+    db.refresh(db_contrato)
+    return db_contrato
+
+@app.delete("/contratos/{contrato_id}")
+def delete_contrato(contrato_id: str, db: Session = Depends(get_db)):
+    try:
+        contrato_uuid = uuid.UUID(contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    contrato = db.query(Contrato).filter(Contrato.id == contrato_uuid).first()
+    if contrato is None:
+        raise HTTPException(status_code=404, detail="Contrato não encontrado")
+    
+    db.delete(contrato)
+    db.commit()
+    return {"message": "Contrato deletado com sucesso"}
+
+# CRUD para Parcela
+@app.post("/parcelas/", response_model=ParcelaResponse, status_code=status.HTTP_201_CREATED)
+def create_parcela(parcela: ParcelaCreate, db: Session = Depends(get_db)):
+    # Verifica se o contrato existe
+    try:
+        contrato_uuid = uuid.UUID(parcela.contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID do contrato inválido")
+    
+    contrato = db.query(Contrato).filter(Contrato.id == contrato_uuid).first()
+    if contrato is None:
+        raise HTTPException(status_code=404, detail="Contrato não encontrado")
+    
+    parcela_data = parcela.dict()
+    parcela_data['contrato_id'] = contrato_uuid
+    
+    db_parcela = Parcela(**parcela_data)
+    db.add(db_parcela)
+    db.commit()
+    db.refresh(db_parcela)
+    return db_parcela
+
+@app.get("/parcelas/", response_model=List[ParcelaResponse])
+def read_parcelas(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    parcelas = db.query(Parcela).offset(skip).limit(limit).all()
+    return parcelas
+
+@app.get("/parcelas/{parcela_id}", response_model=ParcelaWithRelations)
+def read_parcela(parcela_id: str, db: Session = Depends(get_db)):
+    try:
+        parcela_uuid = uuid.UUID(parcela_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    parcela = db.query(Parcela).filter(Parcela.id == parcela_uuid).first()
+    if parcela is None:
+        raise HTTPException(status_code=404, detail="Parcela não encontrada")
+    return parcela
+
+@app.get("/contratos/{contrato_id}/parcelas", response_model=List[ParcelaResponse])
+def read_parcelas_por_contrato(contrato_id: str, db: Session = Depends(get_db)):
+    try:
+        contrato_uuid = uuid.UUID(contrato_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    parcelas = db.query(Parcela).filter(Parcela.contrato_id == contrato_uuid).all()
+    return parcelas
+
+@app.put("/parcelas/{parcela_id}", response_model=ParcelaResponse)
+def update_parcela(parcela_id: str, parcela: ParcelaCreate, db: Session = Depends(get_db)):
+    try:
+        parcela_uuid = uuid.UUID(parcela_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    db_parcela = db.query(Parcela).filter(Parcela.id == parcela_uuid).first()
+    if db_parcela is None:
+        raise HTTPException(status_code=404, detail="Parcela não encontrada")
+    
+    # Converter string para UUID
+    parcela_data = parcela.dict()
+    parcela_data['contrato_id'] = uuid.UUID(parcela_data['contrato_id'])
+    
+    for key, value in parcela_data.items():
+        setattr(db_parcela, key, value)
+    
+    db.commit()
+    db.refresh(db_parcela)
+    return db_parcela
+
+@app.patch("/parcelas/{parcela_id}/status")
+def update_parcela_status(parcela_id: str, status: StatusParcelaEnum, db: Session = Depends(get_db)):
+    try:
+        parcela_uuid = uuid.UUID(parcela_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    db_parcela = db.query(Parcela).filter(Parcela.id == parcela_uuid).first()
+    if db_parcela is None:
+        raise HTTPException(status_code=404, detail="Parcela não encontrada")
+    
+    db_parcela.status = status
+    db.commit()
+    db.refresh(db_parcela)
+    return db_parcela
+
+@app.patch("/parcelas/{parcela_id}/pagamento")
+def registrar_pagamento_parcela(
+    parcela_id: str, 
+    data_pagamento: date, 
+    stellar_tx_id: Optional[str] = None, 
+    db: Session = Depends(get_db)
+):
+    try:
+        parcela_uuid = uuid.UUID(parcela_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    db_parcela = db.query(Parcela).filter(Parcela.id == parcela_uuid).first()
+    if db_parcela is None:
+        raise HTTPException(status_code=404, detail="Parcela não encontrada")
+    
+    db_parcela.data_pagamento = data_pagamento
+    db_parcela.status = StatusParcelaEnum.PAGO
+    if stellar_tx_id:
+        db_parcela.stellar_tx_id = stellar_tx_id
+    
+    db.commit()
+    db.refresh(db_parcela)
+    return db_parcela
+
+@app.delete("/parcelas/{parcela_id}")
+def delete_parcela(parcela_id: str, db: Session = Depends(get_db)):
+    try:
+        parcela_uuid = uuid.UUID(parcela_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="ID inválido")
+    
+    parcela = db.query(Parcela).filter(Parcela.id == parcela_uuid).first()
+    if parcela is None:
+        raise HTTPException(status_code=404, detail="Parcela não encontrada")
+    
+    db.delete(parcela)
+    db.commit()
+    return {"message": "Parcela deletada com sucesso"}
 
 # Health Check
 @app.get("/health")
@@ -405,4 +489,4 @@ def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8002)

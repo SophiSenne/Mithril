@@ -1,4 +1,8 @@
-# **Análise de Riscos**
+---
+sidebar_position: 10
+title: Análise de Riscos do Projeto
+label: Análise de Riscos do Projeto
+---
 
 # Objetivo
 

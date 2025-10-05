@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Mithril",
+    "slug": "mithril-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.jpeg",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo.jpeg",
+      "resizeMode": "contain",
+      "backgroundColor": "#1e40af"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mithril.app",
+      "buildNumber": "1.0.0",
+      "deploymentTarget": "15.1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.jpeg",
+        "backgroundColor": "#1e40af"
+      },
+      "package": "com.mithril.app",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/logo.jpeg"
+    },
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "mithril-mobile-app"
+      }
+    }
+  }
+}

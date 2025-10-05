@@ -141,6 +141,38 @@ pub struct CardCreatedEvent {
     pub is_investment_card: bool,
 }
 
+#[derive(Clone)]
+#[contracttype]
+pub struct PixPayment {
+    pub payment_id: String,  // ID from PIX API
+    pub order_id: String,    // id_pedido from PIX API  
+    pub amount: i128,
+    pub status: PixStatus,
+    pub created_at: u64,
+    pub updated_at: u64,
+    pub pix_type: PixType,
+    pub related_loan_id: u64,
+}
+
+#[derive(Clone, PartialEq)]
+#[contracttype] 
+pub enum PixStatus {
+    Pending,
+    Processing, 
+    Completed,
+    Expired,
+    Failed,
+    Cancelled,
+}
+
+#[derive(Clone, PartialEq)]
+#[contracttype]
+pub enum PixType {
+    Investment,
+    CreditPayout,
+    Repayment,
+}
+
 fn emit_loan_created(env: &Env, loan_id: u64, borrower: Address, lender: Address, amount: i128) {
     env.events().publish(
         (LOAN_CREATED,),
@@ -527,5 +559,83 @@ impl LoanContract {
             card.is_active = false;
             env.storage().persistent().set(&("REQ_CARD", card_id), &card);
         }
+    }
+
+    pub fn register_pix_payment(
+        env: Env,
+        payment_id: String,
+        order_id: String, 
+        amount: i128,
+        pix_type: PixType,
+        related_loan_id: u64,
+    ) {
+        let admin: Address = env.storage().instance().get(&"ADMIN").unwrap();
+        admin.require_auth();
+        
+        let pix_payment = PixPayment {
+            payment_id: payment_id.clone(),
+            order_id: order_id.clone(),
+            amount,
+            status: PixStatus::Pending,
+            created_at: env.ledger().timestamp(),
+            updated_at: env.ledger().timestamp(),
+            pix_type,
+            related_loan_id,
+        };
+        
+        env.storage().persistent().set(&("PIX_PAYMENT", payment_id), &pix_payment);
+        env.storage().persistent().set(&("PIX_ORDER", order_id), &payment_id);
+    }
+    
+    pub fn update_pix_payment_status(
+        env: Env,
+        payment_id: String,
+        new_status: PixStatus,
+    ) {
+        let admin: Address = env.storage().instance().get(&"ADMIN").unwrap();
+        admin.require_auth();
+        
+        let mut payment: PixPayment = env.storage()
+            .persistent()
+            .get(&("PIX_PAYMENT", payment_id.clone()))
+            .expect("PIX payment not found");
+            
+        payment.status = new_status;
+        payment.updated_at = env.ledger().timestamp();
+        
+        env.storage().persistent().set(&("PIX_PAYMENT", payment_id), &payment);
+        
+        // If payment is completed, trigger corresponding action
+        if new_status == PixStatus::Completed {
+            Self::handle_completed_pix_payment(&env, payment);
+        }
+    }
+    
+    fn handle_completed_pix_payment(env: &Env, payment: PixPayment) {
+        match payment.pix_type {
+            PixType::Investment => {
+                // Investment PIX completed - funds are now available
+                // You might want to update investment status here
+            },
+            PixType::CreditPayout => {
+                // Credit payout PIX completed - borrower received funds
+                // You might want to update loan status here
+            },
+            PixType::Repayment => {
+                // Repayment PIX completed - process loan payment
+                let _ = Self::make_payment(env, payment.related_loan_id);
+            },
+        }
+    }
+    
+    pub fn get_pix_payment(env: Env, payment_id: String) -> Option<PixPayment> {
+        env.storage().persistent().get(&("PIX_PAYMENT", payment_id))
+    }
+    
+    pub fn get_pix_payment_by_order(env: Env, order_id: String) -> Option<PixPayment> {
+        let payment_id: String = env.storage()
+            .persistent()
+            .get(&("PIX_ORDER", order_id))?;
+        Self::get_pix_payment(env, payment_id)
     }
 }

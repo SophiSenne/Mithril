@@ -18,6 +18,58 @@ services:
       - redis
     ports:
       - "8000:8000"
+    
+  pix-mock-api:
+    build: ./src/backend/pix-mock
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  api-score:
+    build: ./src/backend/api-score
+    ports:
+      - "7999:7999"
+    volumes:
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+    
+  api-pagamentos:
+    build: ./src/backend/api-pagamentos
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+
+  api-gestao-credito:
+    build: ./src/backend/api-gestao-credito
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+
+  api-marketplace:
+    build: ./src/backend/api-marketplace
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
 
 volumes:
   redis-data:

@@ -15,19 +15,26 @@ Com o Mithril, freelancers e autônomos ganham acesso a um ecossistema financeir
 Acesse a documentação completa do projeto:
 👉 [Mithril Docs](https://sophisenne.github.io/Mithril/)
 
+## ✅ Pré-requisitos
+
+- **Docker** e **Docker Compose** (para subir os serviços de backend)
+- **Node.js 20+** e **npm** (para a documentação Docusaurus)
+- **Expo CLI** e **Expo Go** (para o app mobile)
+  - Instale o Expo CLI: `npm i -g @expo/cli`
+
 ## 🚀 Tecnologias
 
-- **Frontend:** React, Tailwind, Vite
+- **App Mobile:** React Native
 - **Documentação:** Docusaurus
 - **Blockchain:** Stellar
-- **Backend & APIs:** 
-- **Deploy:** Vercel
+- **Backend & APIs:** FastAPI
+- **Deploy:** Vercel, Supabase e AWS
 
 ## ⚙️ Como executar
 
 Clone o repositório:
 ```bash
-git clone https://github.com/seuuser/Mithril.git
+git clone https://github.com/sophisenne/Mithril.git
 cd Mithril
 ```
 
@@ -39,24 +46,66 @@ npm install
 npm start
 ```
 
+Requisitos:
+- Node.js 20 ou superior.
+
 ### Rodar o sistema
 
-As instruções detalhadas para rodar o sistema podem ser encontradas em `src/readme.md`.
+#### Back-End
+
+```bash
+docker compose up --build
+```
+
+#### App Mobile
+
+```bash
+cd ./src/app-mobile
+npm install
+npx expo start -c
+```
+
+Caso prefira usar túnel (útil em redes restritas):
+```bash
+npx expo start --tunnel
+```
 
 ## 📸 Demonstração
 
-![Tela principal do Mithril](./docs/static/img/demo.png)
+![Tela principal do Mithril](./docs/static/img/docusaurus.png)
 
 ## 🛠️ Funcionalidades
 
-- [x] ....
+- [x] App mobile (Expo/React Native)
+- [x] Autenticação: login e registro em 3 etapas (fluxos e telas)
+- [x] Dashboard: resumo financeiro e cards de ações
+- [x] Investimentos: listagem e navegação principal
+- [x] Crédito: opções de crédito e telas de solicitação
+- [x] Perfil do usuário: dados e configurações básicas
+- [x] Navegação por abas (Tab) e pilha (Stack)
+- [x] Componentes UI reutilizáveis (Button, Input, Card, Checkbox, Progress)
+- [x] Sistema de tema consistente
+- [x] Serviços FastAPI orquestrados via Docker Compose
+- [x] Mock de API de PIX
+- [x] Blockchain (Stellar)
+- [x] Repositório de contratos e testes para `credit_score`, `governance` e `loan`
+- [ ] Fluxo de pagamentos e liquidação (integração PIX e reconciliação)
+- [ ] Biometria/segurança avançada no mobile
+- [ ] Observabilidade (logs/metrics) nos serviços
+- [ ] Testes (unitários, integração e E2E) e CI/CD
 
 ## 📂 Estrutura de Pastas
 
 ```bash
-├── docs        # Estrutura do Docusaurus (documentação)
-├── src         # Código-fonte da aplicação
-└── readme.md   # Este arquivo
+├── compose.yaml                # Orquestração dos serviços
+├── docs/                       # Documentação (Docusaurus)
+│   ├── docs/                   # Conteúdo da documentação
+│   ├── src/                    # Código do site
+│   └── static/                 # Assets estáticos
+├── src/
+│   ├── app-mobile/             # App mobile (Expo/React Native)
+│   ├── backend/                # APIs (FastAPI) e serviços
+└── stellar/                    # Contratos e ferramentas Stellar
 ```
 
 ## 👩‍💻 Equipe

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 title: Primeira Versão do Front-End
 label: Primeira Versão do Front-End
 ---

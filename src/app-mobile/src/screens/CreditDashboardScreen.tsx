@@ -13,10 +13,27 @@ import { useTheme } from '../context/ThemeContext';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Progress from '../components/ui/Progress';
+import { useEffect } from 'react';
+import { SorobanService } from '../services/SorobanService';
+import { blockchainConfig } from '../config/blockchain';
 
 const CreditDashboardScreen: React.FC = () => {
   const navigation = useNavigation();
   const theme = useTheme();
+
+  useEffect(() => {
+    const envUser = (process.env.EXPO_PUBLIC_DEBUG_USER_G as string) || '';
+    const userPublicKey = envUser.trim();
+    if (!userPublicKey) return; // no-op if not configured
+    (async () => {
+      try {
+        const score = await SorobanService.getCreditScore(userPublicKey);
+        console.log('Credit score (Soroban):', score);
+      } catch (e) {
+        console.warn('Falha ao obter score de crédito via Soroban:', e);
+      }
+    })();
+  }, []);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {

@@ -27,5 +27,16 @@ services:
       - ./logs:/app/logs
     restart: unless-stopped
 
+  api-gestao-credito:
+    build: ./src/backend/api-gestao-credito
+    ports:
+      - "7999:7999"
+    volumes:
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+
 volumes:
   redis-data:

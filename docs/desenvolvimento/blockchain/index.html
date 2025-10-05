@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-desenvolvimento/blockchain" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.1">
+<title data-rh="true">Implementação de Blockchain Stellar | Mithril</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://SophiSenne.github.io/Mithril/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://SophiSenne.github.io/Mithril/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://SophiSenne.github.io/Mithril/docs/desenvolvimento/blockchain"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Implementação de Blockchain Stellar | Mithril"><meta data-rh="true" name="description" content="Esta seção documenta a integração da plataforma Mithril com a blockchain Stellar (Soroban). Toda a implementação de contratos e integrações on-chain foi programada em Rust (Soroban)."><meta data-rh="true" property="og:description" content="Esta seção documenta a integração da plataforma Mithril com a blockchain Stellar (Soroban). Toda a implementação de contratos e integrações on-chain foi programada em Rust (Soroban)."><link data-rh="true" rel="icon" href="/Mithril/img/logo.jpeg"><link data-rh="true" rel="canonical" href="https://SophiSenne.github.io/Mithril/docs/desenvolvimento/blockchain"><link data-rh="true" rel="alternate" href="https://SophiSenne.github.io/Mithril/docs/desenvolvimento/blockchain" hreflang="en"><link data-rh="true" rel="alternate" href="https://SophiSenne.github.io/Mithril/docs/desenvolvimento/blockchain" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Desenvolvimento","item":"https://SophiSenne.github.io/Mithril/docs/category/desenvolvimento"},{"@type":"ListItem","position":2,"name":"Implementação de Blockchain Stellar","item":"https://SophiSenne.github.io/Mithril/docs/desenvolvimento/blockchain"}]}</script><link rel="stylesheet" href="/Mithril/assets/css/styles.38f5c4e2.css">
+<script src="/Mithril/assets/js/runtime~main.6f4505b7.js" defer="defer"></script>
+<script src="/Mithril/assets/js/main.a9d465fa.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/Mithril/img/logo.jpeg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Mithril/"><div class="navbar__logo"><img src="/Mithril/img/logo.jpeg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/Mithril/img/logo.jpeg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Mithril</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Mithril/docs/introducao/">Documentação</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/introducao/"><span title="Visão Geral do Projeto" class="linkLabel_WmDU">Visão Geral do Projeto</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/persona/"><span title="Persona" class="linkLabel_WmDU">Persona</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/jornada-usuario/"><span title="Jornada do Usuário" class="linkLabel_WmDU">Jornada do Usuário</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/requisitos-funcionais/"><span title="Requisitos Funcionais" class="linkLabel_WmDU">Requisitos Funcionais</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/proposta-de-valor/"><span title="Proposta de Valor" class="linkLabel_WmDU">Proposta de Valor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/modelo-negocios/"><span title="Modelo de Negócios" class="linkLabel_WmDU">Modelo de Negócios</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/arquitetura/"><span title="Diagrama de Arquitetura" class="linkLabel_WmDU">Diagrama de Arquitetura</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/modelagem-db/"><span title="Modelagem do Banco de Dados" class="linkLabel_WmDU">Modelagem do Banco de Dados</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/LGPD/"><span title="Política de Privacidade" class="linkLabel_WmDU">Política de Privacidade</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Mithril/docs/tecnologias-utilizadas/"><span title="Tecnologias Utilizadas" class="linkLabel_WmDU">Tecnologias Utilizadas</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/Mithril/docs/category/desenvolvimento"><span title="Desenvolvimento" class="categoryLinkLabel_W154">Desenvolvimento</span></a><button aria-label="Collapse sidebar category &#x27;Desenvolvimento&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Mithril/docs/desenvolvimento/primeira-versao-front"><span title="Primeira Versão do Front-End" class="linkLabel_WmDU">Primeira Versão do Front-End</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/Mithril/docs/desenvolvimento/blockchain"><span title="Implementação de Blockchain Stellar" class="linkLabel_WmDU">Implementação de Blockchain Stellar</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Mithril/docs/desenvolvimento/banco-de-dados"><span title="Banco de Dados" class="linkLabel_WmDU">Banco de Dados</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Mithril/docs/desenvolvimento/backend"><span title="Back-End" class="linkLabel_WmDU">Back-End</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Mithril/docs/identificacao-riscos/identificacao-riscos-projetos"><span title="identificacao-riscos" class="categoryLinkLabel_W154">identificacao-riscos</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/Mithril/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/Mithril/docs/category/desenvolvimento"><span>Desenvolvimento</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Implementação de Blockchain Stellar</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Implementação de Blockchain Stellar</h1></header><p>Esta seção documenta a integração da plataforma Mithril com a blockchain Stellar (Soroban). Toda a implementação de contratos e integrações on-chain foi programada em Rust (Soroban).</p>
+<ul>
+<li>Autenticação e gestão de carteiras (wallets) na Stellar.</li>
+<li>Contratos inteligentes para score de crédito, governança e empréstimos.</li>
+<li>Scripts de deploy, inicialização e testes de fluxo ponta a ponta.</li>
+</ul>
+<p>Arquitetura on-chain principal:</p>
+<ul>
+<li><code>credit_score</code>: calcula e armazena score de crédito com base em dados on-chain e off-chain.</li>
+<li><code>governance</code>: mantém configuração de taxas e fundo de proteção.</li>
+<li><code>loan</code>: gerencia cards de investimento/solicitação, criação de empréstimos e pagamentos.</li>
+<li><code>wallets</code> (crate separada): utilitários para criação/gerenciamento de wallets de Investidor e Tomador.</li>
+</ul>
+<p>Códigos relevantes:</p>
+<ul>
+<li>Contratos: <code>src/stellar/contracts/{credit_score,governance,loan}</code></li>
+<li>Deploy/integração: <code>src/stellar/contracts/deploy/</code></li>
+<li>Wallets: <code>src/stellar/wallets/</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="contratos-inteligentes">Contratos inteligentes<a href="#contratos-inteligentes" class="hash-link" aria-label="Direct link to Contratos inteligentes" title="Direct link to Contratos inteligentes" translate="no">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="creditscore">CreditScore<a href="#creditscore" class="hash-link" aria-label="Direct link to CreditScore" title="Direct link to CreditScore" translate="no">​</a></h3>
+<p>Responsabilidades:</p>
+<ul>
+<li>Inicialização com admin.</li>
+<li>Cálculo de score final combinando dados on-chain e off-chain.</li>
+<li>Registro de pagamentos para alimentar histórico e inadimplência.</li>
+<li>Consulta de score e verificação de elegibilidade de crédito.</li>
+</ul>
+<p>Principais entradas/saídas (APIs públicas):</p>
+<ul>
+<li><code>initialize(admin: Address)</code> — define admin.</li>
+<li><code>update_credit_score(user: Address, off_chain_data: OffChainData, credit_bureau_score: u32) -&gt; CreditScore</code> — recalcula e persiste score.</li>
+<li><code>record_payment(user: Address, loan_id: u64, amount: i128, on_time: bool)</code> — registra pagamento (chamado pelo contrato de empréstimo).</li>
+<li><code>get_score(user: Address) -&gt; Option&lt;CreditScore&gt;</code> — retorna score completo.</li>
+<li><code>can_borrow(user: Address, amount: i128) -&gt; bool</code> — valida elegibilidade por faixa de risco/valor.</li>
+<li><code>set_loan_contract(loan_contract: Address)</code> — configura contrato de empréstimo autorizado a registrar pagamentos.</li>
+<li><code>get_payment_history(user: Address) -&gt; Option&lt;Vec&lt;PaymentRecord&gt;&gt;</code> — histórico do usuário.</li>
+</ul>
+<p>Tipos relevantes:</p>
+<ul>
+<li><code>CreditScore { user, score, risk_level, on_chain_score, off_chain_score, payment_history, total_transactions, default_count, last_updated }</code></li>
+<li><code>OffChainData { bank_statements, pix_history, invoices, credit_bureau }</code></li>
+<li><code>PaymentRecord { loan_id, amount, on_time, timestamp }</code></li>
+<li><code>RiskLevel = Low | Medium | High</code></li>
+</ul>
+<p>Observações:</p>
+<ul>
+<li>Ponderações de cálculo estão no módulo <code>calculator</code> e usam pesos distintos para on-chain/off-chain/pontualidade.</li>
+<li>Autorização: <code>initialize</code> exige <code>admin.require_auth()</code>. <code>record_payment</code> exige que o <code>LOAN_CONTRACT</code> esteja configurado e autorize a chamada.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="governance">Governance<a href="#governance" class="hash-link" aria-label="Direct link to Governance" title="Direct link to Governance" translate="no">​</a></h3>
+<p>Responsabilidades:</p>
+<ul>
+<li>Armazenar configuração de taxas (transação e gás) e gerenciar o fundo de proteção.</li>
+<li>Cobrança de taxas usando o token configurado.</li>
+</ul>
+<p>Principais entradas/saídas (APIs públicas):</p>
+<ul>
+<li><code>initialize(admin: Address, token: Address, transaction_fee: u32, gas_fee: u32)</code> — configura admin, token e taxas (basis points).</li>
+<li><code>collect_transaction_fee(from: Address, amount: i128) -&gt; i128</code> — calcula e transfere taxa de transação para o contrato de governança.</li>
+<li><code>collect_gas_fee(from: Address, amount: i128) -&gt; i128</code> — calcula e transfere taxa de gás para o fundo de proteção.</li>
+</ul>
+<p>Tipos relevantes:</p>
+<ul>
+<li><code>FeeConfig { transaction_fee, gas_fee, last_updated }</code></li>
+<li><code>ProtectionFund { total_balance, total_claims, active_claims }</code></li>
+</ul>
+<p>Observações:</p>
+<ul>
+<li>O contrato espera um <code>token</code> compatível com o client <code>soroban_sdk::token::Client</code> para movimentação de valores.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="loan">Loan<a href="#loan" class="hash-link" aria-label="Direct link to Loan" title="Direct link to Loan" translate="no">​</a></h3>
+<p>Responsabilidades:</p>
+<ul>
+<li>Inicialização referenciando <code>token</code>, <code>governance</code> e <code>credit_score</code>.</li>
+<li>Criação de cards: <code>Investment</code> (oferta do investidor) e <code>Request</code> (pedido do tomador).</li>
+<li>Aplicações, aprovações e funding.</li>
+<li>Criação do empréstimo, cronograma, pagamentos, finalização e marcação de inadimplência.</li>
+</ul>
+<p>Principais entradas/saídas (APIs públicas):</p>
+<ul>
+<li><code>initialize(admin, token, governance_contract, credit_score_contract)</code> — configura dependências e contadores iniciais.</li>
+<li><code>create_investment_card(investor, max_amount, min_amount, interest_rate, max_installments, target_risk_level) -&gt; u64</code></li>
+<li><code>create_request_card(borrower, requested_amount, desired_installments, preferred_payment_dates, description) -&gt; u64</code></li>
+<li><code>apply_to_investment_card(borrower, card_id, amount) -&gt; u64</code></li>
+<li><code>approve_application(app_id, installments, payment_dates) -&gt; u64</code> — cria o empréstimo em nome do investidor.</li>
+<li><code>fund_request_card(lender, card_id, interest_rate) -&gt; u64</code> — financia um pedido e cria o empréstimo.</li>
+<li><code>make_payment(loan_id) -&gt; bool</code> — realiza pagamento, atualiza status e registra histórico.</li>
+<li><code>mark_as_defaulted(loan_id)</code> — admin marca como inadimplente após grace period.</li>
+<li>Getters: <code>get_loan</code>, <code>get_investment_card</code>, <code>get_request_card</code>, <code>get_payment_history</code>.</li>
+</ul>
+<p>Tipos relevantes:</p>
+<ul>
+<li><code>Loan { id, borrower, lender, amount, interest_rate, installments, installment_amount, paid_installments, total_paid, status, created_at, next_payment_date, payment_dates }</code></li>
+<li><code>InvestmentCard</code>, <code>RequestCard</code>, <code>Payment</code>, <code>LoanApplication</code></li>
+<li>Enums: <code>LoanStatus</code>, <code>CardType</code>, <code>ApplicationStatus</code></li>
+</ul>
+<p>Observações:</p>
+<ul>
+<li>O contrato transfere fundos usando <code>token::Client</code> e coleta taxa de governança (exemplo: 0,5%).</li>
+<li>Integração com <code>credit_score</code> para registrar pagamentos está prevista (TODO em comentários).</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="deploy-inicialização-e-integração">Deploy, inicialização e integração<a href="#deploy-inicialização-e-integração" class="hash-link" aria-label="Direct link to Deploy, inicialização e integração" title="Direct link to Deploy, inicialização e integração" translate="no">​</a></h2>
+<p>Scripts em <code>src/stellar/contracts/deploy/</code> auxiliam todo o ciclo:</p>
+<ul>
+<li><code>deploy_testnet.sh</code> — compila e faz deploy dos contratos na testnet, salvando IDs em <code>deploy/deployed_contracts_testnet.txt</code>.</li>
+<li><code>deploy_mainnet.sh</code> — versão interativa para mainnet (cautela; consome XLM real).</li>
+<li><code>initialize_contracts.sh</code> — invoca <code>initialize</code> em cada contrato, configurando admin, token e taxas.</li>
+<li><code>integrate_contracts.sh</code> — configura referências cruzadas quando aplicável (ex.: <code>set_loan_contract</code> no <code>credit_score</code>).</li>
+<li><code>test_contracts.sh</code> e <code>test_full_flow.sh</code> — cenários de teste ponta a ponta.</li>
+</ul>
+<p>Pré-requisitos:</p>
+<ul>
+<li><code>stellar-cli</code> instalado.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="wallets-crate-wallets">Wallets (crate <code>wallets</code>)<a href="#wallets-crate-wallets" class="hash-link" aria-label="Direct link to wallets-crate-wallets" title="Direct link to wallets-crate-wallets" translate="no">​</a></h2>
+<p>O crate <code>wallets</code> oferece utilitários para criação e gestão de carteiras Stellar para perfis de usuário Investidor e Tomador.</p>
+<p>Componentes principais:</p>
+<ul>
+<li><code>WalletManager</code> — gerencia ciclo de vida de múltiplas wallets em memória.</li>
+<li>Tipos: <code>MithrilWallet</code>, <code>PublicWalletInfo</code>, <code>UserType</code>.</li>
+<li>Funções utilitárias: <code>create_stellar_wallet(UserType, nickname)</code>.</li>
+</ul>
+<p>Observações de segurança:</p>
+<ul>
+<li>Prefira trabalhar com <code>PublicWalletInfo</code> quando possível (sem chave secreta).</li>
+<li>Manipule <code>secret_key</code> somente quando indispensável e nunca faça log em produção.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="referências-rápidas">Referências rápidas<a href="#referências-rápidas" class="hash-link" aria-label="Direct link to Referências rápidas" title="Direct link to Referências rápidas" translate="no">​</a></h2>
+<ul>
+<li>Diretório contratos: <code>src/stellar/contracts/</code></li>
+<li>Deploy scripts: <code>src/stellar/contracts/deploy/</code></li>
+<li>Crate wallets: <code>src/stellar/wallets/</code></li>
+<li>Client token utilizado: <code>soroban_sdk::token::Client</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="próximos-passos">Próximos passos<a href="#próximos-passos" class="hash-link" aria-label="Direct link to Próximos passos" title="Direct link to Próximos passos" translate="no">​</a></h2>
+<ul>
+<li>Finalizar chamadas cruzadas: <code>loan</code> → <code>credit_score.record_payment</code> e integrações com <code>governance</code> (fundo de proteção).</li>
+<li>Adicionar testes unitários/integrados adicionais nos contratos.</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/desenvolvimento/blockchain.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/Mithril/docs/desenvolvimento/primeira-versao-front"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Primeira Versão do Front-End</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Mithril/docs/desenvolvimento/banco-de-dados"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Banco de Dados</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#contratos-inteligentes" class="table-of-contents__link toc-highlight">Contratos inteligentes</a><ul><li><a href="#creditscore" class="table-of-contents__link toc-highlight">CreditScore</a></li><li><a href="#governance" class="table-of-contents__link toc-highlight">Governance</a></li><li><a href="#loan" class="table-of-contents__link toc-highlight">Loan</a></li></ul></li><li><a href="#deploy-inicialização-e-integração" class="table-of-contents__link toc-highlight">Deploy, inicialização e integração</a></li><li><a href="#wallets-crate-wallets" class="table-of-contents__link toc-highlight">Wallets (crate <code>wallets</code>)</a></li><li><a href="#referências-rápidas" class="table-of-contents__link toc-highlight">Referências rápidas</a></li><li><a href="#próximos-passos" class="table-of-contents__link toc-highlight">Próximos passos</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Mithril/docs/introducao">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://x.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">X<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

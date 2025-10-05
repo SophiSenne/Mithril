@@ -70,10 +70,6 @@ Caso prefira usar túnel (útil em redes restritas):
 npx expo start --tunnel
 ```
 
-## 📸 Demonstração
-
-![Tela principal do Mithril](./docs/static/img/docusaurus.png)
-
 ## 🛠️ Funcionalidades
 
 - [x] App mobile (Expo/React Native)

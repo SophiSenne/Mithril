@@ -19,11 +19,6 @@ function HomepageHeader() {
         </p>
         <div className={styles.buttons}>
           <Link
-            className={clsx('button', styles.buttonPrimary)}
-            to="https://mithril-fawn.vercel.app/">
-            Acessar Plataforma
-          </Link>
-          <Link
             className={clsx('button', styles.buttonSecondary)}
             to="/docs/introducao">
             Ver Documentação

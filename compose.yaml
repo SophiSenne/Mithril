@@ -18,6 +18,14 @@ services:
       - redis
     ports:
       - "8000:8000"
+    
+  pix-mock-api:
+    build: ./src/backend/pix-mock
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
 
 volumes:
   redis-data:
